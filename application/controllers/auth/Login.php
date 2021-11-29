@@ -15,7 +15,7 @@ class Login extends CI_Controller {
 	{
 		$data['title'] = 'Login Page';
 		$data['css'] = '';
-		$data['js'] = '';
+		$data['js'] = 'login.php';
 		$data['pages'] = 'login';
 
 		$cookie = get_cookie('silink');
