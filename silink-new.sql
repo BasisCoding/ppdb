@@ -11,7 +11,7 @@
  Target Server Version : 100421
  File Encoding         : 65001
 
- Date: 30/11/2021 10:24:26
+ Date: 30/11/2021 13:49:39
 */
 
 SET NAMES utf8mb4;
@@ -61,7 +61,7 @@ CREATE TABLE `group_menus`  (
   INDEX `fk_menus_id`(`menu_id`) USING BTREE,
   CONSTRAINT `group_menus_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `group_menus_ibfk_2` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of group_menus
@@ -71,13 +71,13 @@ INSERT INTO `group_menus` VALUES (2, 1, 2);
 INSERT INTO `group_menus` VALUES (3, 1, 3);
 INSERT INTO `group_menus` VALUES (4, 1, 4);
 INSERT INTO `group_menus` VALUES (5, 1, 5);
-INSERT INTO `group_menus` VALUES (6, 1, 6);
 INSERT INTO `group_menus` VALUES (8, 1, 8);
 INSERT INTO `group_menus` VALUES (9, 1, 9);
 INSERT INTO `group_menus` VALUES (10, 1, 10);
 INSERT INTO `group_menus` VALUES (11, 1, 11);
 INSERT INTO `group_menus` VALUES (12, 1, 12);
 INSERT INTO `group_menus` VALUES (13, 1, 13);
+INSERT INTO `group_menus` VALUES (14, 1, 14);
 
 -- ----------------------------
 -- Table structure for groups
@@ -126,23 +126,23 @@ CREATE TABLE `menus`  (
   `sequence` int NULL DEFAULT NULL,
   `parrent_id` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menus
 -- ----------------------------
 INSERT INTO `menus` VALUES (1, 'Konfigurasi', 'fa fa-cogs', 'config', 2, 0);
 INSERT INTO `menus` VALUES (2, 'Master Data', 'fa fa-database', 'master-data', 3, 0);
-INSERT INTO `menus` VALUES (3, 'Data Pengajar', 'fa fa-users', 'data-pengajar', 1, 2);
-INSERT INTO `menus` VALUES (4, 'Data Siswa', NULL, 'data-siswa', 2, 2);
-INSERT INTO `menus` VALUES (5, 'Data Jurusan', NULL, 'data-jurusan', 3, 2);
-INSERT INTO `menus` VALUES (6, 'Data Ekstrakurikuler', NULL, 'data-ekstrakurikuler', 4, 2);
-INSERT INTO `menus` VALUES (8, 'PPDB', NULL, 'ppdb', 4, 0);
-INSERT INTO `menus` VALUES (9, 'Tahun Periode', NULL, 'tahun-periode', 1, 8);
-INSERT INTO `menus` VALUES (10, 'Gelombang', NULL, 'gelombang', 2, 8);
-INSERT INTO `menus` VALUES (11, 'Persyaratan', NULL, 'persyaratan', 3, 8);
+INSERT INTO `menus` VALUES (3, 'Data Penduduk', 'fa fa-users', 'data-penduduk', 1, 2);
+INSERT INTO `menus` VALUES (4, 'Data Pemuda', NULL, 'data-pemuda', 2, 2);
+INSERT INTO `menus` VALUES (5, 'Data Surat', NULL, 'data-surat', 3, 2);
+INSERT INTO `menus` VALUES (8, 'Keluarga', 'fa fa-user-circle-o', 'keluarga', 4, 0);
+INSERT INTO `menus` VALUES (9, 'Kegiatan', 'fa fa-universal-access', 'kegiatan', 5, 0);
+INSERT INTO `menus` VALUES (10, 'Struktur Lingkungan', 'fa fa-sitemap', 'struktur', 2, 0);
+INSERT INTO `menus` VALUES (11, 'Menu Management', 'fa fa-bars', 'menu-management', 4, 0);
 INSERT INTO `menus` VALUES (12, 'Kualifikasi', NULL, 'kualifikasi', 4, 8);
 INSERT INTO `menus` VALUES (13, 'Dashboard', 'fa fa-th-large', 'dashboard', 1, 0);
+INSERT INTO `menus` VALUES (14, 'Data Rumah', 'fa fa-home', 'data-rumah', 4, 2);
 
 -- ----------------------------
 -- Table structure for users

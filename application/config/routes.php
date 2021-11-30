@@ -58,3 +58,5 @@ $route['login'] = 'auth/Login';
 $route['register'] = 'auth/Register';
 	$route['register/process'] = 'auth/Register/process';
 $route['logout'] = 'auth/Login/logout';
+
+$route['menu-management'] = 'MenuManagement';
