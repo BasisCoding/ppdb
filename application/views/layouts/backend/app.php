@@ -21,7 +21,7 @@
             <?php $this->load->view('layouts/backend/partials/breadcrumb'); ?>
 
             <!-- Main Content -->
-            <?php $this->load->view('layouts/backend/partials/main'); ?>
+            <?php $this->load->view('pages/'.$pages); ?>
 
             <!-- Footer -->
             <?php $this->load->view('layouts/backend/partials/footer'); ?>
