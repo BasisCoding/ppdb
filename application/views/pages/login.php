@@ -1,15 +1,12 @@
 <div>
     <div>
 
-        <h1 class="logo-name">IN+</h1>
-
+        <!-- <h1 class="logo-name">IN+</h1> -->
+        <img width="100%" src="<?= site_url('assets/images/logo_color.png') ?>">
     </div>
-    <h3>Welcome to IN+</h3>
-    <p>Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
-        <!--Continually expanded and constantly improved Inspinia Admin Them (IN+)-->
-    </p>
+   
     <p>Login in. To see it in action.</p>
-    <form class="m-t" role="form">
+    <form class="m-t" role="form" id="form-login" method="POST">
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Username or Email" name="username_email" required="">
         </div>

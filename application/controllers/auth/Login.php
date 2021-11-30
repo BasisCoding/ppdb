@@ -15,7 +15,7 @@ class Login extends CI_Controller {
 	{
 		$data['title'] = 'Login Page';
 		$data['css'] = '';
-		$data['js'] = 'login.php';
+		$data['js'] = 'login';
 		$data['pages'] = 'login';
 
 		$cookie = get_cookie('silink');
@@ -35,11 +35,11 @@ class Login extends CI_Controller {
 
 	public function process()
 	{
-		$data['username'] = str_replace("'", "", htmlspecialchars($this->input->post('username_email'), ENT_QUOTES));
-		$data['password'] = str_replace("'", "", htmlspecialchars($this->input->post('password'), ENT_QUOTES));
-		$data['remember_me'] = $this->input->post('remember_me');
+		$username_email = str_replace("'", "", htmlspecialchars($this->input->post('username_email'), ENT_QUOTES));
+		$password = str_replace("'", "", htmlspecialchars($this->input->post('password'), ENT_QUOTES));
+		$remember = $this->input->post('remember_me');
 
-		$row = $this->AuthModel->login($data);
+		$row = $this->AuthModel->login($username_email)->row();
 		if ($row) {
 			if ($row->status == 1) {
 				if (password_verify($password, $row->password)) {
@@ -102,7 +102,7 @@ class Login extends CI_Controller {
 		$this->session->set_userdata($data_session);
 
 		$response = array(
-			'type' => 'primary',
+			'type' => 'success',
 			'title' => 'Berhasil !',
 			'message' => 'Anda berhasil login, halaman ini akan di alihkan.',
 			'redirect' => base_url('dashboard'),
