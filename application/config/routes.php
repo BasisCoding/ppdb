@@ -63,3 +63,4 @@ $route['wilayah/:num'] = 'Wilayah';
 
 $route['menu-management'] = 'MenuManagement';
 $route['config'] = 'Configuration';
+	$route['config/store'] = 'Configuration/store';
