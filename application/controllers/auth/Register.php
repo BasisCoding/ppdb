@@ -11,6 +11,11 @@ class Register extends CI_Controller {
 		$this->load->library('form_validation');
         $this->load->helper('form');
         $this->load->helper('security');
+
+		$config = $this->db->get('config')->result_array();
+		foreach ($config as $cf) {
+			define("_{$cf['attr']}", $cf['value']);
+		}
 	}
 	
 	public function index()
@@ -28,10 +33,10 @@ class Register extends CI_Controller {
 			if ($row) {
 				$this->_reg_session($row);
 			}else{
-				$this->load->view('layouts/frontend/auth', $data);
+				$this->load->view('layouts/backend/guest', $data);
 			}
 		}else{
-			$this->load->view('layouts/frontend/auth', $data);
+			$this->load->view('layouts/backend/guest', $data);
 		}
 	}
 

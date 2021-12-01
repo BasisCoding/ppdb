@@ -1,4 +1,11 @@
-<script>
+<!-- Ladda -->
+<script src="<?= site_url('assets/js/plugins/ladda/spin.min.js') ?>"></script>
+<script src="<?= site_url('assets/js/plugins/ladda/ladda.min.js') ?>"></script>
+<script src="<?= site_url('assets/js/plugins/ladda/ladda.jquery.min.js') ?>"></script>
+
+<script type="text/javascript">
+    var loading = $( '.ladda-button' ).ladda();
+
     $(document).ready(function() {
 
         $('#form-register').on('submit', function() {

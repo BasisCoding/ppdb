@@ -10,6 +10,9 @@
 <script src="<?= site_url('assets/js/inspinia.js') ?>"></script>
 <script src="<?= site_url('assets/js/plugins/pace/pace.min.js') ?>"></script>
 
+<!-- Toastr script -->
+<script src="<?= site_url('assets/js/plugins/toastr/toastr.min.js') ?>"></script>
+
 <script>
     var active = '<?= $this->uri->segment(1) ?>';
     $('[data-name="'+active+'"]').addClass('active');
@@ -19,7 +22,31 @@
         $('[data-name="'+active+'"]').addClass('active in');
     }
 
+    function notification(type, message) {
+
+        toastr.options = {
+          "closeButton": true,
+          "debug": false,
+          "progressBar": true,
+          "preventDuplicates": false,
+          "positionClass": "toast-top-right",
+          "onclick": null,
+          "showDuration": "400",
+          "hideDuration": "1000",
+          "timeOut": "7000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+      }
+
+      toastr[type](message);
+  }
+
 </script>
+
+<?php $this->load->view('pages/pluginJS/'.$js) ?>
 
 </body>
 </html>

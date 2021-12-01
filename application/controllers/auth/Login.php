@@ -9,6 +9,10 @@ class Login extends CI_Controller {
 		parent::__construct();
 		$this->load->model('AuthModel');
 		$this->load->helper('String');
+		$config = $this->db->get('config')->result_array();
+		foreach ($config as $cf) {
+			define("_{$cf['attr']}", $cf['value']);
+		}
 	}
 	
 	public function index()
@@ -26,10 +30,10 @@ class Login extends CI_Controller {
 			if ($row) {
 				$this->_reg_session($row);
 			}else{
-				$this->load->view('layouts/frontend/auth', $data);
+				$this->load->view('layouts/backend/guest', $data);
 			}
 		}else{
-			$this->load->view('layouts/frontend/auth', $data);
+			$this->load->view('layouts/backend/guest', $data);
 		}
 	}
 

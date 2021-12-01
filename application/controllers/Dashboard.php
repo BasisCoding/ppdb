@@ -7,7 +7,7 @@ class Dashboard extends MY_Controller {
 	{
 		$data['title'] = 'Dashboard';
 		$data['css'] = '';
-		$data['js'] = '';
+		$data['js'] = 'dashboard';
 		$data['pages'] = 'dashboard';
 
 		$menu = $this->RolesMenusModel->get_menu();

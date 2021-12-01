@@ -1,7 +1,7 @@
 <div>
     <div>
         <!-- <h1 class="logo-name">IN+</h1> -->
-        <img width="100%" src="<?= site_url('assets/images/logo_color.png') ?>">
+        <img width="100%" src="<?= site_url('assets/images/'. _LOGO) ?>">
     </div>
     <h3>Register to IN+</h3>
     <p>Create account to see it in action.</p>

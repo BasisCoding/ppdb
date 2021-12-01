@@ -14,10 +14,11 @@ class MY_Controller extends CI_Controller {
 
 		if ($this->session->userdata('logged') != true) {
 			redirect('login','refresh');
+		}else{
+			$this->load->model('RolesMenusModel');
+			$this->load->helper('menu');
 		}
 
-		$this->load->model('RolesMenusModel');
-		$this->load->helper('menu');
 
 		// $uri = $this->uri->segment(1);
 		// $permission = $this->RolesMenusModel->check_access_group($uri);
