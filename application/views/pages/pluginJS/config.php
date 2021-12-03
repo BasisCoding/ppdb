@@ -1,16 +1,13 @@
 <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-
+<script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
 <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 <!-- Chosen -->
 <script src="<?= site_url('assets/js/plugins/chosen/chosen.jquery.js') ?>"></script>
 <script type="text/javascript">
     // Register any plugins
-    var pond_logo;
-    var pond_icon;
-
-    FilePond.registerPlugin(FilePondPluginImagePreview);
-    FilePond.registerPlugin(FilePondPluginFileValidateType);
+    var pond_logo = 0;
+    var pond_icon = 0;
 
     $(document).ready(function() {
         filepond();
@@ -146,6 +143,13 @@
         // Wilayah API
 
         function filepond() {
+
+
+            FilePond.registerPlugin(FilePondPluginImagePreview);
+            FilePond.registerPlugin(FilePondPluginFileValidateType);
+            // FilePond.registerPlugin(FilePondPluginFileEncode);
+
+
             $('.filepond').remove();
             $('.form-group-logo').html('<input type="file" name="logo" class="filepond satu" data-allow-reorder="true" data-max-file-size="3MB">');
             $('.form-group-icon').html('<input type="file" name="icon" class="filepond satu" data-allow-reorder="true" data-max-file-size="3MB">');
@@ -166,7 +170,7 @@
                 }),
             });
 
-            pond_logo = FilePond.create(document.querySelector('[name="icon"]'), {
+            pond_icon = FilePond.create(document.querySelector('[name="icon"]'), {
                 acceptedFileTypes: ['image/png', 'image/jpeg'],
                 labelIdle: 'Drag & Drop Icon Image <span class="filepond--label-action"> Browse </span>',
                 allowMultiple: false,
@@ -202,11 +206,11 @@
             event.preventDefault();
             var formData = new FormData(this);
             if (pond_logo.getFiles().length > 0) {
-                formData.append('logo', pond_logo.getFiles()[0].getFileEncodeBase64String());
+                formData.append('logo', pond_logo.getFiles()[0].file);
             }
 
             if (pond_icon.getFiles().length > 0) {
-                formData.append('icon', pond_icon.getFiles()[0].getFileEncodeBase64String());
+                formData.append('icon', pond_icon.getFiles()[0].file);
             }
 
             $.ajax({
