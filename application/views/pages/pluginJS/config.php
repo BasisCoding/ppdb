@@ -33,17 +33,17 @@
 
         function set_select(prov, kota, kec, kel) {
             setTimeout(function() {
-                $('[name="provinsi"]').val(prov).trigger('change');
-                $('[name="provinsi"]').trigger('chosen:updated');
+                $('#prov').val(prov).trigger('change');
+                $('#prov').trigger('chosen:updated');
                 setTimeout(function() {
-                    $('[name="kota"]').val(kota).trigger('change');
-                    $('[name="kota"]').trigger('chosen:updated');
+                    $('#kota').val(kota).trigger('change');
+                    $('#kota').trigger('chosen:updated');
                     setTimeout(function() {
-                        $('[name="kec"]').val(kec).trigger('change');
-                        $('[name="kec"]').trigger('chosen:updated');
+                        $('#kec').val(kec).trigger('change');
+                        $('#kec').trigger('chosen:updated');
                         setTimeout(function() {
-                            $('[name="kel"]').val(kel).trigger('change');
-                            $('[name="kel"]').trigger('chosen:updated');
+                            $('#kel').val(kel).trigger('change');
+                            $('#kel').trigger('chosen:updated');
                         }, 900);
                     }, 800);
                 }, 700);
@@ -140,7 +140,7 @@
 
         FilePond.create(document.querySelector('[name="logo"]'), {
             acceptedFileTypes: ['image/png', 'image/jpeg'],
-            
+            labelIdle: 'Drag & Drop Logo Image <span class="filepond--label-action"> Browse </span>',
             fileValidateTypeDetectType: (source, type) =>
             new Promise((resolve, reject) => {
                 // test if is xls file
@@ -153,7 +153,7 @@
 
         FilePond.create(document.querySelector('[name="icon"]'), {
             acceptedFileTypes: ['image/png', 'image/jpeg'],
-            
+            labelIdle: 'Drag & Drop Icon Image <span class="filepond--label-action"> Browse </span>',
             fileValidateTypeDetectType: (source, type) =>
             new Promise((resolve, reject) => {
                 // test if is xls file
@@ -175,16 +175,39 @@
             });;
         });
 
-        $('body').on('click', '#btn_simpan', function(event) {
+        $('body').on('submit', '#form-config', function(event) {
             event.preventDefault();
-            $('#form-config :input').prop('disabled', true).trigger("chosen:updated");
-            $(this).html('Update Konfigurasi');
-            $(this).attr({
-                id: 'btn_update',
-                form: '',
-                type: 'button'
-            });;
+
+            $.ajax({
+                url: '<?= site_url('config/update') ?>',
+                type: 'POST',
+                dataType: 'JSON',
+                data: new FormData(this),
+                processData:false,
+                contentType:false,
+                cache:false,
+                async:false,
+                success:function (response) {
+                    notification(response.type, response.message);
+
+                    $('#form-config :input').prop('disabled', true).trigger("chosen:updated");
+                    $('#btn_simpan').html('Update Konfigurasi');
+                    $('#btn_simpan').attr({
+                        id: 'btn_update',
+                        form: '',
+                        type: 'button'
+                    });;
+
+                    get();
+                }
+
+            });
+
+            return false;
+            
         });
+
+
 
     });
 

@@ -1,5 +1,5 @@
 <div class="wrapper wrapper-content  animated fadeInRight">
-	<form id="form-config" class="row">
+	<form id="form-config" class="row" method="POST" enctype="multipart/form-data">
 		<div class="col-md-8">
 			<div class="ibox">
 				<div class="ibox-title">
@@ -79,7 +79,7 @@
 							<div class="form-group  row">
 								<label class="col-sm-3 col-form-label">Kecamatan</label>
 								<div class="col-sm-9">
-									<select class="chosen-select" id="kec" name="kec">
+									<select class="chosen-select" id="kec" name="kecamatan">
 									</select>
 								</div>
 							</div>
@@ -89,7 +89,7 @@
 							<div class="form-group  row">
 								<label class="col-sm-3 col-form-label">Kelurahan</label>
 								<div class="col-sm-9">
-									<select class="chosen-select" id="kel" name="kel">
+									<select class="chosen-select" id="kel" name="kelurahan">
 
 									</select>
 								</div>
