@@ -7,16 +7,17 @@ class Configuration extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('ConfigModel');
+		$this->load->helper('upload');
 	}
 	
 	public function index()
 	{
 		$data['title'] = 'Konfigurasi';
 		$data['css'] = '
-				<link href="'. site_url('assets/css/plugins/chosen/bootstrap-chosen.css') .'" rel="stylesheet">
-				<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-		  		<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"/>	
-  			';
+		<link href="'. site_url('assets/css/plugins/chosen/bootstrap-chosen.css') .'" rel="stylesheet">
+		<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+		<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"/>	
+		';
 		$data['js'] = 'config';
 		$data['pages'] = 'config';
 
@@ -52,6 +53,22 @@ class Configuration extends MY_Controller {
 		$data['longitude'] = $this->input->post('longitude');
 		$data['email'] = $this->input->post('email');
 		$data['website'] = $this->input->post('website');
+
+		if (!empty($_FILES['logo']['name'])) {
+			$upload = h_upload($data['username'], 'assets/images', 'gif|jpg|png|jpeg', '1024', 'logo');
+			
+			if($upload){
+				$data['logo'] = $upload;
+			}
+		}
+
+		if (!empty($_FILES['icon']['name'])) {
+			$u_icon = h_upload($data['username'], 'assets/images', 'gif|jpg|png|jpeg', '1024', 'icon');
+			
+			if($u_icon){
+				$data['app_icon'] = $u_icon;
+			}
+		}
 
 		$act = $this->ConfigModel->update($data);
 

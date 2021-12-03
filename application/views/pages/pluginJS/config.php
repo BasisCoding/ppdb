@@ -5,16 +5,23 @@
 <!-- Chosen -->
 <script src="<?= site_url('assets/js/plugins/chosen/chosen.jquery.js') ?>"></script>
 <script type="text/javascript">
-    var btn_act = '<button class="btn btn-primary" id="btn_update">Update Konfigurasi</button>';
-    $('#form-config :input').prop('disabled', true).trigger("chosen:updated");
-    $('.title-action').html(btn_act);
-    $('.chosen-select').chosen({width: "100%"});
     // Register any plugins
+    var pond_logo;
+    var pond_icon;
 
     FilePond.registerPlugin(FilePondPluginImagePreview);
     FilePond.registerPlugin(FilePondPluginFileValidateType);
 
     $(document).ready(function() {
+        filepond();
+        var btn_act = '<button class="btn btn-primary" id="btn_update">Update Konfigurasi</button>';
+        setTimeout(function() {
+            $('#form-config :input').prop('disabled', true).trigger("chosen:updated");
+        }, 1000);
+
+        $('.title-action').html(btn_act);
+        $('.chosen-select').chosen({width: "100%"});
+        
         get();
         function get() {
             $.getJSON('<?= base_url('config/store') ?>', function(json, textStatus) {
@@ -138,31 +145,43 @@
 
         // Wilayah API
 
-        FilePond.create(document.querySelector('[name="logo"]'), {
-            acceptedFileTypes: ['image/png', 'image/jpeg'],
-            labelIdle: 'Drag & Drop Logo Image <span class="filepond--label-action"> Browse </span>',
-            fileValidateTypeDetectType: (source, type) =>
-            new Promise((resolve, reject) => {
-                // test if is xls file
-                if (/\.xls$/.test(source.name)) return resolve('application/vnd.ms-excel');
+        function filepond() {
+            $('.filepond').remove();
+            $('.form-group-logo').html('<input type="file" name="logo" class="filepond satu" data-allow-reorder="true" data-max-file-size="3MB">');
+            $('.form-group-icon').html('<input type="file" name="icon" class="filepond satu" data-allow-reorder="true" data-max-file-size="3MB">');
 
-                // accept detected type
-                resolve(type);
-            }),
-        });
+            pond_logo = FilePond.create(document.querySelector('[name="logo"]'), {
+                acceptedFileTypes: ['image/png', 'image/jpeg'],
+                labelIdle: 'Drag & Drop Logo Image <span class="filepond--label-action"> Browse </span>',
+                allowMultiple: false,
+                instantUpload: false,
+                allowProcess: false,
+                fileValidateTypeDetectType: (source, type) =>
+                new Promise((resolve, reject) => {
+                    // test if is xls file
+                    if (/\.xls$/.test(source.name)) return resolve('application/vnd.ms-excel');
 
-        FilePond.create(document.querySelector('[name="icon"]'), {
-            acceptedFileTypes: ['image/png', 'image/jpeg'],
-            labelIdle: 'Drag & Drop Icon Image <span class="filepond--label-action"> Browse </span>',
-            fileValidateTypeDetectType: (source, type) =>
-            new Promise((resolve, reject) => {
-                // test if is xls file
-                if (/\.xls$/.test(source.name)) return resolve('application/vnd.ms-excel');
+                    // accept detected type
+                    resolve(type);
+                }),
+            });
 
-                // accept detected type
-                resolve(type);
-            }),
-        });
+            pond_logo = FilePond.create(document.querySelector('[name="icon"]'), {
+                acceptedFileTypes: ['image/png', 'image/jpeg'],
+                labelIdle: 'Drag & Drop Icon Image <span class="filepond--label-action"> Browse </span>',
+                allowMultiple: false,
+                instantUpload: false,
+                allowProcess: false,
+                fileValidateTypeDetectType: (source, type) =>
+                new Promise((resolve, reject) => {
+                    // test if is xls file
+                    if (/\.xls$/.test(source.name)) return resolve('application/vnd.ms-excel');
+
+                    // accept detected type
+                    resolve(type);
+                }),
+            });
+        }
 
         $('body').on('click', '#btn_update', function(event) {
             event.preventDefault();
@@ -172,17 +191,29 @@
                 id: 'btn_simpan',
                 form: 'form-config',
                 type: 'submit'
-            });;
+            });
+
+            setTimeout(function() {
+                filepond();
+            }, 100);
         });
 
         $('body').on('submit', '#form-config', function(event) {
             event.preventDefault();
+            var formData = new FormData(this);
+            if (pond_logo.getFiles().length > 0) {
+                formData.append('logo', pond_logo.getFiles()[0].getFileEncodeBase64String());
+            }
+
+            if (pond_icon.getFiles().length > 0) {
+                formData.append('icon', pond_icon.getFiles()[0].getFileEncodeBase64String());
+            }
 
             $.ajax({
                 url: '<?= site_url('config/update') ?>',
                 type: 'POST',
                 dataType: 'JSON',
-                data: new FormData(this),
+                data: formData,
                 processData:false,
                 contentType:false,
                 cache:false,
@@ -191,6 +222,7 @@
                     notification(response.type, response.message);
 
                     $('#form-config :input').prop('disabled', true).trigger("chosen:updated");
+                    
                     $('#btn_simpan').html('Update Konfigurasi');
                     $('#btn_simpan').attr({
                         id: 'btn_update',
@@ -198,6 +230,7 @@
                         type: 'button'
                     });;
 
+                    filepond();
                     get();
                 }
 

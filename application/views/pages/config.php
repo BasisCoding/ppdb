@@ -153,7 +153,7 @@
 				</div>
 				<div class="ibox-content">
 					<div id="logo-preview"></div>
-					<div class="form-group">
+					<div class="form-group form-group-logo">
 						<input type="file" name="logo" class="filepond satu" data-allow-reorder="true" data-max-file-size="3MB">
 					</div>
 				</div>
@@ -176,7 +176,7 @@
 				</div>
 				<div class="ibox-content">
 					<div id="icon-preview"></div>
-					<div class="form-group">
+					<div class="form-group form-group-icon">
 						<input type="file" name="icon" class="filepond satu" data-allow-reorder="true" data-max-file-size="3MB">
 					</div>
 				</div>
