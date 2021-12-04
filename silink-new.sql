@@ -3,15 +3,15 @@
 
  Source Server         : phpmyadmin
  Source Server Type    : MySQL
- Source Server Version : 100421
+ Source Server Version : 100420
  Source Host           : localhost:3306
  Source Schema         : silink-new
 
  Target Server Type    : MySQL
- Target Server Version : 100421
+ Target Server Version : 100420
  File Encoding         : 65001
 
- Date: 04/12/2021 09:24:39
+ Date: 04/12/2021 23:18:53
 */
 
 SET NAMES utf8mb4;
@@ -88,15 +88,19 @@ CREATE TABLE `groups`  (
   `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of groups
 -- ----------------------------
-INSERT INTO `groups` VALUES (1, 'admin', 'Administrator');
-INSERT INTO `groups` VALUES (2, 'kepsek', 'Kepala Sekolah');
-INSERT INTO `groups` VALUES (3, 'panitia', 'Panitia');
-INSERT INTO `groups` VALUES (4, 'calon-siswa', 'Calon Siswa');
+INSERT INTO `groups` VALUES (1, 'administrator', 'Administrator');
+INSERT INTO `groups` VALUES (2, 'ketua_rt', 'Ketua RT');
+INSERT INTO `groups` VALUES (3, 'bendahara_rt', 'Bendahara RT');
+INSERT INTO `groups` VALUES (4, 'sekretaris_rt', 'Sekretaris RT');
+INSERT INTO `groups` VALUES (5, 'ketua_pemuda', 'Ketua Pemuda');
+INSERT INTO `groups` VALUES (6, 'sekretaris_pemuda', 'Sekretaris Pemuda');
+INSERT INTO `groups` VALUES (7, 'bendahara_pemuda', 'Bendahara Pemuda');
+INSERT INTO `groups` VALUES (9, 'warga', 'Warga');
 
 -- ----------------------------
 -- Table structure for login_attempts
@@ -149,36 +153,42 @@ INSERT INTO `menus` VALUES (14, 'Data Rumah', 'fa fa-home', 'data-rumah', 4, 2);
 -- ----------------------------
 DROP TABLE IF EXISTS `penduduk`;
 CREATE TABLE `penduduk`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nik` bigint NULL DEFAULT NULL,
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int UNSIGNED NOT NULL,
+  `nik` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `nama_lengkap` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `tanggal_lahir` date NULL DEFAULT NULL,
+  `tempat_lahir` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `agama` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `jenis_kelamin` enum('Pria','Wanita') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `status` int NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  `status_pernikahan` enum('Belum Menikah','Menikah','Janda','Duda') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'Belum Menikah',
+  `status_hidup` enum('Hidup','Meninggal') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'Hidup',
+  `created_by` int NULL DEFAULT NULL,
+  `created_at` datetime NULL DEFAULT current_timestamp,
+  `update_by` int NULL DEFAULT NULL,
+  `update_at` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `user_id`(`user_id`) USING BTREE,
+  CONSTRAINT `users_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of penduduk
 -- ----------------------------
-INSERT INTO `penduduk` VALUES (1, 3604042008970361, 'Ahmad Fatoni', 'Pria', 1);
-INSERT INTO `penduduk` VALUES (2, 3604042008980333, 'Saiyah', 'Wanita', 1);
+INSERT INTO `penduduk` VALUES (1, 1, '3604042008970361', 'Ahmad Fatoni', '1997-08-20', 'Serang', 'Islam', 'Pria', 'Belum Menikah', 'Hidup', 1, '2021-12-04 20:53:51', NULL, '2021-12-04 21:18:52');
 
 -- ----------------------------
 -- Table structure for users
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nama_lengkap` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `jenis_kelamin` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `alamat_lengkap` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `email_verified_at` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `verification_code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `no_hp` varchar(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `group_id` mediumint UNSIGNED NULL DEFAULT NULL,
   `cookie` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
@@ -188,11 +198,11 @@ CREATE TABLE `users`  (
   INDEX `id`(`id`) USING BTREE,
   INDEX `fk_group_users`(`group_id`) USING BTREE,
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (2, 'Ahmad Fatoni', '', NULL, 'admin@gmail.com', '2021-11-30 08:22:29', NULL, 'admin', '$2y$10$v2Iwd/uNit2kyMQHS5bPUObw6ISnxge7XOhepJT.XMiBGiubAvRI.', NULL, '', 1, NULL, '1', '2021-11-30 08:21:44', '2021-11-30 08:22:29');
+INSERT INTO `users` VALUES (1, '2ahmadfatoni0@gmail.com', '2021-12-04 20:55:24', NULL, 'admin', '$2y$10$Hg4Ei1bY6RCjRL0u1jwNtOCjN9rry6/UWIipPJd5CfUU9eWurpQjS', NULL, 1, NULL, '1', '2021-12-04 20:52:28', '2021-12-04 20:55:24');
 
 SET FOREIGN_KEY_CHECKS = 1;

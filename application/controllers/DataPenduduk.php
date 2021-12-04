@@ -8,6 +8,7 @@ class DataPenduduk extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('PendudukModel');
+		$this->load->helper('tanggal');
 		$this->load->helper('upload');
 	}
 	
@@ -15,10 +16,10 @@ class DataPenduduk extends MY_Controller {
 	{
 		$data['title'] = 'Data Penduduk';
 		$data['css'] = '
-		<link href="'. site_url('assets/css/plugins/chosen/bootstrap-chosen.css') .'" rel="stylesheet">
-		<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-		<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"/>
-		<link href="'. site_url('assets/css/plugins/dataTables/datatables.min.css" rel="stylesheet') .'">
+			<link href="'. site_url('assets/css/plugins/chosen/bootstrap-chosen.css') .'" rel="stylesheet">
+			<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+			<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"/>
+			<link href="'. site_url('assets/css/plugins/dataTables/datatables.min.css" rel="stylesheet') .'">
 		';
 		$data['js'] = 'data-penduduk';
 		$data['pages'] = 'data-penduduk';
@@ -37,19 +38,40 @@ class DataPenduduk extends MY_Controller {
 
 		foreach ($list as $ls) {
 
-			if ($ls->status == 0) {
-				$status = '<span class="badge rounded-pill badge-danger">Not Active</span>';
-			}if ($ls->status == 1) {
-				$status = '<span class="badge rounded-pill badge-success">Active</span>';
+			if ($ls->status_hidup == 'Meninggal') {
+				$status_hidup = '<span class="badge rounded-pill badge-danger">Meninggal</span>';
+			}else if ($ls->status_hidup == 'Hidup') {
+				$status_hidup = '<span class="badge rounded-pill badge-success">Hidup</span>';
+			}
+
+			if ($ls->status_pernikahan == 'Belum Menikah') {
+				$status_pernikahan = '<span class="badge rounded-pill badge-danger">Belum Menikah</span>';
+			}else if ($ls->status_pernikahan == 'Menikah') {
+				$status_pernikahan = '<span class="badge rounded-pill badge-success">Menikah</span>';
+			}else if ($ls->status_pernikahan == 'Janda') {
+				$status_pernikahan = '<span class="badge rounded-pill badge-warning">Janda</span>';
+			}else if ($ls->status_pernikahan == 'Duda') {
+				$status_pernikahan = '<span class="badge rounded-pill badge-warning">Duda</span>';
 			}
 
 			$no++;
 			$row = array();
-			$row[] = $no;
 			$row[] = $ls->nik;
 			$row[] = $ls->nama_lengkap;
+			$row[] = $ls->tempat_lahir.', '.date_indo($ls->tanggal_lahir);
+			$row[] = $ls->agama;
 			$row[] = $ls->jenis_kelamin;
-			$row[] = $status;
+			$row[] = $status_pernikahan;
+			$row[] = $status_hidup;
+			$row[] = '<div class="btn-group">
+                        <button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle" aria-expanded="true">Action </button>
+                        <ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; top: 25px; left: 0px; will-change: top, left;">
+                            <li><a class="dropdown-item update-data" href="#">Update</a></li>
+                            <li><a class="dropdown-item" href="#">Detail</a></li>
+                            <li><a class="dropdown-item" href="#">Keluarga</a></li>
+                        </ul>
+                    </div>
+                     ';
 
 			$data[] = $row;
 		}
