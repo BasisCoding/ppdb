@@ -11,7 +11,7 @@
  Target Server Version : 100421
  File Encoding         : 65001
 
- Date: 03/12/2021 15:04:12
+ Date: 04/12/2021 09:24:39
 */
 
 SET NAMES utf8mb4;
@@ -143,6 +143,25 @@ INSERT INTO `menus` VALUES (11, 'Menu Management', 'fa fa-bars', 'menu-managemen
 INSERT INTO `menus` VALUES (12, 'Kualifikasi', NULL, 'kualifikasi', 4, 8);
 INSERT INTO `menus` VALUES (13, 'Dashboard', 'fa fa-th-large', 'dashboard', 1, 0);
 INSERT INTO `menus` VALUES (14, 'Data Rumah', 'fa fa-home', 'data-rumah', 4, 2);
+
+-- ----------------------------
+-- Table structure for penduduk
+-- ----------------------------
+DROP TABLE IF EXISTS `penduduk`;
+CREATE TABLE `penduduk`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nik` bigint NULL DEFAULT NULL,
+  `nama_lengkap` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `jenis_kelamin` enum('Pria','Wanita') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `status` int NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of penduduk
+-- ----------------------------
+INSERT INTO `penduduk` VALUES (1, 3604042008970361, 'Ahmad Fatoni', 'Pria', 1);
+INSERT INTO `penduduk` VALUES (2, 3604042008980333, 'Saiyah', 'Wanita', 1);
 
 -- ----------------------------
 -- Table structure for users

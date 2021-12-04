@@ -55,13 +55,14 @@ class Configuration extends MY_Controller {
 		$data['website'] = $this->input->post('website');
 
 		if (!empty($_FILES['logo']['name'])) {
-			$upload = h_upload('logo-color', 'assets/images', 'gif|jpg|png|jpeg', '1024', 'logo');
+			$upload = h_upload('logo-text', 'assets/images', 'gif|jpg|png|jpeg', '1024', 'logo');
 
 			if($upload){
 				$data['logo'] = $upload;
 			}
 		}
 
+		
 		if (!empty($_FILES['icon']['name'])) {
 			$u_icon = h_upload('logo-icon', 'assets/images', 'gif|jpg|png|jpeg', '1024', 'icon');
 			

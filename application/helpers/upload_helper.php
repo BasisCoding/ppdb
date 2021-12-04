@@ -8,7 +8,7 @@
         $config['overwrite'] = true;
         $config['file_name'] = $nama;
         $CI->load->library('upload', $config);
-		// $CI->upload->initialize($config);
+		$CI->upload->initialize($config);
 		
 		$CI->upload->do_upload($input);
 		$res = $CI->upload->data();

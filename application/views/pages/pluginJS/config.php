@@ -8,10 +8,12 @@
     // Register any plugins
     var pond_logo = 0;
     var pond_icon = 0;
+    var kotaID = null, kecamatanID = null, kelurahanID = null;
 
     $(document).ready(function() {
         filepond();
         var btn_act = '<button class="btn btn-primary" id="btn_update">Update Konfigurasi</button>';
+       
         setTimeout(function() {
             $('#form-config :input').prop('disabled', true).trigger("chosen:updated");
         }, 1000);
@@ -31,22 +33,26 @@
                 $('[name="longitude"]').val(json.longitude);
                 $('[name="email"]').val(json.email);
                 $('[name="website"]').val(json.website);
+
+                $('#logo-preview').attr('src', "<?= site_url('assets/images/') ?>" + json.logo + "?" + new Date().getTime());
+                $('#icon-preview').attr('src', "<?= site_url('assets/images/') ?>" + json.app_icon + "?" + new Date().getTime());
+                
                 set_select(json.provinsi, json.kota, json.kecamatan, json.kelurahan);
             });
         }
 
         function set_select(prov, kota, kec, kel) {
             setTimeout(function() {
-                $('#prov').val(prov).trigger('change');
+                $('#prov').chosen().val(prov).trigger('change');
                 $('#prov').trigger('chosen:updated');
                 setTimeout(function() {
-                    $('#kota').val(kota).trigger('change');
+                    $('#kota').chosen().val(kota).trigger('change');
                     $('#kota').trigger('chosen:updated');
                     setTimeout(function() {
-                        $('#kec').val(kec).trigger('change');
+                        $('#kec').chosen().val(kec).trigger('change');
                         $('#kec').trigger('chosen:updated');
                         setTimeout(function() {
-                            $('#kel').val(kel).trigger('change');
+                            $('#kel').chosen().val(kel).trigger('change');
                             $('#kel').trigger('chosen:updated');
                         }, 900);
                     }, 800);
@@ -126,17 +132,17 @@
 
 
         $('body').on('change', '#prov', function() {
-            var idProv = $(this).val();
+            var idProv = $(this).chosen().val();
             tampilKota(idProv);
         });
 
         $('body').on('change', '#kota', function() {
-            var idKota = $(this).val();
+            var idKota = $(this).chosen().val();
             tampilKecamatan(idKota);
         });
 
         $('body').on('change', '#kec', function() {
-            var idKec = $(this).val();
+            var idKec = $(this).chosen().val();
             tampilKelurahan(idKec);
         });
 

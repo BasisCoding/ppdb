@@ -62,6 +62,15 @@ $route['logout'] = 'auth/Login/logout';
 $route['wilayah/:num'] = 'Wilayah';
 
 $route['menu-management'] = 'MenuManagement';
+
+// Konfigurasi
+
 $route['config'] = 'Configuration';
 	$route['config/store'] = 'Configuration/store';
 	$route['config/update'] = 'Configuration/update';
+
+// Master Data > Data Penduduk
+
+$route['data-penduduk'] = 'DataPenduduk';
+	$route['data-penduduk/store'] = 'DataPenduduk/store';
+	$route['data-penduduk/update'] = 'DataPenduduk/update';

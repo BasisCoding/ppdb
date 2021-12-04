@@ -146,13 +146,12 @@
 						<div class="col-sm">
 							<?php
 							if (_LOGO != "") {?>
-								<img width="80" height="30" class="img-fluid" src="<?= site_url('assets/images/'._LOGO) ?>">
+								<img width="80" height="30" class="img-fluid" id="logo-preview">
 							<?php } ?>
 						</div>
 					</div>
 				</div>
 				<div class="ibox-content">
-					<div id="logo-preview"></div>
 					<div class="form-group form-group-logo">
 						<input type="file" name="logo" class="filepond satu" data-allow-reorder="true" data-max-file-size="3MB">
 					</div>
@@ -169,13 +168,12 @@
 						<div class="col-sm">
 							<?php
 							if (_APP_ICON != "") {?>
-								<img width="30" height="5" class="img-fluid" src="<?= site_url('assets/images/'._APP_ICON) ?>">
+								<img width="30" height="5" class="img-fluid" id="icon-preview">
 							<?php } ?>
 						</div>
 					</div>
 				</div>
 				<div class="ibox-content">
-					<div id="icon-preview"></div>
 					<div class="form-group form-group-icon">
 						<input type="file" name="icon" class="filepond satu" data-allow-reorder="true" data-max-file-size="3MB">
 					</div>
