@@ -7,9 +7,6 @@
     <p>Create account to see it in action.</p>
     <form class="m-t" role="form" id="form-register" method="post">
         <div class="form-group">
-            <input type="text" class="form-control" name="nama_lengkap" placeholder="Nama Lengkap" required="">
-        </div>
-        <div class="form-group">
             <input type="text" class="form-control" name="username" placeholder="Username" required="">
         </div>
         <div class="form-group">

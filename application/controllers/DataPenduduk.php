@@ -10,6 +10,9 @@ class DataPenduduk extends MY_Controller {
 		$this->load->model('PendudukModel');
 		$this->load->helper('tanggal');
 		$this->load->helper('upload');
+		$this->load->library('form_validation');
+        $this->load->helper('form');
+        $this->load->helper('security');
 	}
 	
 	public function index()
@@ -19,7 +22,8 @@ class DataPenduduk extends MY_Controller {
 			<link href="'. site_url('assets/css/plugins/chosen/bootstrap-chosen.css') .'" rel="stylesheet">
 			<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
 			<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"/>
-			<link href="'. site_url('assets/css/plugins/dataTables/datatables.min.css" rel="stylesheet') .'">
+			<link href="'. site_url('assets/css/plugins/dataTables/datatables.min.css') .'" rel="stylesheet">
+			<link href="'. site_url('assets/css/plugins/jasny/jasny-bootstrap.min.css') .'" rel="stylesheet">
 		';
 		$data['js'] = 'data-penduduk';
 		$data['pages'] = 'data-penduduk';
@@ -77,13 +81,127 @@ class DataPenduduk extends MY_Controller {
 		}
 
 		$output = array(
-			"draw" => $_POST['draw'],
-			"recordsTotal" => $this->PendudukModel->count_all(),
-			"recordsFiltered" => $this->PendudukModel->count_filtered(),
-			"data" => $data
+			"draw"				=> $_POST['draw'],
+			"recordsTotal" 		=> $this->PendudukModel->count_all(),
+			"recordsFiltered" 	=> $this->PendudukModel->count_filtered(),
+			"data" 				=> $data
 		);
 
 		echo json_encode($output);
+	}
+
+	public function create()
+	{
+		$config = array(
+
+			array(
+
+				'field' => 'nik',
+				'label' => 'NIK',
+				'rules' => 'required|trim|is_unique[penduduk.nik]|min_length[16]|xss_clean',
+				'errors' => array(
+					'required' => 'NIK Wajib diisi',
+					'trim' => 'NIK tidak boleh menggunakan spasi',
+					'is_unique' => 'NIK sudah tersedia',
+					'min_length' => 'NIK minimal 6 karakter',
+				),
+
+			),
+
+			array(
+
+				'field' => 'nama_lengkap',
+				'label' => 'Nama Lengkap',
+				'rules' => 'required|xss_clean',
+				'errors' => array(
+					'required' => 'Nama Lengkap Wajib diisi',
+				),
+
+			),
+
+		);
+
+		if (empty($this->input->post('username_default'))) {
+			$config[] = 
+				array(
+
+					'field' => 'username',
+					'label' => 'Username',
+					'rules' => 'required|trim|is_unique[users.username]|min_length[6]|xss_clean',
+					'errors' => array(
+						'required' => 'Username Wajib diisi',
+						'trim' => 'Username tidak boleh menggunakan spasi',
+						'is_unique' => 'Username sudah tersedia',
+						'min_length' => 'Username minimal 6 karakter',
+					)
+
+				);
+		}
+
+		if (!$this->input->post('password_default')) {
+			$config[] = 
+				array(
+
+					'field' => 'password',
+					'label' => 'Password',
+					'rules' => 'required|min_length[6]|xss_clean',
+					'errors' => array(
+						'required' => 'Password Wajib diisi',
+						'min_length' => 'Password minimal 6 karakter',
+					)
+
+				);
+		}
+
+		$this->form_validation->set_rules($config);
+		if ($this->form_validation->run() == FALSE) {
+
+			$data = [
+				'type'              => 'val_error',
+				'nama_lengkap'      => form_error('nama_lengkap', '<h4>', '</h4>'),
+				'nik'          		=> form_error('nik', '<h4>', '</h4>'),
+				'username'          => form_error('username', '<h4>', '</h4>'),
+				'password'          => form_error('password', '<h4>', '</h4>'),
+			];
+
+			echo json_encode($data);
+		} else {
+			$penduduk['nama_lengkap']       = $this->input->post('nama_lengkap');
+			$penduduk['nik']				= $this->input->post('nik');
+			$penduduk['tempat_lahir']		= $this->input->post('tempat_lahir');
+			$penduduk['tanggal_lahir']		= $this->input->post('tanggal_lahir');
+			$penduduk['jenis_kelamin']		= $this->input->post('jenis_kelamin');
+			$penduduk['agama']				= $this->input->post('agama');
+			$penduduk['status_hidup']		= $this->input->post('status_hidup');
+			$penduduk['status_pernikahan']	= $this->input->post('status_pernikahan');
+			$penduduk['status_hidup']		= $this->input->post('status_hidup');
+
+			if (!$this->input->post('username_default')) {
+				$users['username']		= $this->input->post('nik');
+			}
+
+			if (!$this->input->post('password_default')) {
+				$users['password']		= password_hash(date('dmY', strtotime($this->input->post('tanggal_lahir'))), PASSWORD_DEFAULT);
+			}
+
+			$act = $this->PendudukModel->create($users, $penduduk);
+			if ($act) {
+				// $this->verified_code($data['email']);
+				$response = array(
+					'type' => 'success',
+					'title' => 'Berhasil !',
+					'message' => 'Data penduduk berhasil ditambahkan !'
+				);
+			} else {
+				$response = array(
+					'type' => 'danger',
+					'title' => 'Gagal !',
+					'message' => 'Data penduduk gagal ditambahkan, silahkan coba kembali dalam beberapa menit !'
+				);
+			}
+
+			echo json_encode($response);
+		}
 	}
 	
 }

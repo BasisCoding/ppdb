@@ -68,6 +68,17 @@ class PendudukModel extends CI_Model {
     }
 // Datatable	
 
+    function create($users, $penduduk)
+    {
+        $user = $this->db->insert('users', $users);
+        if ($user) {
+            $penduduk['user_id'] = $this->db->insert_id();
+            $insert = $this->db->insert('penduduk', $penduduk);
+        }
+
+        return true;
+    }
+
 }
 
 /* End of file PendudukModel.php */

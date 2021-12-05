@@ -43,16 +43,6 @@ class Register extends CI_Controller {
 	public function process()
 	{
 		$config = array(
-			array(
-
-				'field' => 'nama_lengkap',
-				'label' => 'Nama Lengkap',
-				'rules' => 'required|xss_clean',
-				'errors' => array(
-					'required' => 'Nama Lengkap Wajib diisi',
-				),
-
-			),
 
 			array(
 
@@ -112,16 +102,14 @@ class Register extends CI_Controller {
 
 			$data = [
 				'type'              => 'val_error',
-				'nama_lengkap'      => form_error('nama_lengkap', '<h4>', '</h4>'),
 				'username'          => form_error('username', '<h4>', '</h4>'),
 				'password'          => form_error('password', '<h4>', '</h4>'),
-				'password_confirm' => form_error('password_confirm', '<h4>', '</h4>'),
+				'password_confirm' 	=> form_error('password_confirm', '<h4>', '</h4>'),
 				'email'             => form_error('email', '<h4>', '</h4>')
 			];
 
 			echo json_encode($data);
 		} else {
-			$data['nama_lengkap']     	= $this->input->post('nama_lengkap');
 			$data['username']         	= $this->input->post('username');
 			$data['email']				= $this->input->post('email');
 			$data['password']         	= password_hash($this->input->post('password'), PASSWORD_DEFAULT);

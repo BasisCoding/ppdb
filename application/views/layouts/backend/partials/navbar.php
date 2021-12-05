@@ -14,8 +14,10 @@
                 <li><a class="dropdown-item" href="login.html">Logout</a></li>
             </ul>
         </div>
-        <div class="logo-element">
-            IN+
+        <div class="logo-element p-3">
+            <a target="_blank" href="<?= site_url('assets/index.html') ?>">
+                <img class="img-fluid" src="<?= site_url('assets/images/'. _APP_ICON) ?>">
+            </a>
         </div>
     </li>
     <?= $menu ?>

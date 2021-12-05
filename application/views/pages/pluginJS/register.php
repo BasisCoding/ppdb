@@ -22,9 +22,6 @@
                     loading.ladda('stop');
 
                     if (response.type == 'val_error') {
-                        if (response.nama_lengkap != "") {
-                            notification('error', response.nama_lengkap);
-                        }
                         if (response.username != "") {
                             notification('error', response.username);
                         }

@@ -73,4 +73,5 @@ $route['config'] = 'Configuration';
 
 $route['data-penduduk'] = 'DataPenduduk';
 	$route['data-penduduk/store'] = 'DataPenduduk/store';
+	$route['data-penduduk/create'] = 'DataPenduduk/create';
 	$route['data-penduduk/update'] = 'DataPenduduk/update';
