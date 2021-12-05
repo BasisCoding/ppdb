@@ -60,6 +60,20 @@ class DataPenduduk extends MY_Controller {
 
 			$no++;
 			$row = array();
+			$row[] = '
+
+                    <a class="btn btn-sm btn-primary btn-bitbucket">
+                        <i class="fa fa-eye text-white"></i>
+                    </a>
+
+					<a class="btn btn-sm btn-warning btn-bitbucket">
+                        <i class="fa fa-edit text-white"></i>
+                    </a>
+
+                    <a class="btn btn-sm btn-danger btn-bitbucket">
+                        <i class="fa fa-trash text-white"></i>
+                    </a>
+                     ';
 			$row[] = $ls->nik;
 			$row[] = $ls->nama_lengkap;
 			$row[] = $ls->tempat_lahir.', '.date_indo($ls->tanggal_lahir);
@@ -67,15 +81,6 @@ class DataPenduduk extends MY_Controller {
 			$row[] = $ls->jenis_kelamin;
 			$row[] = $status_pernikahan;
 			$row[] = $status_hidup;
-			$row[] = '<div class="btn-group">
-                        <button data-toggle="dropdown" class="btn btn-primary btn-xs dropdown-toggle" aria-expanded="true">Action </button>
-                        <ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; top: 25px; left: 0px; will-change: top, left;">
-                            <li><a class="dropdown-item update-data" href="#">Update</a></li>
-                            <li><a class="dropdown-item" href="#">Detail</a></li>
-                            <li><a class="dropdown-item" href="#">Keluarga</a></li>
-                        </ul>
-                    </div>
-                     ';
 
 			$data[] = $row;
 		}

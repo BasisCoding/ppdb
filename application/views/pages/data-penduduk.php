@@ -4,9 +4,10 @@
             <div class="ibox">
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover nowrap" id="table-penduduk">
+                        <table class="table table-bordered table-hover table-flush nowrap" id="table-penduduk">
                             <thead>
                                 <tr>
+                                    <th>Action</th>
                                     <th>NIK</th>
                                     <th>Nama Lengkap</th>
                                     <th>Tempat, Tgl Lahir</th>
@@ -14,7 +15,6 @@
                                     <th>Jenis Kelamin</th>
                                     <th>Status Menikah</th>
                                     <th>Status Hidup</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>

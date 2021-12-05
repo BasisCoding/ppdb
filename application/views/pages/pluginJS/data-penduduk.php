@@ -32,10 +32,11 @@
         ],
         "processing": true, 
         "serverSide": true,
-        "responsive": true,
+        // "responsive": true,
         "order": [],
         "autoWidth" : true,
-
+        "scrollX": true,
+        // "scrollY": "300px",
         "ajax": {
             "url": "<?= base_url('data-penduduk/store')?>",
             "type": "POST"
