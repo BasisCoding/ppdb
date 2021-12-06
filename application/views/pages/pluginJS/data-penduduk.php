@@ -63,6 +63,9 @@
         $('body').on('click', '#btn_add', function(event) {
             event.preventDefault();
             $('#modal-create').modal('show');
+
+            $('[name="username"]').prop('readonly', false);
+            $('[name="nik"]').prop('readonly', false);
         });
 
         $('#table-penduduk').on('click', '.btn-update', function(event) {
@@ -83,12 +86,30 @@
             }
         });
 
-        $('body').on('change', '[name="password_default"]', function(event) {
+         $('body').on('change', '[name="password_default"]', function(event) {
             event.preventDefault();
             if ($('[name="password_default"]').is(":checked")) {
                 $('[name="password"]').prop('readonly', true);
             }else{
                 $('[name="password"]').prop('readonly', false);
+            }
+        });
+
+        $('body').on('change', '[name="username_lama"]', function(event) {
+            event.preventDefault();
+            if ($('[name="username_lama"]').is(":checked")) {
+                $('[name="username_update"]').prop('readonly', true);
+            }else{
+                $('[name="username_update"]').prop('readonly', false);
+            }
+        });
+
+         $('body').on('change', '[name="nik_lama"]', function(event) {
+            event.preventDefault();
+            if ($('[name="nik_lama"]').is(":checked")) {
+                $('[name="nik_update"]').prop('readonly', true);
+            }else{
+                $('[name="nik_update"]').prop('readonly', false);
             }
         });
 
@@ -106,11 +127,32 @@
                 // },
                 success:function (response) {
                     if (response.type == 'val_error') {
-                        if (response.nik_update != "") {
+                        if (response.nik_update) {
                             notification('error', response.nik_update);
                         }
-                        if (response.nama_lengkap_update != "") {
+
+                        if (response.nama_lengkap_update) {
                             notification('error', response.nama_lengkap_update);
+                        }
+
+                        if (response.username_update) {
+                            notification('error', response.username_update);
+                        }
+
+                        if (response.username) {
+                            notification('error', response.username);
+                        }
+
+                        if (response.nama_lengkap) {
+                            notification('error', response.nama_lengkap);
+                        }
+
+                        if (response.password) {
+                            notification('error', response.password);
+                        }
+
+                        if (response.nik) {
+                            notification('error', response.nik);
                         }
                     } else {
                         notification(response.type, response.message)
@@ -132,6 +174,7 @@
                 dataType: 'JSON',
                 success:function (response) {
                     $('[name="id"]').val(response.id);
+                    $('[name="user_id"]').val(response.user_id);
                     $('[name="username_update"]').val(response.username);
                     $('[name="nik_update"]').val(response.nik);
                     $('[name="nama_lengkap_update"]').val(response.nama_lengkap);
@@ -141,6 +184,9 @@
                     $('[name="agama_update"]').val(response.agama).trigger('chosen:updated');
                     $('[name="status_hidup_update"]').val(response.status_hidup).trigger('chosen:updated');
                     $('[name="status_pernikahan_update"]').val(response.status_pernikahan).trigger('chosen:updated');
+
+                    $('[name="username_update"]').prop('readonly', false);
+                    $('[name="nik_update"]').prop('readonly', false);
                 }
             });
             

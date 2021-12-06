@@ -11,19 +11,19 @@ class DataPenduduk extends MY_Controller {
 		$this->load->helper('tanggal');
 		$this->load->helper('upload');
 		$this->load->library('form_validation');
-        $this->load->helper('form');
-        $this->load->helper('security');
+		$this->load->helper('form');
+		$this->load->helper('security');
 	}
 	
 	public function index()
 	{
 		$data['title'] = 'Data Penduduk';
 		$data['css'] = '
-			<link href="'. site_url('assets/css/plugins/chosen/bootstrap-chosen.css') .'" rel="stylesheet">
-			<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-			<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"/>
-			<link href="'. site_url('assets/css/plugins/dataTables/datatables.min.css') .'" rel="stylesheet">
-			<link href="'. site_url('assets/css/plugins/jasny/jasny-bootstrap.min.css') .'" rel="stylesheet">
+		<link href="'. site_url('assets/css/plugins/chosen/bootstrap-chosen.css') .'" rel="stylesheet">
+		<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+		<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"/>
+		<link href="'. site_url('assets/css/plugins/dataTables/datatables.min.css') .'" rel="stylesheet">
+		<link href="'. site_url('assets/css/plugins/jasny/jasny-bootstrap.min.css') .'" rel="stylesheet">
 		';
 		$data['js'] = 'data-penduduk';
 		$data['pages'] = 'data-penduduk';
@@ -62,18 +62,18 @@ class DataPenduduk extends MY_Controller {
 			$row = array();
 			$row[] = '
 
-                    <a class="btn btn-sm btn-primary btn-bitbucket btn-detail">
-                        <i class="fa fa-eye text-white"></i>
-                    </a>
+			<a class="btn btn-sm btn-primary btn-bitbucket btn-detail">
+			<i class="fa fa-eye text-white"></i>
+			</a>
 
-					<a class="btn btn-sm btn-warning btn-bitbucket btn-update" data-id="'.$ls->id.'">
-                        <i class="fa fa-edit text-white"></i>
-                    </a>
+			<a class="btn btn-sm btn-warning btn-bitbucket btn-update" data-id="'.$ls->id.'">
+			<i class="fa fa-edit text-white"></i>
+			</a>
 
-                    <a class="btn btn-sm btn-danger btn-bitbucket btn-delete">
-                        <i class="fa fa-trash text-white"></i>
-                    </a>
-                     ';
+			<a class="btn btn-sm btn-danger btn-bitbucket btn-delete">
+			<i class="fa fa-trash text-white"></i>
+			</a>
+			';
 			$row[] = $ls->nik;
 			$row[] = $ls->nama_lengkap;
 			$row[] = $ls->tempat_lahir.', '.date_indo($ls->tanggal_lahir);
@@ -126,36 +126,36 @@ class DataPenduduk extends MY_Controller {
 
 		);
 
-		if (empty($this->input->post('username_default'))) {
+		if (!$this->input->post('username_default')) {
 			$config[] = 
-				array(
+			array(
 
-					'field' => 'username',
-					'label' => 'Username',
-					'rules' => 'required|trim|is_unique[users.username]|min_length[6]|xss_clean',
-					'errors' => array(
-						'required' => 'Username Wajib diisi',
-						'trim' => 'Username tidak boleh menggunakan spasi',
-						'is_unique' => 'Username sudah tersedia',
-						'min_length' => 'Username minimal 6 karakter',
-					)
+				'field' => 'username',
+				'label' => 'Username',
+				'rules' => 'required|trim|is_unique[users.username]|min_length[6]|xss_clean',
+				'errors' => array(
+					'required' => 'Username Wajib diisi',
+					'trim' => 'Username tidak boleh menggunakan spasi',
+					'is_unique' => 'Username sudah tersedia',
+					'min_length' => 'Username minimal 6 karakter',
+				)
 
-				);
+			);
 		}
 
 		if (!$this->input->post('password_default')) {
 			$config[] = 
-				array(
+			array(
 
-					'field' => 'password',
-					'label' => 'Password',
-					'rules' => 'required|min_length[6]|xss_clean',
-					'errors' => array(
-						'required' => 'Password Wajib diisi',
-						'min_length' => 'Password minimal 6 karakter',
-					)
+				'field' => 'password',
+				'label' => 'Password',
+				'rules' => 'required|min_length[6]|xss_clean',
+				'errors' => array(
+					'required' => 'Password Wajib diisi',
+					'min_length' => 'Password minimal 6 karakter',
+				)
 
-				);
+			);
 		}
 
 		$this->form_validation->set_rules($config);
@@ -232,20 +232,6 @@ class DataPenduduk extends MY_Controller {
 
 			array(
 
-				'field' => 'nik_update',
-				'label' => 'NIK',
-				'rules' => 'required|trim|is_unique[penduduk.nik]|min_length[16]|xss_clean',
-				'errors' => array(
-					'required' => 'NIK Wajib diisi',
-					'trim' => 'NIK tidak boleh menggunakan spasi',
-					'is_unique' => 'NIK sudah tersedia',
-					'min_length' => 'NIK minimal 6 karakter',
-				),
-
-			),
-
-			array(
-
 				'field' => 'nama_lengkap_update',
 				'label' => 'Nama Lengkap',
 				'rules' => 'required|xss_clean',
@@ -256,6 +242,41 @@ class DataPenduduk extends MY_Controller {
 			)
 		);
 
+		if (!$this->input->post('nik_lama')) {
+			$config[] = 
+			array(
+
+				'field' => 'nik_update',
+				'label' => 'NIK',
+				'rules' => 'required|trim|is_unique[penduduk.nik]|min_length[16]|xss_clean',
+				'errors' => array(
+					'required' => 'NIK Wajib diisi',
+					'trim' => 'NIK tidak boleh menggunakan spasi',
+					'is_unique' => 'NIK sudah tersedia',
+					'min_length' => 'NIK minimal 6 karakter',
+				),
+
+			);
+
+		}
+
+		if (!$this->input->post('username_lama')) {
+			$config[] = 
+			array(
+
+				'field' => 'username_update',
+				'label' => 'Username',
+				'rules' => 'required|trim|is_unique[users.username]|min_length[6]|xss_clean',
+				'errors' => array(
+					'required' => 'Username Wajib diisi',
+					'trim' => 'Username tidak boleh menggunakan spasi',
+					'is_unique' => 'Username sudah tersedia',
+					'min_length' => 'Username minimal 6 karakter',
+				),
+
+			);
+		}
+
 		$this->form_validation->set_rules($config);
 		if ($this->form_validation->run() == FALSE) {
 
@@ -263,13 +284,15 @@ class DataPenduduk extends MY_Controller {
 				'type'              => 'val_error',
 				'nama_lengkap_update'      => form_error('nama_lengkap_update', '<h4>', '</h4>'),
 				'nik_update'          		=> form_error('nik_update', '<h4>', '</h4>'),
+				'username_update'          => form_error('username_update', '<h4>', '</h4>'),
 			];
 
 			echo json_encode($data);
 		} else {
+			$users['username'] = null;
+			$user_id = null;
 			$id       					= $this->input->post('id');
 			$data['nama_lengkap']       = $this->input->post('nama_lengkap_update');
-			$data['nik']				= $this->input->post('nik_update');
 			$data['tempat_lahir']		= $this->input->post('tempat_lahir_update');
 			$data['tanggal_lahir']		= $this->input->post('tanggal_lahir_update');
 			$data['jenis_kelamin']		= $this->input->post('jenis_kelamin_update');
@@ -278,7 +301,16 @@ class DataPenduduk extends MY_Controller {
 			$data['status_pernikahan']	= $this->input->post('status_pernikahan_update');
 			$data['status_hidup']		= $this->input->post('status_hidup_update');
 
-			$act = $this->PendudukModel->update($data, $id);
+			if (!$this->input->post('username_lama')) {
+				$user_id       			= $this->input->post('user_id');
+				$users['username']		= $this->input->post('username_update');
+			}
+
+			if (!$this->input->post('nik_lama')) {
+				$data['nik']		= $this->input->post('nik_update');
+			}
+
+			$act = $this->PendudukModel->update($data, $id, $users, $user_id);
 			// echo $this->db->last_query($act);
 			if ($act) {
 				// $this->verified_code($data['email']);
@@ -289,7 +321,7 @@ class DataPenduduk extends MY_Controller {
 				);
 			} else {
 				$response = array(
-					'type' => 'danerrorger',
+					'type' => 'error',
 					'title' => 'Gagal !',
 					'message' => 'Data penduduk gagal diubah, silahkan coba kembali dalam beberapa menit !'
 				);

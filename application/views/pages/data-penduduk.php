@@ -172,11 +172,20 @@
             <div class="modal-body">
                 <form id="form-update" role="form" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id">
+                    <input type="hidden" name="user_id">
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group">
                                 <label>Username</label>
-                                <input type="text" class="form-control" name="username_update" placeholder="">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="username_update" placeholder="">
+                                    <div class="input-group-append">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" name="username_lama" title="Ubah Username">
+                                        </span>
+                                    </div>
+                                </div>
+                                <small>Centang</small> &#9745; <small>untuk ubah Username</small>
                             </div>
                         </div>
                     </div>
@@ -185,7 +194,15 @@
                         <div class="col-md">
                             <div class="form-group">
                                 <label>NIK</label>
-                                <input type="text" class="form-control" name="nik_update" data-mask="9999999999999999" placeholder="">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="nik_update" data-mask="9999999999999999" placeholder="">
+                                    <div class="input-group-append">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" name="nik_lama" title="Ubah NIK">
+                                        </span>
+                                    </div>
+                                </div>
+                                <small>Centang</small> &#9745; <small>untuk ubah NIK</small>
                             </div>
                         </div>
 

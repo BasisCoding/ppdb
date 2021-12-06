@@ -48,10 +48,10 @@ class PendudukModel extends CI_Model {
     {
     	$this->_get_datatables_query();
     	if($_POST['length'] != -1)
-        $this->db->limit($_POST['length'], $_POST['start']);
-    	
-    	$query = $this->db->get();
-    	return $query->result();
+            $this->db->limit($_POST['length'], $_POST['start']);
+
+        $query = $this->db->get();
+        return $query->result();
     }
 
     function count_filtered()
@@ -88,9 +88,14 @@ class PendudukModel extends CI_Model {
         return true;
     }
 
-    function update($data, $id)
+    function update($data, $id, $users, $user_id)
     {
-        return $this->db->update('users', $data, array('id' => $id));
+        if ($users!=null) {
+            $this->db->update('users', $users, array('id' => $user_id));
+        }
+        $this->db->update('penduduk', $data, array('id' => $id));
+
+        return true;
     }
 
 }
