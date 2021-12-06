@@ -62,15 +62,15 @@ class DataPenduduk extends MY_Controller {
 			$row = array();
 			$row[] = '
 
-                    <a class="btn btn-sm btn-primary btn-bitbucket">
+                    <a class="btn btn-sm btn-primary btn-bitbucket btn-detail">
                         <i class="fa fa-eye text-white"></i>
                     </a>
 
-					<a class="btn btn-sm btn-warning btn-bitbucket">
+					<a class="btn btn-sm btn-warning btn-bitbucket btn-update" data-id="'.$ls->id.'">
                         <i class="fa fa-edit text-white"></i>
                     </a>
 
-                    <a class="btn btn-sm btn-danger btn-bitbucket">
+                    <a class="btn btn-sm btn-danger btn-bitbucket btn-delete">
                         <i class="fa fa-trash text-white"></i>
                     </a>
                      ';
@@ -199,9 +199,99 @@ class DataPenduduk extends MY_Controller {
 				);
 			} else {
 				$response = array(
-					'type' => 'danger',
+					'type' => 'error',
 					'title' => 'Gagal !',
 					'message' => 'Data penduduk gagal ditambahkan, silahkan coba kembali dalam beberapa menit !'
+				);
+			}
+
+			echo json_encode($response);
+		}
+	}
+
+	public function show($id)
+	{
+		$get = $this->PendudukModel->get($id);
+		// echo $this->db->last_query($get);
+		if ($get->num_rows() > 0) {
+			$response = $get->row();
+		}else{
+			$response = array(
+				'type' => 'error',
+				'title' => 'Gagal !!!',
+				'message' => 'Data yang anda inginkan tidak ada di dalam database kami !',
+			);
+		}
+
+		echo json_encode($response);
+	}
+
+	public function update()
+	{
+		$config = array(
+
+			array(
+
+				'field' => 'nik_update',
+				'label' => 'NIK',
+				'rules' => 'required|trim|is_unique[penduduk.nik]|min_length[16]|xss_clean',
+				'errors' => array(
+					'required' => 'NIK Wajib diisi',
+					'trim' => 'NIK tidak boleh menggunakan spasi',
+					'is_unique' => 'NIK sudah tersedia',
+					'min_length' => 'NIK minimal 6 karakter',
+				),
+
+			),
+
+			array(
+
+				'field' => 'nama_lengkap_update',
+				'label' => 'Nama Lengkap',
+				'rules' => 'required|xss_clean',
+				'errors' => array(
+					'required' => 'Nama Lengkap Wajib diisi',
+				),
+
+			)
+		);
+
+		$this->form_validation->set_rules($config);
+		if ($this->form_validation->run() == FALSE) {
+
+			$data = [
+				'type'              => 'val_error',
+				'nama_lengkap_update'      => form_error('nama_lengkap_update', '<h4>', '</h4>'),
+				'nik_update'          		=> form_error('nik_update', '<h4>', '</h4>'),
+			];
+
+			echo json_encode($data);
+		} else {
+			$id       					= $this->input->post('id');
+			$data['nama_lengkap']       = $this->input->post('nama_lengkap_update');
+			$data['nik']				= $this->input->post('nik_update');
+			$data['tempat_lahir']		= $this->input->post('tempat_lahir_update');
+			$data['tanggal_lahir']		= $this->input->post('tanggal_lahir_update');
+			$data['jenis_kelamin']		= $this->input->post('jenis_kelamin_update');
+			$data['agama']				= $this->input->post('agama_update');
+			$data['status_hidup']		= $this->input->post('status_hidup_update');
+			$data['status_pernikahan']	= $this->input->post('status_pernikahan_update');
+			$data['status_hidup']		= $this->input->post('status_hidup_update');
+
+			$act = $this->PendudukModel->update($data, $id);
+			// echo $this->db->last_query($act);
+			if ($act) {
+				// $this->verified_code($data['email']);
+				$response = array(
+					'type' => 'success',
+					'title' => 'Berhasil !',
+					'message' => 'Data penduduk berhasil diubah !'
+				);
+			} else {
+				$response = array(
+					'type' => 'danerrorger',
+					'title' => 'Gagal !',
+					'message' => 'Data penduduk gagal diubah, silahkan coba kembali dalam beberapa menit !'
 				);
 			}
 

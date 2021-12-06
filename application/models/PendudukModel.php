@@ -68,6 +68,15 @@ class PendudukModel extends CI_Model {
     }
 // Datatable	
 
+    function get($id)
+    {
+        $this->db->select('u.username, u.email, p.*');
+        $this->db->from('penduduk as p');
+        $this->db->join('users as u', 'u.id = p.user_id', 'left');
+        $this->db->where('p.id', $id);
+        return $this->db->get();
+    }
+
     function create($users, $penduduk)
     {
         $user = $this->db->insert('users', $users);
@@ -77,6 +86,11 @@ class PendudukModel extends CI_Model {
         }
 
         return true;
+    }
+
+    function update($data, $id)
+    {
+        return $this->db->update('users', $data, array('id' => $id));
     }
 
 }

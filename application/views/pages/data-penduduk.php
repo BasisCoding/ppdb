@@ -157,3 +157,116 @@
         </div>
     </div>
 </div>
+
+<div class="modal inmodal" id="modal-update" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">UPDATE DATA</h4>
+                <small class="font-bold">Formulir ini digunakan untuk mengubah data penduduk.</small>
+            </div>
+            <div class="modal-body">
+                <form id="form-update" role="form" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="id">
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" class="form-control" name="username_update" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>NIK</label>
+                                <input type="text" class="form-control" name="nik_update" data-mask="9999999999999999" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Nama Lengkap</label>
+                                <input type="text" name="nama_lengkap_update" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Tempat Lahir</label>
+                                <input type="text" class="form-control" name="tempat_lahir_update" placeholder="">
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Tanggal Lahir</label>
+                                <input type="date" name="tanggal_lahir_update" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Jenis Kelamin</label>
+                                <select class="form-control chosen-select" name="jenis_kelamin_update">
+                                    <option value="Pria">Pria</option>
+                                    <option value="Wanita">Wanita</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Agama</label>
+                                <select class="form-control chosen-select" name="agama_update">
+                                    <option value="Islam">Islam</option>
+                                    <option value="Kristen">Kristen</option>
+                                    <option value="Katholik">Katholik</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Budha">Budha</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Status Hidup</label>
+                                <select class="form-control chosen-select" name="status_hidup_update">
+                                    <option value="Hidup">Hidup</option>
+                                    <option value="Meninggal">Meninggal</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Status Pernikahan</label>
+                                <select class="form-control chosen-select" name="status_pernikahan_update">
+                                    <option value="Menikah">Menikah</option>
+                                    <option value="Belum Menikah">Belum Menikah</option>
+                                    <option value="Janda">Janda</option>
+                                    <option value="Duda">Duda</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                <button type="submit" id="btn-update" class="btn btn-primary" form="form-update">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
