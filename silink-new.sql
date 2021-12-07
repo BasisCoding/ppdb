@@ -11,7 +11,7 @@
  Target Server Version : 100421
  File Encoding         : 65001
 
- Date: 07/12/2021 11:49:23
+ Date: 07/12/2021 14:02:08
 */
 
 SET NAMES utf8mb4;
@@ -286,9 +286,7 @@ CREATE TABLE `penduduk`  (
 -- ----------------------------
 -- Records of penduduk
 -- ----------------------------
-INSERT INTO `penduduk` VALUES (1, 1, '3604042008970361', 'Fatoni', '1997-08-20', 'Serang', 'Islam', 'Pria', 'Kawin', NULL, 'Hidup', NULL, NULL, NULL, NULL, 'TIDAK / BELUM SEKOLAH', 32, 1, '2021-12-04 20:53:51', NULL, '2021-12-07 11:42:45');
 INSERT INTO `penduduk` VALUES (2, 2, '3604042008970362', 'Ahmad', '2021-12-16', 'Serang', 'Islam', 'Pria', 'Kawin', NULL, 'Hidup', NULL, NULL, NULL, NULL, 'DIPLOMA IV/ STRATA I', 2, NULL, '2021-12-05 17:22:14', NULL, '2021-12-07 11:18:57');
-INSERT INTO `penduduk` VALUES (4, 4, '1231231345345121', 'Ahmad Fatoni Saya', '2021-11-29', 'asdsdsaasd', 'Islam', 'Pria', 'Kawin', NULL, 'Hidup', NULL, NULL, NULL, NULL, 'AKADEMI/ DIPLOMA III/S. MUDA', 8, NULL, '2021-12-07 11:41:57', NULL, '2021-12-07 05:46:12');
 
 -- ----------------------------
 -- Table structure for users
@@ -316,8 +314,6 @@ CREATE TABLE `users`  (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, '2ahmadfatoni0@gmail.com', '2021-12-04 20:55:24', NULL, 'admin', '$2y$10$Hg4Ei1bY6RCjRL0u1jwNtOCjN9rry6/UWIipPJd5CfUU9eWurpQjS', NULL, 1, NULL, '1', '2021-12-04 20:52:28', '2021-12-04 20:55:24');
 INSERT INTO `users` VALUES (2, NULL, '2021-12-07 07:44:54', NULL, '3604042008970362', '$2y$10$Jon8LTm.ePxpuXxFt1vv1OkNc.H3pz8gCLgYpZ8sqD8DRe4cg15YK', NULL, NULL, NULL, NULL, '2021-12-05 17:22:14', '2021-12-07 07:44:54');
-INSERT INTO `users` VALUES (4, NULL, '2021-12-07 11:46:12', NULL, '1231231345345121', '$2y$10$f0HjSeb7v2y9PAKq8wAbBe.cI0HSZeGRhUmHzNgiiQfrnJqIKsDum', NULL, NULL, NULL, NULL, '2021-12-07 11:41:57', '2021-12-07 11:46:12');
 
 SET FOREIGN_KEY_CHECKS = 1;

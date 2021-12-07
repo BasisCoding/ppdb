@@ -98,6 +98,11 @@ class PendudukModel extends CI_Model {
         return true;
     }
 
+    function delete($user_id)
+    {
+        return $this->db->delete('users', array('id' => $user_id));
+    }
+
 }
 
 /* End of file PendudukModel.php */

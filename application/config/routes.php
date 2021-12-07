@@ -63,7 +63,7 @@ $route['wilayah/:num'] = 'Wilayah';
 
 $route['menu-management'] = 'MenuManagement';
 
-// Jenis Pekerjaan
+// API Lokal
 
 $route['getPekerjaan/json'] = 'Pekerjaan/show';
 
@@ -80,3 +80,4 @@ $route['data-penduduk'] = 'DataPenduduk';
 	$route['data-penduduk/get/(:num)'] = 'DataPenduduk/show/$1';
 	$route['data-penduduk/create'] = 'DataPenduduk/create';
 	$route['data-penduduk/update'] = 'DataPenduduk/update';
+	$route['data-penduduk/delete'] = 'DataPenduduk/delete';

@@ -66,7 +66,7 @@ class DataPenduduk extends MY_Controller {
 			$row = array();
 			$row[] = '
 
-			<a class="btn btn-sm btn-primary btn-bitbucket btn-detail">
+			<a class="btn btn-sm btn-primary btn-bitbucket btn-detail" data-id="'.$ls->id.'">
 			<i class="fa fa-eye text-white"></i>
 			</a>
 
@@ -74,10 +74,12 @@ class DataPenduduk extends MY_Controller {
 			<i class="fa fa-edit text-white"></i>
 			</a>
 
-			<a class="btn btn-sm btn-danger btn-bitbucket btn-delete">
+			<a class="btn btn-sm btn-danger btn-bitbucket btn-delete" data-id="'.$ls->user_id.'">
 			<i class="fa fa-trash text-white"></i>
 			</a>
+
 			';
+
 			$row[] = $ls->nik;
 			$row[] = $ls->nama_lengkap;
 			$row[] = $ls->tempat_lahir.', '.date_indo($ls->tanggal_lahir);
@@ -353,6 +355,28 @@ class DataPenduduk extends MY_Controller {
 
 			echo json_encode($response);
 		}
+	}
+
+	public function delete()
+	{
+		$user_id = $this->input->post('user_id');
+		$act = $this->PendudukModel->delete($user_id);
+		if ($act) {
+			// $this->verified_code($data['email']);
+			$response = array(
+				'type' => 'success',
+				'title' => 'Berhasil !',
+				'message' => 'Data penduduk berhasil dihapus !'
+			);
+		} else {
+			$response = array(
+				'type' => 'error',
+				'title' => 'Gagal !',
+				'message' => 'Data penduduk gagal dihapus, silahkan coba kembali dalam beberapa menit !'
+			);
+		}
+
+		echo json_encode($response);
 	}
 	
 }

@@ -144,7 +144,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md">
+                        <div class="col-md-6">
                             <div class="form-group input-pekerjaan">
                                 <label>Pekerjaan</label>
                                 <select class="form-control chosen-select chosen-select-pekerjaan" name="pekerjaan">   
@@ -302,7 +302,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md">
+                        <div class="col-md-6">
                             <div class="form-group" id="input-pekerjaan">
                                 <label>Pekerjaan</label>
                                 <select class="form-control chosen-select chosen-select-pekerjaan" name="pekerjaan_update">   

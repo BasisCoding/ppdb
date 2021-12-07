@@ -89,6 +89,17 @@
             get($(this).attr('data-id'));
         });
 
+        $('#table-penduduk').on('click', '.btn-delete', function(event) {
+            event.preventDefault();
+            var id = $(this).attr('data-id');
+            notification('warning', 'Apakah anda yakin ingin menghapus data ini ? <br>'+
+                '<form id="form-delete" role="form" method="POST" enctype="multipart/form-data">'+
+                    '<input type="hidden" value="'+id+'" name="user_id">'+
+                    '<button class="btn btn-sm btn-danger m-r-sm" form="form-delete" type="submit">Yes</button>'+
+                    '<button class="btn btn-sm btn-secondary" type="button">No</button>'+
+                '</form>');
+        });
+
 
         $('body').on('change', '[name="username_default"]', function(event) {
             event.preventDefault();
@@ -238,6 +249,13 @@
         $(document).on('submit', '#form-update', function() {
             var formData = new FormData(this);
             send(formData, 'update');
+
+            return false;
+        });
+
+        $(document).on('submit', '#form-delete', function() {
+            var formData = new FormData(this);
+            send(formData, 'delete');
 
             return false;
         });
