@@ -63,6 +63,10 @@ $route['wilayah/:num'] = 'Wilayah';
 
 $route['menu-management'] = 'MenuManagement';
 
+// Jenis Pekerjaan
+
+$route['getPekerjaan/json'] = 'Pekerjaan/show';
+
 // Konfigurasi
 
 $route['config'] = 'Configuration';

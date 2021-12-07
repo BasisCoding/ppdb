@@ -13,7 +13,7 @@
                                     <th>Tempat, Tgl Lahir</th>
                                     <th>Agama</th>
                                     <th>Jenis Kelamin</th>
-                                    <th>Status Menikah</th>
+                                    <th>Status Kawin</th>
                                     <th>Status Hidup</th>
                                 </tr>
                             </thead>
@@ -126,6 +126,34 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Pendidikan</label>
+                                <select class="form-control chosen-select" name="pendidikan">
+                                    <option value="TIDAK / BELUM SEKOLAH">TIDAK / BELUM SEKOLAH</option>
+                                    <option value="BELUM TAMAT SD / SEDERAJAT">BELUM TAMAT SD / SEDERAJAT</option>
+                                    <option value="TAMAT SD / SEDERAJAT">TAMAT SD / SEDERAJAT</option>
+                                    <option value="SLTP / SEDERAJAT">SLTP / SEDERAJAT</option>
+                                    <option value="SLTA / SEDERAJAT">SLTA / SEDERAJAT</option>
+                                    <option value="DIPLOMA IV/ STRATA I">DIPLOMA IV/ STRATA I</option>
+                                    <option value="DIPLOMA I / II">DIPLOMA I / II</option>
+                                    <option value="AKADEMI/ DIPLOMA III/S. MUDA">AKADEMI/ DIPLOMA III/S. MUDA</option>
+                                    <option value="STRATA II">STRATA II</option>
+                                    <option value="STRATA III">STRATA III</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-group input-pekerjaan">
+                                <label>Pekerjaan</label>
+                                <select class="form-control chosen-select chosen-select-pekerjaan" name="pekerjaan">   
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md">
                             <div class="form-group">
                                 <label>Status Hidup</label>
@@ -138,10 +166,10 @@
 
                         <div class="col-md">
                             <div class="form-group">
-                                <label>Status Pernikahan</label>
-                                <select class="form-control chosen-select" name="status_pernikahan">
-                                    <option value="Menikah">Menikah</option>
-                                    <option value="Belum Menikah">Belum Menikah</option>
+                                <label>Status Perkawinan</label>
+                                <select class="form-control chosen-select" name="status_perkawinan">
+                                    <option value="Kawin">Kawin</option>
+                                    <option value="Belum Kawin">Belum Kawin</option>
                                     <option value="Janda">Janda</option>
                                     <option value="Duda">Duda</option>
                                 </select>
@@ -256,6 +284,34 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Pendidikan</label>
+                                <select class="form-control chosen-select" name="pendidikan_update">
+                                    <option value="TIDAK / BELUM SEKOLAH">TIDAK / BELUM SEKOLAH</option>
+                                    <option value="BELUM TAMAT SD / SEDERAJAT">BELUM TAMAT SD / SEDERAJAT</option>
+                                    <option value="TAMAT SD / SEDERAJAT">TAMAT SD / SEDERAJAT</option>
+                                    <option value="SLTP / SEDERAJAT">SLTP / SEDERAJAT</option>
+                                    <option value="SLTA / SEDERAJAT">SLTA / SEDERAJAT</option>
+                                    <option value="DIPLOMA IV/ STRATA I">DIPLOMA IV/ STRATA I</option>
+                                    <option value="DIPLOMA I / II">DIPLOMA I / II</option>
+                                    <option value="AKADEMI/ DIPLOMA III/S. MUDA">AKADEMI/ DIPLOMA III/S. MUDA</option>
+                                    <option value="STRATA II">STRATA II</option>
+                                    <option value="STRATA III">STRATA III</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-group" id="input-pekerjaan">
+                                <label>Pekerjaan</label>
+                                <select class="form-control chosen-select chosen-select-pekerjaan" name="pekerjaan_update">   
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md">
                             <div class="form-group">
                                 <label>Status Hidup</label>
@@ -268,10 +324,10 @@
 
                         <div class="col-md">
                             <div class="form-group">
-                                <label>Status Pernikahan</label>
-                                <select class="form-control chosen-select" name="status_pernikahan_update">
-                                    <option value="Menikah">Menikah</option>
-                                    <option value="Belum Menikah">Belum Menikah</option>
+                                <label>Status Perkawinan</label>
+                                <select class="form-control chosen-select" name="status_perkawinan_update">
+                                    <option value="Kawin">Kawin</option>
+                                    <option value="Belum Kawin">Belum Kawin</option>
                                     <option value="Janda">Janda</option>
                                     <option value="Duda">Duda</option>
                                 </select>

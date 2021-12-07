@@ -46,16 +46,20 @@ class DataPenduduk extends MY_Controller {
 				$status_hidup = '<span class="badge rounded-pill badge-danger">Meninggal</span>';
 			}else if ($ls->status_hidup == 'Hidup') {
 				$status_hidup = '<span class="badge rounded-pill badge-success">Hidup</span>';
+			}else{
+				$status_hidup = '';
 			}
 
-			if ($ls->status_pernikahan == 'Belum Menikah') {
-				$status_pernikahan = '<span class="badge rounded-pill badge-danger">Belum Menikah</span>';
-			}else if ($ls->status_pernikahan == 'Menikah') {
-				$status_pernikahan = '<span class="badge rounded-pill badge-success">Menikah</span>';
-			}else if ($ls->status_pernikahan == 'Janda') {
-				$status_pernikahan = '<span class="badge rounded-pill badge-warning">Janda</span>';
-			}else if ($ls->status_pernikahan == 'Duda') {
-				$status_pernikahan = '<span class="badge rounded-pill badge-warning">Duda</span>';
+			if ($ls->status_perkawinan == 'Belum Kawin') {
+				$status_perkawinan = '<span class="badge rounded-pill badge-danger">Belum Kawin</span>';
+			}else if ($ls->status_perkawinan == 'Kawin') {
+				$status_perkawinan = '<span class="badge rounded-pill badge-success">Kawin</span>';
+			}else if ($ls->status_perkawinan == 'Janda') {
+				$status_perkawinan = '<span class="badge rounded-pill badge-warning">Janda</span>';
+			}else if ($ls->status_perkawinan == 'Duda') {
+				$status_perkawinan = '<span class="badge rounded-pill badge-warning">Duda</span>';
+			}else{
+				$status_perkawinan = '';
 			}
 
 			$no++;
@@ -79,7 +83,7 @@ class DataPenduduk extends MY_Controller {
 			$row[] = $ls->tempat_lahir.', '.date_indo($ls->tanggal_lahir);
 			$row[] = $ls->agama;
 			$row[] = $ls->jenis_kelamin;
-			$row[] = $status_pernikahan;
+			$row[] = $status_perkawinan;
 			$row[] = $status_hidup;
 
 			$data[] = $row;
@@ -124,9 +128,20 @@ class DataPenduduk extends MY_Controller {
 
 			),
 
+			array(
+
+				'field' => 'tanggal_lahir',
+				'label' => 'Tanggal Lahir',
+				'rules' => 'required|xss_clean',
+				'errors' => array(
+					'required' => 'Tanggal Lahir Wajib diisi',
+				),
+
+			),
+
 		);
 
-		if (!$this->input->post('username_default')) {
+		if (!empty($this->input->post('username'))) {
 			$config[] = 
 			array(
 
@@ -143,7 +158,7 @@ class DataPenduduk extends MY_Controller {
 			);
 		}
 
-		if (!$this->input->post('password_default')) {
+		if (!empty($this->input->post('password'))) {
 			$config[] = 
 			array(
 
@@ -167,29 +182,35 @@ class DataPenduduk extends MY_Controller {
 				'nik'          		=> form_error('nik', '<h4>', '</h4>'),
 				'username'          => form_error('username', '<h4>', '</h4>'),
 				'password'          => form_error('password', '<h4>', '</h4>'),
+				'tanggal_lahir'     => form_error('tanggal_lahir', '<h4>', '</h4>'),
 			];
 
 			echo json_encode($data);
 		} else {
+			$users['username'] 				= $this->input->post('nik');
+			$users['password'] 				= $this->input->post('tanggal_lahir');
 			$penduduk['nama_lengkap']       = $this->input->post('nama_lengkap');
 			$penduduk['nik']				= $this->input->post('nik');
 			$penduduk['tempat_lahir']		= $this->input->post('tempat_lahir');
 			$penduduk['tanggal_lahir']		= $this->input->post('tanggal_lahir');
 			$penduduk['jenis_kelamin']		= $this->input->post('jenis_kelamin');
+			$penduduk['pekerjaan_id']		= $this->input->post('pekerjaan');
+			$penduduk['pendidikan']			= $this->input->post('pendidikan');
 			$penduduk['agama']				= $this->input->post('agama');
 			$penduduk['status_hidup']		= $this->input->post('status_hidup');
-			$penduduk['status_pernikahan']	= $this->input->post('status_pernikahan');
+			$penduduk['status_perkawinan']	= $this->input->post('status_perkawinan');
 			$penduduk['status_hidup']		= $this->input->post('status_hidup');
 
-			if (!$this->input->post('username_default')) {
-				$users['username']		= $this->input->post('nik');
+			if (!empty($this->input->post('username'))) {
+				$users['username']		= $this->input->post('username');
 			}
 
-			if (!$this->input->post('password_default')) {
-				$users['password']		= password_hash(date('dmY', strtotime($this->input->post('tanggal_lahir'))), PASSWORD_DEFAULT);
+			if (!empty($this->input->post('password'))) {
+				$users['password']		= password_hash(date('dmY', strtotime($this->input->post('password'))), PASSWORD_DEFAULT);
 			}
 
 			$act = $this->PendudukModel->create($users, $penduduk);
+			// echo $this->db->last_query($act);
 			if ($act) {
 				// $this->verified_code($data['email']);
 				$response = array(
@@ -297,9 +318,12 @@ class DataPenduduk extends MY_Controller {
 			$data['tanggal_lahir']		= $this->input->post('tanggal_lahir_update');
 			$data['jenis_kelamin']		= $this->input->post('jenis_kelamin_update');
 			$data['agama']				= $this->input->post('agama_update');
+			$data['pekerjaan_id']		= $this->input->post('pekerjaan_update');
+			$data['pendidikan']			= $this->input->post('pendidikan_update');
 			$data['status_hidup']		= $this->input->post('status_hidup_update');
-			$data['status_pernikahan']	= $this->input->post('status_pernikahan_update');
+			$data['status_perkawinan']	= $this->input->post('status_perkawinan_update');
 			$data['status_hidup']		= $this->input->post('status_hidup_update');
+			$data['update_at']			= date('Y-m-d H:i:s');
 
 			if (!$this->input->post('username_lama')) {
 				$user_id       			= $this->input->post('user_id');

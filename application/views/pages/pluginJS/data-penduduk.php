@@ -8,7 +8,21 @@
 <script>
     var table;
     $(document).ready(function() {
+        jenis_pekerjaan();
+
         $('.chosen-select').chosen({width: "100%"});
+
+        // $('[name="jenis_pekerjaan"]').chosen({no_results_text: 'Save as New'});
+        
+        // $('#input-pekerjaan > .chosen-container').on('click', '.no-results', function(){
+        //    add_new_diagnosis($(this).find('span').text());
+        //    $('[name="jenis_pekerjaan"]').val('').trigger('chosen:updated');
+        // });
+        
+        // function add_new_diagnosis(val) {
+        //     console.log(`New: ${val}`)
+        // }
+
         var btn_act = '<button class="btn btn-primary" id="btn_add">Tambah Data</button>';
         $('.title-action').html(btn_act);
         table = $('#table-penduduk').DataTable({
@@ -73,7 +87,6 @@
             $('#modal-update').modal('show');
 
             get($(this).attr('data-id'));
-
         });
 
 
@@ -139,12 +152,17 @@
                             notification('error', response.username_update);
                         }
 
+
                         if (response.username) {
                             notification('error', response.username);
                         }
 
                         if (response.nama_lengkap) {
                             notification('error', response.nama_lengkap);
+                        }
+                        
+                        if (response.tanggal_lahir) {
+                            notification('error', response.tanggal_lahir);
                         }
 
                         if (response.password) {
@@ -180,17 +198,33 @@
                     $('[name="nama_lengkap_update"]').val(response.nama_lengkap);
                     $('[name="tempat_lahir_update"]').val(response.tempat_lahir);
                     $('[name="tanggal_lahir_update"]').val(response.tanggal_lahir);
+                    $('[name="pekerjaan_update"]').val(response.pekerjaan_id).trigger('chosen:updated');
+                    $('[name="pendidikan_update"]').val(response.pendidikan).trigger('chosen:updated');
                     $('[name="jenis_kelamin_update"]').val(response.jenis_kelamin).trigger('chosen:updated');
                     $('[name="agama_update"]').val(response.agama).trigger('chosen:updated');
                     $('[name="status_hidup_update"]').val(response.status_hidup).trigger('chosen:updated');
-                    $('[name="status_pernikahan_update"]').val(response.status_pernikahan).trigger('chosen:updated');
+                    $('[name="status_perkawinan_update"]').val(response.status_perkawinan).trigger('chosen:updated');
 
-                    $('[name="username_update"]').prop('readonly', false);
-                    $('[name="nik_update"]').prop('readonly', false);
+                    $('[name="nik_lama"]').prop('checked', true).trigger('change');
+                    $('[name="username_lama"]').prop('checked', true).trigger('change');
                 }
             });
             
             return false;
+        }
+
+        function jenis_pekerjaan() {
+            $.getJSON('<?= base_url('getPekerjaan/json') ?>', function(json, textStatus) {
+                var jenis_pekerjaan = $('.chosen-select-pekerjaan');
+                jenis_pekerjaan.empty();
+                $.each(json, function(i, jp) {
+                    var id = jp.id;
+                    var name = jp.name;
+                    jenis_pekerjaan.append('<option value="'+id+'">'+name+'</option>');
+                });
+
+                jenis_pekerjaan.trigger("chosen:updated"); 
+            });
         }
 
         // Submit Form Tambah Penduduk
