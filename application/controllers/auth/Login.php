@@ -61,7 +61,7 @@ class Login extends CI_Controller {
 					$response = $this->_reg_session($row);
 				}else{
 					$response = array(
-						'type' => 'danger',
+						'type' => 'error',
 						'title' => 'Gagal !!!',
 						'message' => 'Email atau password yang anda gunakan salah !',
 						'redirect' => base_url('login'),
@@ -79,7 +79,7 @@ class Login extends CI_Controller {
 
 		}else{
 			$response = array(
-				'type' => 'warning',
+				'type' => 'error',
 				'title' => 'Gagal !!!',
 				'message' => 'Akun yang anda masukan salah atau belum terdaftar !',
 				'redirect' => base_url('login'),

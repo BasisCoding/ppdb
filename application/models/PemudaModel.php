@@ -2,17 +2,23 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class PendudukModel extends CI_Model {
+class PemudaModel extends CI_Model {
 	
-	var $column_order = array(null, 'nama_lengkap', 'nik', 'jenis_kelamin'); 
-    var $column_search = array('nama_lengkap', 'nik', 'jenis_kelamin'); //field yang diizin untuk pencarian 
-    var $order = array('nama_lengkap' => 'asc'); // default order 
+	var $column_order = array(null, 'p.nama_lengkap', 'g.jabatan'); 
+    var $column_search = array('p.nama_lengkap', 'g.jabatan'); //field yang diizin untuk pencarian 
+    var $order = array('p.nama_lengkap' => 'asc'); // default order 
     var $table = 'penduduk';
 
 // Datatable
     private function _get_datatables_query()
     {
-    	$this->db->from($this->table);
+    	$this->db->select('p.*, u.username, u.group_id, g.description as jabatan');
+    	$this->db->from($this->table.' as p');
+    	$this->db->join('users as u', 'u.id = p.user_id', 'left');
+    	$this->db->join('groups as g', 'g.id = u.group_id', 'left');
+    	$this->db->where('u.group_id', 5);
+    	$this->db->where('u.group_id', 6);
+    	$this->db->where('u.group_id', 7);
     	$i = 0;
 
         foreach ($this->column_search as $item) // looping awal
@@ -48,10 +54,11 @@ class PendudukModel extends CI_Model {
     {
     	$this->_get_datatables_query();
     	if($_POST['length'] != -1)
-            $this->db->limit($_POST['length'], $_POST['start']);
+    		$this->db->limit($_POST['length'], $_POST['start']);
 
-        $query = $this->db->get();
-        return $query->result();
+    	$query = $this->db->get();
+    	// echo $this->db->last_query($query);
+    	return $query->result();
     }
 
     function count_filtered()
@@ -68,48 +75,8 @@ class PendudukModel extends CI_Model {
     }
 // Datatable	
 
-    function get($id)
-    {
-        $this->db->select('u.username, u.email, p.*');
-        $this->db->from('penduduk as p');
-        $this->db->join('users as u', 'u.id = p.user_id', 'left');
-        $this->db->where('p.id', $id);
-        return $this->db->get();
-    }
-
-    function show()
-    {
-        return $this->db->get('penduduk');
-    }
-
-    function create($users, $penduduk)
-    {
-        $user = $this->db->insert('users', $users);
-        if ($user) {
-            $penduduk['user_id'] = $this->db->insert_id();
-            $insert = $this->db->insert('penduduk', $penduduk);
-        }
-
-        return true;
-    }
-
-    function update($data, $id, $users, $user_id)
-    {
-        if ($users!=null) {
-            $this->db->update('users', $users, array('id' => $user_id));
-        }
-        $this->db->update('penduduk', $data, array('id' => $id));
-
-        return true;
-    }
-
-    function delete($user_id)
-    {
-        return $this->db->delete('users', array('id' => $user_id));
-    }
-
 }
 
-/* End of file PendudukModel.php */
-/* Location: ./application/models/PendudukModel.php */
+/* End of file PemudaModel.php */
+/* Location: ./application/models/PemudaModel.php */
 ?>

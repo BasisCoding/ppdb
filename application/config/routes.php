@@ -81,3 +81,6 @@ $route['data-penduduk'] = 'DataPenduduk';
 	$route['data-penduduk/create'] = 'DataPenduduk/create';
 	$route['data-penduduk/update'] = 'DataPenduduk/update';
 	$route['data-penduduk/delete'] = 'DataPenduduk/delete';
+
+$route['data-pemuda'] = 'DataPemuda';
+	$route['data-pemuda/store'] = 'DataPemuda/store';

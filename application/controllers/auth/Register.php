@@ -135,7 +135,7 @@ class Register extends CI_Controller {
 			echo json_encode($response);
 		}
 	}
-	
+
 }
 
 /* End of file Register.php */

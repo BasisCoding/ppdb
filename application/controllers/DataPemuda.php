@@ -8,17 +8,15 @@ class DataPemuda extends MY_Controller {
 		parent::__construct();
 		$this->load->model('PemudaModel');
 		$this->load->helper('tanggal');
+		$this->load->helper('usia');
 	}
 	
 	public function index()
 	{
 		$data['title'] = 'Data Pemuda';
 		$data['css'] = '
-		<link href="'. site_url('assets/css/plugins/chosen/bootstrap-chosen.css') .'" rel="stylesheet">
-		<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-		<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"/>
+		<link href="'. site_url('assets/css/plugins/dualListbox/bootstrap-duallistbox.min.css') .'" rel="stylesheet">
 		<link href="'. site_url('assets/css/plugins/dataTables/datatables.min.css') .'" rel="stylesheet">
-		<link href="'. site_url('assets/css/plugins/jasny/jasny-bootstrap.min.css') .'" rel="stylesheet">
 		';
 		$data['js'] = 'data-pemuda';
 		$data['pages'] = 'data-pemuda';
@@ -27,6 +25,45 @@ class DataPemuda extends MY_Controller {
 		$data['menu'] = fetch_menu($menu);
 
 		$this->load->view('layouts/backend/app', $data);
+	}
+
+	public function store()
+	{
+		$list = $this->PemudaModel->get_datatables();
+		$data = array();
+		$no = $_POST['start'];
+
+		foreach ($list as $ls) {
+
+			$no++;
+			$row = array();
+			$row[] = '
+
+			<a class="btn btn-sm btn-warning btn-bitbucket btn-update" data-id="'.$ls->id.'">
+			<i class="fa fa-edit text-white"></i>
+			</a>
+
+			<a class="btn btn-sm btn-danger btn-bitbucket btn-delete" data-id="'.$ls->user_id.'">
+			<i class="fa fa-trash text-white"></i>
+			</a>
+
+			';
+
+			$row[] = $ls->nama_lengkap;
+			$row[] = hitung_umur($ls->tanggal_lahir);
+			$row[] = $ls->jabatan;
+
+			$data[] = $row;
+		}
+
+		$output = array(
+			"draw"				=> $_POST['draw'],
+			"recordsTotal" 		=> $this->PemudaModel->count_all(),
+			"recordsFiltered" 	=> $this->PemudaModel->count_filtered(),
+			"data" 				=> $data
+		);
+
+		echo json_encode($output);
 	}
 	
 }
