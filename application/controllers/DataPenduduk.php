@@ -231,7 +231,7 @@ class DataPenduduk extends MY_Controller {
 			echo json_encode($response);
 		}
 	}
-
+	
 	public function show($id)
 	{
 		$get = $this->PendudukModel->get($id);

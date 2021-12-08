@@ -7,14 +7,35 @@
     var table;
 
     $(document).ready(function() {
-        $('.dual_select').bootstrapDualListbox({
-            selectorMinimalHeight: 160
+        getPenduduk();
+        $('#daftar-penduduk').bootstrapDualListbox({
+            selectorMinimalHeight: 160,
         });
+
 
         table = $('#table-pemuda').DataTable({
             "pageLength": 25,
-            "dom": 'f',
-        
+            "dom": 'lTfgtp',
+            // "buttons": [{
+            //     extend: 'copy'
+            // },{
+            //     extend: 'csv'
+            // },{
+            //     extend: 'excel', title: 'ExampleFile'
+            // },{
+            //     extend: 'pdf', title: 'ExampleFile'
+            // },{
+            //     extend: 'print', 
+            //     customize: function (win)
+            //     {
+            //         $(win.document.body).addClass('white-bg');
+            //         $(win.document.body).css('font-size', '10px');
+            //         $(win.document.body).find('table')
+            //         .addClass('compact')
+            //         .css('font-size', 'inherit');
+            //     }
+            // }
+            // ],
             "processing": true, 
             "serverSide": true,
             // "responsive": true,
@@ -38,6 +59,19 @@
 
         function reload_table() {
             table.ajax.reload(null, false);
+        }
+
+        function getPenduduk() {
+            var select = $('#daftar-penduduk');
+            $.getJSON('<?= base_url('data-pemuda/show-penduduk') ?>', function(json, textStatus) {
+                $.each(json, function(i, val) {
+                    var id = val.id;
+                    var nama = val.nama_lengkap;
+                    select.append('<option class="h6" value="'+id+'">'+nama+'</option>');
+                });
+            });
+
+            select.trigger('bootstrapduallistbox.refresh', true);
         }
         
     });

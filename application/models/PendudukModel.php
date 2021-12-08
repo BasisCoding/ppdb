@@ -77,9 +77,16 @@ class PendudukModel extends CI_Model {
         return $this->db->get();
     }
 
-    function show()
+    function show($where = null)
     {
-        return $this->db->get('penduduk');
+        $this->db->select('u.username, u.email, u.foto, u.status, p.*, g.name as nama_group, g.description');
+        $this->db->from('penduduk as p');
+        $this->db->join('users as u', 'u.id = p.user_id', 'left');
+        $this->db->join('groups as g', 'g.id = u.group_id', 'left');
+        if ($where != null) {
+            $this->db->where($where);
+        }
+        return $this->db->get();
     }
 
     function create($users, $penduduk)

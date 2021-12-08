@@ -84,3 +84,4 @@ $route['data-penduduk'] = 'DataPenduduk';
 
 $route['data-pemuda'] = 'DataPemuda';
 	$route['data-pemuda/store'] = 'DataPemuda/store';
+	$route['data-pemuda/show-penduduk'] = 'DataPemuda/showPenduduk';

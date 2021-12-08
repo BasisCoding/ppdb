@@ -7,6 +7,7 @@ class DataPemuda extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('PemudaModel');
+		$this->load->model('PendudukModel');
 		$this->load->helper('tanggal');
 		$this->load->helper('usia');
 	}
@@ -64,6 +65,12 @@ class DataPemuda extends MY_Controller {
 		);
 
 		echo json_encode($output);
+	}
+
+	public function showPenduduk()
+	{
+		$get = $this->PendudukModel->show()->result();
+		echo json_encode($get);
 	}
 	
 }

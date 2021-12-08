@@ -1,7 +1,7 @@
 <div class="wrapper wrapper-content  animated fadeInRight">
 
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-5">
             <div class="ibox">
                 <div class="ibox-title">
                     <h5>Pilih Data Pemuda</h5>
@@ -29,8 +29,8 @@
                     </p>
 
                     <form id="form" action="#" class="wizard-big">
-                        <select class="form-control dual_select" multiple>
-                            <option class="h6" value="United States">United States</option>
+                        <select class="form-control dual_select" id="daftar-penduduk" multiple>
+                            <!-- <option class="h6" value="United States">United States</option>
                             <option class="h6" value="United Kingdom">United Kingdom</option>
                             <option class="h6" value="Australia">Australia</option>
                             <option class="h6" value="Austria">Austria</option>
@@ -41,14 +41,14 @@
                             <option class="h6" value="Brazil">Brazil</option>
                             <option class="h6" value="Bulgaria">Bulgaria</option>
                             <option class="h6" value="Cameroon">Cameroon</option>
-                            <option class="h6" value="Canada">Canada</option>
+                            <option class="h6" value="Canada">Canada</option> -->
                         </select>
                     </form>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-7">
             <div class="ibox">
                 <div class="ibox-content">
                     <div class="table-responsive">
