@@ -190,7 +190,7 @@ class DataPenduduk extends MY_Controller {
 			echo json_encode($data);
 		} else {
 			$users['username'] 				= $this->input->post('nik');
-			$users['password'] 				= $this->input->post('tanggal_lahir');
+			$users['password'] 				= password_hash(date('dmY', strtotime($this->input->post('tanggal_lahir'))), PASSWORD_DEFAULT);
 			$penduduk['nama_lengkap']       = $this->input->post('nama_lengkap');
 			$penduduk['nik']				= $this->input->post('nik');
 			$penduduk['tempat_lahir']		= $this->input->post('tempat_lahir');
@@ -210,6 +210,9 @@ class DataPenduduk extends MY_Controller {
 			if (!empty($this->input->post('password'))) {
 				$users['password']		= password_hash(date('dmY', strtotime($this->input->post('password'))), PASSWORD_DEFAULT);
 			}
+			
+			$users['group_id']		= 8;
+			$users['status']		= 1;
 
 			$act = $this->PendudukModel->create($users, $penduduk);
 			// echo $this->db->last_query($act);

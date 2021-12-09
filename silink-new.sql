@@ -11,7 +11,7 @@
  Target Server Version : 100421
  File Encoding         : 65001
 
- Date: 08/12/2021 14:17:51
+ Date: 09/12/2021 11:37:06
 */
 
 SET NAMES utf8mb4;
@@ -100,7 +100,7 @@ INSERT INTO `groups` VALUES (4, 'sekretaris_rt', 'Sekretaris RT');
 INSERT INTO `groups` VALUES (5, 'ketua_pemuda', 'Ketua Pemuda');
 INSERT INTO `groups` VALUES (6, 'sekretaris_pemuda', 'Sekretaris Pemuda');
 INSERT INTO `groups` VALUES (7, 'bendahara_pemuda', 'Bendahara Pemuda');
-INSERT INTO `groups` VALUES (9, 'warga', 'Warga');
+INSERT INTO `groups` VALUES (8, 'warga', 'Warga');
 
 -- ----------------------------
 -- Table structure for jenis_pekerjaan
@@ -273,20 +273,23 @@ CREATE TABLE `penduduk`  (
   `ayah` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `ibu` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `pendidikan` enum('TIDAK / BELUM SEKOLAH','BELUM TAMAT SD / SEDERAJAT','TAMAT SD / SEDERAJAT','SLTP / SEDERAJAT','SLTA / SEDERAJAT','DIPLOMA IV/ STRATA I','DIPLOMA I / II','AKADEMI/ DIPLOMA III/S. MUDA','STRATA II','STRATA III') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `pekerjaan_id` int NULL DEFAULT NULL,
+  `pekerjaan_id` int UNSIGNED NULL DEFAULT NULL,
   `created_by` int NULL DEFAULT NULL,
   `created_at` datetime NULL DEFAULT current_timestamp,
   `update_by` int NULL DEFAULT NULL,
   `update_at` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
+  INDEX `pekerjaan_fk`(`pekerjaan_id`) USING BTREE,
+  CONSTRAINT `pekerjaan_fk` FOREIGN KEY (`pekerjaan_id`) REFERENCES `jenis_pekerjaan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `users_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of penduduk
 -- ----------------------------
-INSERT INTO `penduduk` VALUES (5, 5, '3604042008970361', 'Administrator', '1997-08-20', 'Serang', 'Islam', 'Pria', 'Belum Kawin', NULL, 'Hidup', NULL, NULL, NULL, NULL, 'DIPLOMA IV/ STRATA I', 15, NULL, '2021-12-08 09:25:05', NULL, NULL);
+INSERT INTO `penduduk` VALUES (5, 5, '3604042008970361', 'Administrator', '1997-08-20', 'Serang', 'Islam', 'Pria', 'Belum Kawin', NULL, 'Hidup', NULL, NULL, NULL, NULL, 'DIPLOMA IV/ STRATA I', NULL, NULL, '2021-12-08 09:25:05', NULL, '2021-12-09 11:23:14');
+INSERT INTO `penduduk` VALUES (7, 7, '1234567897894561', 'Fatoni', '1997-08-20', 'Serang', 'Islam', 'Pria', 'Belum Kawin', NULL, 'Hidup', NULL, NULL, NULL, NULL, 'SLTP / SEDERAJAT', NULL, NULL, '2021-12-09 11:19:40', NULL, '2021-12-09 11:23:16');
 
 -- ----------------------------
 -- Table structure for users
@@ -309,11 +312,12 @@ CREATE TABLE `users`  (
   INDEX `id`(`id`) USING BTREE,
   INDEX `fk_group_users`(`group_id`) USING BTREE,
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
 INSERT INTO `users` VALUES (5, 'admin@gmail.com', '2021-12-08 13:15:02', NULL, 'admin', '$2y$10$R3PEcwT0IikvKBr9Dx3hHOMKxgS1txYD8y9GkL9VL/jST3p1Smsry', NULL, 1, NULL, '1', '2021-12-08 09:25:05', '2021-12-08 13:15:02');
+INSERT INTO `users` VALUES (7, NULL, NULL, NULL, '1234567897894561', '$2y$10$qniOEx.KmJ39/LjVFIIkXuF2wuy96ur25VlYI5H5rFOoMvt1wLuOK', NULL, 8, NULL, '1', '2021-12-09 11:19:40', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

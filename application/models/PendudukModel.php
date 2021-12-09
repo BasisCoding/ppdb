@@ -4,15 +4,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class PendudukModel extends CI_Model {
 	
-	var $column_order = array(null, 'nama_lengkap', 'nik', 'jenis_kelamin'); 
-    var $column_search = array('nama_lengkap', 'nik', 'jenis_kelamin'); //field yang diizin untuk pencarian 
+	var $column_order = array(null, 'p.nama_lengkap', 'p.nik', 'p.jenis_kelamin'); 
+    var $column_search = array('p.nama_lengkap', 'p.nik', 'p.jenis_kelamin'); //field yang diizin untuk pencarian 
     var $order = array('nama_lengkap' => 'asc'); // default order 
     var $table = 'penduduk';
 
 // Datatable
     private function _get_datatables_query()
     {
-    	$this->db->from($this->table);
+    	$this->db->from($this->table.' as p');
+        $this->db->join('users as u', 'u.id = p.user_id', 'left');
+        $this->db->where('group_id != ', 1);
     	$i = 0;
 
         foreach ($this->column_search as $item) // looping awal

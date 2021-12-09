@@ -4,38 +4,77 @@
 <script src="<?= site_url('assets/js/plugins/dualListbox/jquery.bootstrap-duallistbox.js') ?>"></script>
 
 <script type="text/javascript">
-    var table;
+    var pemuda;
+    var penduduk;
 
     $(document).ready(function() {
-        getPenduduk();
-        $('#daftar-penduduk').bootstrapDualListbox({
-            selectorMinimalHeight: 160,
+        penduduk = $('#table-penduduk').DataTable({
+            "pageLength": 25,
+            "dom": '<"html5buttons"B>lTfgtp',
+            "buttons": [{
+                extend: 'copy'
+            },{
+                extend: 'csv'
+            },{
+                extend: 'excel', title: 'ExampleFile'
+            },{
+                extend: 'pdf', title: 'ExampleFile'
+            },{
+                extend: 'print', 
+                customize: function (win)
+                {
+                    $(win.document.body).addClass('white-bg');
+                    $(win.document.body).css('font-size', '10px');
+                    $(win.document.body).find('table')
+                    .addClass('compact')
+                    .css('font-size', 'inherit');
+                }
+            }
+            ],
+            "processing": true, 
+            "serverSide": true,
+            // "responsive": true,
+            "order": [],
+            "autoWidth" : true,
+            "scrollX": true,
+            // "scrollY": "300px",
+            "ajax": {
+                "url": "<?= base_url('data-pemuda/show-penduduk')?>",
+                "type": "POST"
+            },
+
+            "language": {
+                "search": "",
+                "searchPlaceholder": "Search . . .",
+                "lengthMenu":"_MENU_",
+                "emptyTable":"Tidak ada data",
+                "zeroRecords":"Tidak ada data yang sesuai"
+            }
         });
 
-
-        table = $('#table-pemuda').DataTable({
+        pemuda = $('#table-pemuda').DataTable({
             "pageLength": 25,
-            "dom": 'lTfgtp',
-            // "buttons": [{
-            //     extend: 'copy'
-            // },{
-            //     extend: 'csv'
-            // },{
-            //     extend: 'excel', title: 'ExampleFile'
-            // },{
-            //     extend: 'pdf', title: 'ExampleFile'
-            // },{
-            //     extend: 'print', 
-            //     customize: function (win)
-            //     {
-            //         $(win.document.body).addClass('white-bg');
-            //         $(win.document.body).css('font-size', '10px');
-            //         $(win.document.body).find('table')
-            //         .addClass('compact')
-            //         .css('font-size', 'inherit');
-            //     }
-            // }
-            // ],
+            "dom": '<"html5buttons"B>lTfgtp',
+            "buttons": [{
+                extend: 'copy'
+            },{
+                extend: 'csv'
+            },{
+                extend: 'excel', title: 'ExampleFile'
+            },{
+                extend: 'pdf', title: 'ExampleFile'
+            },{
+                extend: 'print', 
+                customize: function (win)
+                {
+                    $(win.document.body).addClass('white-bg');
+                    $(win.document.body).css('font-size', '10px');
+                    $(win.document.body).find('table')
+                    .addClass('compact')
+                    .css('font-size', 'inherit');
+                }
+            }
+            ],
             "processing": true, 
             "serverSide": true,
             // "responsive": true,
@@ -58,7 +97,8 @@
         });
 
         function reload_table() {
-            table.ajax.reload(null, false);
+            pemuda.ajax.reload(null, false);
+            penduduk.ajax.reload(null, false);
         }
 
         function getPenduduk() {

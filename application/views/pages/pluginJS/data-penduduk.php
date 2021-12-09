@@ -80,6 +80,7 @@
 
             $('[name="username"]').prop('readonly', false);
             $('[name="nik"]').prop('readonly', false);
+            $('[name="password"]').prop('readonly', false);
         });
 
         $('#table-penduduk').on('click', '.btn-update', function(event) {
