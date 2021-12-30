@@ -75,13 +75,9 @@ $route['config'] = 'Configuration';
 
 // Master Data > Data Penduduk
 
-$route['data-penduduk'] = 'DataPenduduk';
-	$route['data-penduduk/store'] = 'DataPenduduk/store';
-	$route['data-penduduk/get/(:num)'] = 'DataPenduduk/show/$1';
-	$route['data-penduduk/create'] = 'DataPenduduk/create';
-	$route['data-penduduk/update'] = 'DataPenduduk/update';
-	$route['data-penduduk/delete'] = 'DataPenduduk/delete';
-
-$route['data-pemuda'] = 'DataPemuda';
-	$route['data-pemuda/store'] = 'DataPemuda/store';
-	$route['data-pemuda/show-penduduk'] = 'DataPemuda/showPenduduk';
+$route['data-pengajar'] = 'DataPengajar';
+	$route['data-pengajar/store'] = 'DataPengajar/store';
+	$route['data-pengajar/get/(:num)'] = 'DataPengajar/show/$1';
+	$route['data-pengajar/create'] = 'DataPengajar/create';
+	$route['data-pengajar/update'] = 'DataPengajar/update';
+	$route['data-pengajar/delete'] = 'DataPengajar/delete';

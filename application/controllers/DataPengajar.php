@@ -2,12 +2,12 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class DataPenduduk extends MY_Controller {
+class DataPengajar extends MY_Controller {
 	
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('PendudukModel');
+		$this->load->model('PengajarModel');
 		$this->load->helper('tanggal');
 		$this->load->helper('upload');
 		$this->load->library('form_validation');
@@ -25,8 +25,8 @@ class DataPenduduk extends MY_Controller {
 		<link href="'. site_url('assets/css/plugins/dataTables/datatables.min.css') .'" rel="stylesheet">
 		<link href="'. site_url('assets/css/plugins/jasny/jasny-bootstrap.min.css') .'" rel="stylesheet">
 		';
-		$data['js'] = 'data-penduduk';
-		$data['pages'] = 'data-penduduk';
+		$data['js'] = 'data-pengajar';
+		$data['pages'] = 'data-pengajar';
 
 		$menu = $this->RolesMenusModel->get_menu();
 		$data['menu'] = fetch_menu($menu);
@@ -36,30 +36,18 @@ class DataPenduduk extends MY_Controller {
 
 	public function store()
 	{
-		$list = $this->PendudukModel->get_datatables();
+		$list = $this->PengajarModel->get_datatables();
 		$data = array();
 		$no = $_POST['start'];
 
 		foreach ($list as $ls) {
 
-			if ($ls->status_hidup == 'Meninggal') {
-				$status_hidup = '<span class="badge rounded-pill badge-danger">Meninggal</span>';
-			}else if ($ls->status_hidup == 'Hidup') {
-				$status_hidup = '<span class="badge rounded-pill badge-success">Hidup</span>';
+			if ($ls->status == 0) {
+				$status = '<span class="badge rounded-pill badge-danger">Tidak Aktif</span>';
+			}else if ($ls->status == 1) {
+				$status = '<span class="badge rounded-pill badge-success">Aktif</span>';
 			}else{
-				$status_hidup = '';
-			}
-
-			if ($ls->status_perkawinan == 'Belum Kawin') {
-				$status_perkawinan = '<span class="badge rounded-pill badge-danger">Belum Kawin</span>';
-			}else if ($ls->status_perkawinan == 'Kawin') {
-				$status_perkawinan = '<span class="badge rounded-pill badge-success">Kawin</span>';
-			}else if ($ls->status_perkawinan == 'Janda') {
-				$status_perkawinan = '<span class="badge rounded-pill badge-warning">Janda</span>';
-			}else if ($ls->status_perkawinan == 'Duda') {
-				$status_perkawinan = '<span class="badge rounded-pill badge-warning">Duda</span>';
-			}else{
-				$status_perkawinan = '';
+				$status = '';
 			}
 
 			$no++;
@@ -81,20 +69,20 @@ class DataPenduduk extends MY_Controller {
 			';
 
 			$row[] = $ls->nik;
+			$row[] = $ls->username;
 			$row[] = $ls->nama_lengkap;
 			$row[] = $ls->tempat_lahir.', '.date_indo($ls->tanggal_lahir);
 			$row[] = $ls->agama;
 			$row[] = $ls->jenis_kelamin;
-			$row[] = $status_perkawinan;
-			$row[] = $status_hidup;
+			$row[] = $status;
 
 			$data[] = $row;
 		}
 
 		$output = array(
 			"draw"				=> $_POST['draw'],
-			"recordsTotal" 		=> $this->PendudukModel->count_all(),
-			"recordsFiltered" 	=> $this->PendudukModel->count_filtered(),
+			"recordsTotal" 		=> $this->PengajarModel->count_all(),
+			"recordsFiltered" 	=> $this->PengajarModel->count_filtered(),
 			"data" 				=> $data
 		);
 
@@ -109,7 +97,7 @@ class DataPenduduk extends MY_Controller {
 
 				'field' => 'nik',
 				'label' => 'NIK',
-				'rules' => 'required|trim|is_unique[penduduk.nik]|min_length[16]|xss_clean',
+				'rules' => 'required|trim|is_unique[pengajar.nik]|min_length[16]|xss_clean',
 				'errors' => array(
 					'required' => 'NIK Wajib diisi',
 					'trim' => 'NIK tidak boleh menggunakan spasi',
@@ -191,17 +179,15 @@ class DataPenduduk extends MY_Controller {
 		} else {
 			$users['username'] 				= $this->input->post('nik');
 			$users['password'] 				= password_hash(date('dmY', strtotime($this->input->post('tanggal_lahir'))), PASSWORD_DEFAULT);
-			$penduduk['nama_lengkap']       = $this->input->post('nama_lengkap');
-			$penduduk['nik']				= $this->input->post('nik');
-			$penduduk['tempat_lahir']		= $this->input->post('tempat_lahir');
-			$penduduk['tanggal_lahir']		= $this->input->post('tanggal_lahir');
-			$penduduk['jenis_kelamin']		= $this->input->post('jenis_kelamin');
-			$penduduk['pekerjaan_id']		= $this->input->post('pekerjaan');
-			$penduduk['pendidikan']			= $this->input->post('pendidikan');
-			$penduduk['agama']				= $this->input->post('agama');
-			$penduduk['status_hidup']		= $this->input->post('status_hidup');
-			$penduduk['status_perkawinan']	= $this->input->post('status_perkawinan');
-			$penduduk['status_hidup']		= $this->input->post('status_hidup');
+			$users['status']				= $this->input->post('status');
+			$users['email']					= $this->input->post('email');
+			$pengajar['nama_lengkap']       = $this->input->post('nama_lengkap');
+			$pengajar['nik']				= $this->input->post('nik');
+			$pengajar['tempat_lahir']		= $this->input->post('tempat_lahir');
+			$pengajar['tanggal_lahir']		= $this->input->post('tanggal_lahir');
+			$pengajar['jenis_kelamin']		= $this->input->post('jenis_kelamin');
+			$pengajar['pendidikan']			= $this->input->post('pendidikan');
+			$pengajar['agama']				= $this->input->post('agama');
 
 			if (!empty($this->input->post('username'))) {
 				$users['username']		= $this->input->post('username');
@@ -211,23 +197,22 @@ class DataPenduduk extends MY_Controller {
 				$users['password']		= password_hash(date('dmY', strtotime($this->input->post('password'))), PASSWORD_DEFAULT);
 			}
 			
-			$users['group_id']		= 8;
-			$users['status']		= 1;
+			$users['group_id']		= 5;
 
-			$act = $this->PendudukModel->create($users, $penduduk);
-			// echo $this->db->last_query($act);
+			$act = $this->PengajarModel->create($users, $pengajar);
+			echo $this->db->last_query($act);
 			if ($act) {
 				// $this->verified_code($data['email']);
 				$response = array(
 					'type' => 'success',
 					'title' => 'Berhasil !',
-					'message' => 'Data penduduk berhasil ditambahkan !'
+					'message' => 'Data pengajar berhasil ditambahkan !'
 				);
 			} else {
 				$response = array(
 					'type' => 'error',
 					'title' => 'Gagal !',
-					'message' => 'Data penduduk gagal ditambahkan, silahkan coba kembali dalam beberapa menit !'
+					'message' => 'Data pengajar gagal ditambahkan, silahkan coba kembali dalam beberapa menit !'
 				);
 			}
 
@@ -237,7 +222,7 @@ class DataPenduduk extends MY_Controller {
 	
 	public function show($id)
 	{
-		$get = $this->PendudukModel->get($id);
+		$get = $this->PengajarModel->get($id);
 		// echo $this->db->last_query($get);
 		if ($get->num_rows() > 0) {
 			$response = $get->row();
@@ -274,7 +259,7 @@ class DataPenduduk extends MY_Controller {
 
 				'field' => 'nik_update',
 				'label' => 'NIK',
-				'rules' => 'required|trim|is_unique[penduduk.nik]|min_length[16]|xss_clean',
+				'rules' => 'required|trim|is_unique[pengajar.nik]|min_length[16]|xss_clean',
 				'errors' => array(
 					'required' => 'NIK Wajib diisi',
 					'trim' => 'NIK tidak boleh menggunakan spasi',
@@ -317,17 +302,14 @@ class DataPenduduk extends MY_Controller {
 		} else {
 			$users['username'] = null;
 			$user_id = null;
+			$users['status']			= $this->input->post('status_update'); // Tidak Usah Menggunakan Update Status
 			$id       					= $this->input->post('id');
 			$data['nama_lengkap']       = $this->input->post('nama_lengkap_update');
 			$data['tempat_lahir']		= $this->input->post('tempat_lahir_update');
 			$data['tanggal_lahir']		= $this->input->post('tanggal_lahir_update');
 			$data['jenis_kelamin']		= $this->input->post('jenis_kelamin_update');
 			$data['agama']				= $this->input->post('agama_update');
-			$data['pekerjaan_id']		= $this->input->post('pekerjaan_update');
 			$data['pendidikan']			= $this->input->post('pendidikan_update');
-			$data['status_hidup']		= $this->input->post('status_hidup_update');
-			$data['status_perkawinan']	= $this->input->post('status_perkawinan_update');
-			$data['status_hidup']		= $this->input->post('status_hidup_update');
 			$data['update_at']			= date('Y-m-d H:i:s');
 
 			if (!$this->input->post('username_lama')) {
@@ -339,20 +321,20 @@ class DataPenduduk extends MY_Controller {
 				$data['nik']		= $this->input->post('nik_update');
 			}
 
-			$act = $this->PendudukModel->update($data, $id, $users, $user_id);
-			// echo $this->db->last_query($act);
+			$act = $this->PengajarModel->update($data, $id, $users, $user_id);
+			echo $this->db->last_query($act);
 			if ($act) {
 				// $this->verified_code($data['email']);
 				$response = array(
 					'type' => 'success',
 					'title' => 'Berhasil !',
-					'message' => 'Data penduduk berhasil diubah !'
+					'message' => 'Data pengajar berhasil diubah !'
 				);
 			} else {
 				$response = array(
 					'type' => 'error',
 					'title' => 'Gagal !',
-					'message' => 'Data penduduk gagal diubah, silahkan coba kembali dalam beberapa menit !'
+					'message' => 'Data pengajar gagal diubah, silahkan coba kembali dalam beberapa menit !'
 				);
 			}
 
@@ -363,19 +345,19 @@ class DataPenduduk extends MY_Controller {
 	public function delete()
 	{
 		$user_id = $this->input->post('user_id');
-		$act = $this->PendudukModel->delete($user_id);
+		$act = $this->PengajarModel->delete($user_id);
 		if ($act) {
 			// $this->verified_code($data['email']);
 			$response = array(
 				'type' => 'success',
 				'title' => 'Berhasil !',
-				'message' => 'Data penduduk berhasil dihapus !'
+				'message' => 'Data pengajar berhasil dihapus !'
 			);
 		} else {
 			$response = array(
 				'type' => 'error',
 				'title' => 'Gagal !',
-				'message' => 'Data penduduk gagal dihapus, silahkan coba kembali dalam beberapa menit !'
+				'message' => 'Data pengajar gagal dihapus, silahkan coba kembali dalam beberapa menit !'
 			);
 		}
 

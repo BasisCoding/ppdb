@@ -2,19 +2,19 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class PendudukModel extends CI_Model {
+class PengajarModel extends CI_Model {
 	
-	var $column_order = array(null, 'p.nama_lengkap', 'p.nik', 'p.jenis_kelamin'); 
-    var $column_search = array('p.nama_lengkap', 'p.nik', 'p.jenis_kelamin'); //field yang diizin untuk pencarian 
+	var $column_order = array(null, 'p.nama_lengkap', 'p.nik', 'p.jenis_kelamin', 'u.username', 'u.status'); 
+    var $column_search = array('p.nama_lengkap', 'p.nik', 'p.jenis_kelamin', 'u.username', 'u.status'); //field yang diizin untuk pencarian 
     var $order = array('nama_lengkap' => 'asc'); // default order 
-    var $table = 'penduduk';
+    var $table = 'pengajar';
 
 // Datatable
     private function _get_datatables_query()
     {
+        $this->db->select('p.*, u.username, u.email, u.status, u.foto');
     	$this->db->from($this->table.' as p');
         $this->db->join('users as u', 'u.id = p.user_id', 'left');
-        $this->db->where('group_id != ', 1);
     	$i = 0;
 
         foreach ($this->column_search as $item) // looping awal
@@ -72,8 +72,8 @@ class PendudukModel extends CI_Model {
 
     function get($id)
     {
-        $this->db->select('u.username, u.email, p.*');
-        $this->db->from('penduduk as p');
+        $this->db->select('u.username, u.email, u.foto, u.status, p.*');
+        $this->db->from($this->table.' as p');
         $this->db->join('users as u', 'u.id = p.user_id', 'left');
         $this->db->where('p.id', $id);
         return $this->db->get();
@@ -81,22 +81,21 @@ class PendudukModel extends CI_Model {
 
     function show($where = null)
     {
-        $this->db->select('u.username, u.email, u.foto, u.status, p.*, g.name as nama_group, g.description');
-        $this->db->from('penduduk as p');
+        $this->db->select('u.username, u.email, u.foto, u.status, p.*');
+        $this->db->from($this->table.' as p');
         $this->db->join('users as u', 'u.id = p.user_id', 'left');
-        $this->db->join('groups as g', 'g.id = u.group_id', 'left');
         if ($where != null) {
             $this->db->where($where);
         }
         return $this->db->get();
     }
 
-    function create($users, $penduduk)
+    function create($users, $pengajar)
     {
         $user = $this->db->insert('users', $users);
         if ($user) {
-            $penduduk['user_id'] = $this->db->insert_id();
-            $insert = $this->db->insert('penduduk', $penduduk);
+            $pengajar['user_id'] = $this->db->insert_id();
+            $insert = $this->db->insert($this->table, $pengajar);
         }
 
         return true;
@@ -107,7 +106,7 @@ class PendudukModel extends CI_Model {
         if ($users!=null) {
             $this->db->update('users', $users, array('id' => $user_id));
         }
-        $this->db->update('penduduk', $data, array('id' => $id));
+        $this->db->update($this->table, $data, array('id' => $id));
 
         return true;
     }
@@ -119,6 +118,6 @@ class PendudukModel extends CI_Model {
 
 }
 
-/* End of file PendudukModel.php */
-/* Location: ./application/models/PendudukModel.php */
+/* End of file pengajarModel.php */
+/* Location: ./application/models/pengajarModel.php */
 ?>

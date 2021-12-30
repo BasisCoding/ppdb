@@ -22,7 +22,7 @@ class Login extends CI_Controller {
 		$data['js'] = 'login';
 		$data['pages'] = 'login';
 
-		$cookie = get_cookie('silink');
+		$cookie = get_cookie('ppdb');
 		if ($this->session->userdata('logged')) {
 			redirect('dashboard','refresh');
 		}else if ($cookie != '') {
@@ -52,7 +52,7 @@ class Login extends CI_Controller {
 					if ($remember) {
 						$key = random_string('alnum', 64);
 
-						set_cookie('silink', $key, 60 * 5);
+						set_cookie('ppdb', $key, 60 * 5);
 						$update = array('cookie' => $key);
 
 						$this->AuthModel->update($update, $row->id);
@@ -96,7 +96,6 @@ class Login extends CI_Controller {
 			'id'				=> $row->id,
 			'username'			=> $row->username,
 			'email'				=> $row->email,
-			'nama_lengkap'		=> $row->nama_lengkap,
 			'foto'				=> $row->foto,
 			'group_id'			=> $row->group_id,
 			'group_name'		=> $row->group_name,
@@ -118,7 +117,7 @@ class Login extends CI_Controller {
 
 	public function logout()
 	{
-		delete_cookie('silink');
+		delete_cookie('ppdb');
 		$this->session->sess_destroy();
 		redirect('login','refresh');
 	}

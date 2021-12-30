@@ -4,17 +4,17 @@
             <div class="ibox">
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-flush nowrap" id="table-penduduk">
+                        <table class="table table-bordered table-hover table-flush nowrap" id="table-pengajar">
                             <thead>
                                 <tr>
                                     <th>Action</th>
                                     <th>NIK</th>
+                                    <th>Username</th>
                                     <th>Nama Lengkap</th>
                                     <th>Tempat, Tgl Lahir</th>
                                     <th>Agama</th>
                                     <th>Jenis Kelamin</th>
-                                    <th>Status Kawin</th>
-                                    <th>Status Hidup</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,6 +50,7 @@
                                         </span>
                                     </div>
                                 </div>
+                                <small>Jika </small> &#9745; <small> maka NIK adalah username</small>
                             </div>
                         </div>
 
@@ -64,9 +65,12 @@
                                         </span>
                                     </div>
                                 </div>
+                                <small>Jika </small> &#9745; <small> maka Password adalah tanggal lahir</small>
                             </div>
                         </div>
                     </div>
+
+
 
                     <div class="row">
                         <div class="col-md">
@@ -144,34 +148,12 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group input-pekerjaan">
-                                <label>Pekerjaan</label>
-                                <select class="form-control chosen-select chosen-select-pekerjaan" name="pekerjaan">   
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-md">
                             <div class="form-group">
-                                <label>Status Hidup</label>
-                                <select class="form-control chosen-select" name="status_hidup">
-                                    <option value="Hidup">Hidup</option>
-                                    <option value="Meninggal">Meninggal</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-group">
-                                <label>Status Perkawinan</label>
-                                <select class="form-control chosen-select" name="status_perkawinan">
-                                    <option value="Kawin">Kawin</option>
-                                    <option value="Belum Kawin">Belum Kawin</option>
-                                    <option value="Janda">Janda</option>
-                                    <option value="Duda">Duda</option>
+                                <label>Status</label>
+                                <select class="form-control chosen-select" name="status">
+                                    <option value="1">Aktif</option>
+                                    <option value="0">Tidak Aktif</option>
                                 </select>
                             </div>
                         </div>
@@ -195,7 +177,7 @@
                     <span class="sr-only">Close</span>
                 </button>
                 <h4 class="modal-title">UPDATE DATA</h4>
-                <small class="font-bold">Formulir ini digunakan untuk mengubah data penduduk.</small>
+                <small class="font-bold">Formulir ini digunakan untuk mengubah data pengajar.</small>
             </div>
             <div class="modal-body">
                 <form id="form-update" role="form" method="POST" enctype="multipart/form-data">
@@ -213,7 +195,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <small>Centang</small> &#9745; <small>untuk ubah Username</small>
+                                <small>Hilangkan centang</small> &#9745; <small>untuk ubah Username</small>
                             </div>
                         </div>
                     </div>
@@ -230,7 +212,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <small>Centang</small> &#9745; <small>untuk ubah NIK</small>
+                                <small>Hilangkan centang</small> &#9745; <small>untuk ubah NIK</small>
                             </div>
                         </div>
 
@@ -302,37 +284,16 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group" id="input-pekerjaan">
-                                <label>Pekerjaan</label>
-                                <select class="form-control chosen-select chosen-select-pekerjaan" name="pekerjaan_update">   
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-md">
                             <div class="form-group">
-                                <label>Status Hidup</label>
-                                <select class="form-control chosen-select" name="status_hidup_update">
-                                    <option value="Hidup">Hidup</option>
-                                    <option value="Meninggal">Meninggal</option>
+                                <label>Status</label>
+                                <select class="form-control chosen-select" name="status_update">
+                                    <option value="1">Aktif</option>
+                                    <option value="0">Tidak Aktif</option>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="col-md">
-                            <div class="form-group">
-                                <label>Status Perkawinan</label>
-                                <select class="form-control chosen-select" name="status_perkawinan_update">
-                                    <option value="Kawin">Kawin</option>
-                                    <option value="Belum Kawin">Belum Kawin</option>
-                                    <option value="Janda">Janda</option>
-                                    <option value="Duda">Duda</option>
-                                </select>
-                            </div>
-                        </div>
                     </div>
                 </form>
             </div>

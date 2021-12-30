@@ -8,7 +8,6 @@
 <script>
     var table;
     $(document).ready(function() {
-        jenis_pekerjaan();
 
         $('.chosen-select').chosen({width: "100%"});
 
@@ -25,7 +24,7 @@
 
         var btn_act = '<button class="btn btn-primary" id="btn_add">Tambah Data</button>';
         $('.title-action').html(btn_act);
-        table = $('#table-penduduk').DataTable({
+        table = $('#table-pengajar').DataTable({
             "pageLength": 25,
             "dom": '<"html5buttons"B>lTfgtp',
             "buttons": [{
@@ -56,7 +55,7 @@
             "scrollX": true,
             // "scrollY": "300px",
             "ajax": {
-                "url": "<?= base_url('data-penduduk/store')?>",
+                "url": "<?= base_url('data-pengajar/store')?>",
                 "type": "POST"
             },
 
@@ -83,14 +82,14 @@
             $('[name="password"]').prop('readonly', false);
         });
 
-        $('#table-penduduk').on('click', '.btn-update', function(event) {
+        $('#table-pengajar').on('click', '.btn-update', function(event) {
             event.preventDefault();
             $('#modal-update').modal('show');
 
             get($(this).attr('data-id'));
         });
 
-        $('#table-penduduk').on('click', '.btn-delete', function(event) {
+        $('#table-pengajar').on('click', '.btn-delete', function(event) {
             event.preventDefault();
             var id = $(this).attr('data-id');
             notification('warning', 'Apakah anda yakin ingin menghapus data ini ? <br>'+
@@ -140,7 +139,7 @@
 
         function send(formData, nameAction) {
             $.ajax({
-                url: '<?= base_url("data-penduduk/") ?>'+nameAction+'',
+                url: '<?= base_url("data-pengajar/") ?>'+nameAction+'',
                 type: 'POST',
                 dataType: 'JSON',
                 data: formData,
@@ -163,7 +162,6 @@
                         if (response.username_update) {
                             notification('error', response.username_update);
                         }
-
 
                         if (response.username) {
                             notification('error', response.username);
@@ -199,7 +197,7 @@
 
         function get(id) {
             $.ajax({
-                url: '<?= base_url('data-penduduk/get/') ?>'+id,
+                url: '<?= base_url('data-pengajar/get/') ?>'+id,
                 type: 'GET',
                 dataType: 'JSON',
                 success:function (response) {
@@ -214,8 +212,7 @@
                     $('[name="pendidikan_update"]').val(response.pendidikan).trigger('chosen:updated');
                     $('[name="jenis_kelamin_update"]').val(response.jenis_kelamin).trigger('chosen:updated');
                     $('[name="agama_update"]').val(response.agama).trigger('chosen:updated');
-                    $('[name="status_hidup_update"]').val(response.status_hidup).trigger('chosen:updated');
-                    $('[name="status_perkawinan_update"]').val(response.status_perkawinan).trigger('chosen:updated');
+                    $('[name="status_update"]').val(response.status).trigger('chosen:updated');
 
                     $('[name="nik_lama"]').prop('checked', true).trigger('change');
                     $('[name="username_lama"]').prop('checked', true).trigger('change');
@@ -223,20 +220,6 @@
             });
             
             return false;
-        }
-
-        function jenis_pekerjaan() {
-            $.getJSON('<?= base_url('getPekerjaan/json') ?>', function(json, textStatus) {
-                var jenis_pekerjaan = $('.chosen-select-pekerjaan');
-                jenis_pekerjaan.empty();
-                $.each(json, function(i, jp) {
-                    var id = jp.id;
-                    var name = jp.name;
-                    jenis_pekerjaan.append('<option value="'+id+'">'+name+'</option>');
-                });
-
-                jenis_pekerjaan.trigger("chosen:updated"); 
-            });
         }
 
         // Submit Form Tambah Penduduk
