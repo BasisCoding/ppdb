@@ -4,7 +4,7 @@
             <div class="ibox">
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-flush nowrap" id="table-pengajar">
+                        <table class="table table-bordered table-hover table-flush nowrap" id="table-siswa">
                             <thead>
                                 <tr>
                                     <th>Action</th>
@@ -101,7 +101,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title">TAMBAH DATA</h4>
-                <small class="font-bold">Formulir ini digunakan untuk menambah data penduduk.</small>
+                <small class="font-bold">Formulir ini digunakan untuk menambah data siswa.</small>
             </div>
             <div class="modal-body">
                 <form id="form-create" role="form" method="POST" enctype="multipart/form-data">
@@ -252,7 +252,7 @@
                     <span class="sr-only">Close</span>
                 </button>
                 <h4 class="modal-title">UPDATE DATA</h4>
-                <small class="font-bold">Formulir ini digunakan untuk mengubah data pengajar.</small>
+                <small class="font-bold">Formulir ini digunakan untuk mengubah data siswa.</small>
             </div>
             <div class="modal-body">
                 <form id="form-update" role="form" method="POST" enctype="multipart/form-data">

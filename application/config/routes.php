@@ -81,3 +81,10 @@ $route['data-pengajar'] = 'DataPengajar';
 	$route['data-pengajar/create'] = 'DataPengajar/create';
 	$route['data-pengajar/update'] = 'DataPengajar/update';
 	$route['data-pengajar/delete'] = 'DataPengajar/delete';
+
+$route['data-siswa'] = 'DataSiswa';
+	$route['data-siswa/store'] = 'DataSiswa/store';
+	$route['data-siswa/get/(:num)'] = 'DataSiswa/show/$1';
+	$route['data-siswa/create'] = 'DataSiswa/create';
+	$route['data-siswa/update'] = 'DataSiswa/update';
+	$route['data-siswa/delete'] = 'DataSiswa/delete';

@@ -2,22 +2,21 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class DataPengajar extends MY_Controller {
+class DataJurusan extends MY_Controller {
 	
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('PengajarModel');
+		$this->load->model('JurusanModel');
 		$this->load->helper('tanggal');
 		$this->load->helper('upload');
 		$this->load->library('form_validation');
 		$this->load->helper('form');
-		$this->load->helper('security');
 	}
 	
 	public function index()
 	{
-		$data['title'] = 'Data Penduduk';
+		$data['title'] = 'Data Siswa';
 		$data['css'] = '
 		<link href="'. site_url('assets/css/plugins/chosen/bootstrap-chosen.css') .'" rel="stylesheet">
 		<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
@@ -25,8 +24,8 @@ class DataPengajar extends MY_Controller {
 		<link href="'. site_url('assets/css/plugins/dataTables/datatables.min.css') .'" rel="stylesheet">
 		<link href="'. site_url('assets/css/plugins/jasny/jasny-bootstrap.min.css') .'" rel="stylesheet">
 		';
-		$data['js'] = 'data-pengajar';
-		$data['pages'] = 'data-pengajar';
+		$data['js'] = 'data-siswa';
+		$data['pages'] = 'data-siswa';
 
 		$menu = $this->RolesMenusModel->get_menu();
 		$data['menu'] = fetch_menu($menu);
@@ -36,7 +35,7 @@ class DataPengajar extends MY_Controller {
 
 	public function store()
 	{
-		$list = $this->PengajarModel->get_datatables();
+		$list = $this->SiswaModel->get_datatables();
 		$data = array();
 		$no = $_POST['start'];
 
@@ -81,8 +80,8 @@ class DataPengajar extends MY_Controller {
 
 		$output = array(
 			"draw"				=> $_POST['draw'],
-			"recordsTotal" 		=> $this->PengajarModel->count_all(),
-			"recordsFiltered" 	=> $this->PengajarModel->count_filtered(),
+			"recordsTotal" 		=> $this->SiswaModel->count_all(),
+			"recordsFiltered" 	=> $this->SiswaModel->count_filtered(),
 			"data" 				=> $data
 		);
 
@@ -97,7 +96,7 @@ class DataPengajar extends MY_Controller {
 
 				'field' => 'nik',
 				'label' => 'NIK',
-				'rules' => 'required|trim|is_unique[pengajar.nik]|min_length[16]|xss_clean',
+				'rules' => 'required|trim|is_unique[siswa.nik]|min_length[16]|xss_clean',
 				'errors' => array(
 					'required' => 'NIK Wajib diisi',
 					'trim' => 'NIK tidak boleh menggunakan spasi',
@@ -195,13 +194,13 @@ class DataPengajar extends MY_Controller {
 			$users['password'] 				= password_hash(date('dmY', strtotime($this->input->post('tanggal_lahir'))), PASSWORD_DEFAULT);
 			$users['status']				= $this->input->post('status');
 			$users['email']					= $this->input->post('email');
-			$pengajar['nama_lengkap']       = $this->input->post('nama_lengkap');
-			$pengajar['nik']				= $this->input->post('nik');
-			$pengajar['tempat_lahir']		= $this->input->post('tempat_lahir');
-			$pengajar['tanggal_lahir']		= $this->input->post('tanggal_lahir');
-			$pengajar['jenis_kelamin']		= $this->input->post('jenis_kelamin');
-			$pengajar['pendidikan']			= $this->input->post('pendidikan');
-			$pengajar['agama']				= $this->input->post('agama');
+			$siswa['nama_lengkap']       = $this->input->post('nama_lengkap');
+			$siswa['nik']				= $this->input->post('nik');
+			$siswa['tempat_lahir']		= $this->input->post('tempat_lahir');
+			$siswa['tanggal_lahir']		= $this->input->post('tanggal_lahir');
+			$siswa['jenis_kelamin']		= $this->input->post('jenis_kelamin');
+			$siswa['pendidikan']			= $this->input->post('pendidikan');
+			$siswa['agama']				= $this->input->post('agama');
 
 			if (!empty($this->input->post('username'))) {
 				$users['username']		= $this->input->post('username');
@@ -213,20 +212,20 @@ class DataPengajar extends MY_Controller {
 			
 			$users['group_id']		= 5;
 
-			$act = $this->PengajarModel->create($users, $pengajar);
+			$act = $this->SiswaModel->create($users, $siswa);
 			// echo $this->db->last_query($act);
 			if ($act) {
 				// $this->verified_code($data['email']);
 				$response = array(
 					'type' => 'success',
 					'title' => 'Berhasil !',
-					'message' => 'Data pengajar berhasil ditambahkan !'
+					'message' => 'Data siswa berhasil ditambahkan !'
 				);
 			} else {
 				$response = array(
 					'type' => 'error',
 					'title' => 'Gagal !',
-					'message' => 'Data pengajar gagal ditambahkan, silahkan coba kembali dalam beberapa menit !'
+					'message' => 'Data siswa gagal ditambahkan, silahkan coba kembali dalam beberapa menit !'
 				);
 			}
 
@@ -236,7 +235,7 @@ class DataPengajar extends MY_Controller {
 	
 	public function show($id)
 	{
-		$get = $this->PengajarModel->get($id);
+		$get = $this->SiswaModel->get($id);
 		// echo $this->db->last_query($get);
 		if ($get->num_rows() > 0) {
 			$response = $get->row();
@@ -284,7 +283,7 @@ class DataPengajar extends MY_Controller {
 
 				'field' => 'nik_update',
 				'label' => 'NIK',
-				'rules' => 'required|trim|is_unique[pengajar.nik]|min_length[16]|xss_clean',
+				'rules' => 'required|trim|is_unique[siswa.nik]|min_length[16]|xss_clean',
 				'errors' => array(
 					'required' => 'NIK Wajib diisi',
 					'trim' => 'NIK tidak boleh menggunakan spasi',
@@ -347,20 +346,20 @@ class DataPengajar extends MY_Controller {
 				$data['nik']		= $this->input->post('nik_update');
 			}
 
-			$act = $this->PengajarModel->update($data, $id, $users, $user_id);
+			$act = $this->SiswaModel->update($data, $id, $users, $user_id);
 			// echo $this->db->last_query($act);
 			if ($act) {
 				// $this->verified_code($data['email']);
 				$response = array(
 					'type' => 'success',
 					'title' => 'Berhasil !',
-					'message' => 'Data pengajar berhasil diubah !'
+					'message' => 'Data siswa berhasil diubah !'
 				);
 			} else {
 				$response = array(
 					'type' => 'error',
 					'title' => 'Gagal !',
-					'message' => 'Data pengajar gagal diubah, silahkan coba kembali dalam beberapa menit !'
+					'message' => 'Data siswa gagal diubah, silahkan coba kembali dalam beberapa menit !'
 				);
 			}
 
@@ -371,19 +370,19 @@ class DataPengajar extends MY_Controller {
 	public function delete()
 	{
 		$user_id = $this->input->post('user_id');
-		$act = $this->PengajarModel->delete($user_id);
+		$act = $this->SiswaModel->delete($user_id);
 		if ($act) {
 			// $this->verified_code($data['email']);
 			$response = array(
 				'type' => 'success',
 				'title' => 'Berhasil !',
-				'message' => 'Data pengajar berhasil dihapus !'
+				'message' => 'Data siswa berhasil dihapus !'
 			);
 		} else {
 			$response = array(
 				'type' => 'error',
 				'title' => 'Gagal !',
-				'message' => 'Data pengajar gagal dihapus, silahkan coba kembali dalam beberapa menit !'
+				'message' => 'Data siswa gagal dihapus, silahkan coba kembali dalam beberapa menit !'
 			);
 		}
 

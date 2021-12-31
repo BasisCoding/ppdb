@@ -24,7 +24,7 @@
 
         var btn_act = '<button class="btn btn-primary" id="btn_add">Tambah Data</button>';
         $('.title-action').html(btn_act);
-        table = $('#table-pengajar').DataTable({
+        table = $('#table-siswa').DataTable({
             "pageLength": 25,
             "dom": '<"html5buttons"B>lTfgtp',
             "buttons": [{
@@ -55,7 +55,7 @@
             "scrollX": true,
             // "scrollY": "300px",
             "ajax": {
-                "url": "<?= base_url('data-pengajar/store')?>",
+                "url": "<?= base_url('data-siswa/store')?>",
                 "type": "POST"
             },
 
@@ -82,21 +82,21 @@
             $('[name="password"]').prop('readonly', false);
         });
 
-        $('#table-pengajar').on('click', '.btn-update', function(event) {
+        $('#table-siswa').on('click', '.btn-update', function(event) {
             event.preventDefault();
             $('#modal-update').modal('show');
 
             get($(this).attr('data-id'));
         });
 
-		$('#table-pengajar').on('click', '.btn-view', function(event) {
+		$('#table-siswa').on('click', '.btn-view', function(event) {
             event.preventDefault();
             $('#modal-view').modal('show');
 
             detail($(this).attr('data-id'));
         });
 
-        $('#table-pengajar').on('click', '.btn-delete', function(event) {
+        $('#table-siswa').on('click', '.btn-delete', function(event) {
             event.preventDefault();
             var id = $(this).attr('data-id');
             notification('warning', 'Apakah anda yakin ingin menghapus data ini ? <br>'+
@@ -146,7 +146,7 @@
 
         function send(formData, nameAction) {
             $.ajax({
-                url: '<?= base_url("data-pengajar/") ?>'+nameAction+'',
+                url: '<?= base_url("data-siswa/") ?>'+nameAction+'',
                 type: 'POST',
                 dataType: 'JSON',
                 data: formData,
@@ -208,7 +208,7 @@
 
 		function detail(id) {
             $.ajax({
-                url: '<?= base_url('data-pengajar/get/') ?>'+id,
+                url: '<?= base_url('data-siswa/get/') ?>'+id,
                 type: 'GET',
                 dataType: 'JSON',
                 success:function (response) {
@@ -235,7 +235,7 @@
 
         function get(id) {
             $.ajax({
-                url: '<?= base_url('data-pengajar/get/') ?>'+id,
+                url: '<?= base_url('data-siswa/get/') ?>'+id,
                 type: 'GET',
                 dataType: 'JSON',
                 success:function (response) {
