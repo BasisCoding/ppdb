@@ -8,7 +8,7 @@
 <script>
     var table;
     $(document).ready(function() {
-
+		getJurusan();
         $('.chosen-select').chosen({width: "100%"});
 
         // $('[name="jenis_pekerjaan"]').chosen({no_results_text: 'Save as New'});
@@ -71,6 +71,23 @@
         function reload_table() {
             table.ajax.reload(null, false);
         }
+
+		function getJurusan(){
+			var jurusan = $('.jurusan');
+            jurusan.empty();
+
+            $.getJSON('<?= base_url('data-jurusan/get') ?>', function(json, textStatus) {
+
+                $.each(json, function(i, jr) {
+                    var id = jr.id;
+                    var nama = jr.nama_jurusan;
+                    var slug = jr.slug_jurusan;
+                    jurusan.append('<option value="'+id+'">'+slug+' | '+nama+'</option>');
+                });
+
+                jurusan.trigger("chosen:updated");
+            });
+		}
 
     // BTN Action Modal
         $('body').on('click', '#btn_add', function(event) {
@@ -247,8 +264,7 @@
                     $('[name="nama_lengkap_update"]').val(response.nama_lengkap);
                     $('[name="tempat_lahir_update"]').val(response.tempat_lahir);
                     $('[name="tanggal_lahir_update"]').val(response.tanggal_lahir);
-                    $('[name="pekerjaan_update"]').val(response.pekerjaan_id).trigger('chosen:updated');
-                    $('[name="pendidikan_update"]').val(response.pendidikan).trigger('chosen:updated');
+                    $('[name="jurusan_update"]').val(response.jurusan_id).trigger('chosen:updated');
                     $('[name="jenis_kelamin_update"]').val(response.jenis_kelamin).trigger('chosen:updated');
                     $('[name="agama_update"]').val(response.agama).trigger('chosen:updated');
                     $('[name="status_update"]').val(response.status).trigger('chosen:updated');

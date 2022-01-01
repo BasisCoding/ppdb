@@ -88,3 +88,12 @@ $route['data-siswa'] = 'DataSiswa';
 	$route['data-siswa/create'] = 'DataSiswa/create';
 	$route['data-siswa/update'] = 'DataSiswa/update';
 	$route['data-siswa/delete'] = 'DataSiswa/delete';
+
+$route['data-jurusan'] = 'DataJurusan';
+	$route['data-jurusan/store'] = 'DataJurusan/store';
+	$route['data-jurusan/create'] = 'DataJurusan/create';
+	$route['data-jurusan/update'] = 'DataJurusan/update';
+	$route['data-jurusan/delete'] = 'DataJurusan/delete';
+	$route['data-jurusan/get'] 	= 'DataJurusan/show';
+
+

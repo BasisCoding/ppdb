@@ -2,20 +2,17 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class SiswaModel extends CI_Model {
+class JurusanModel extends CI_Model {
 	
-	var $column_order = array(null, 's.nama_lengkap', 's.nik', 's.jenis_kelamin', 'u.username', 'u.status'); 
-    var $column_search = array('s.nama_lengkap', 's.nik', 's.jenis_kelamin', 'u.username', 'u.status'); //field yang diizin untuk pencarian 
-    var $order = array('nama_lengkap' => 'asc'); // default order 
-    var $table = 'siswa';
+	var $column_order = array(null, 'j.nama_jurusan', 'j.slug_jurusan'); 
+    var $column_search = array('j.nama_jurusan', 'j.slug_jurusan'); //field yang diizin untuk pencarian 
+    var $order = array('j.nama_jurusan' => 'asc'); // default order 
+    var $table = 'jurusan';
 
 // Datatable
     private function _get_datatables_query()
     {
-        $this->db->select('s.*, u.username, u.email, u.status, u.foto, j.nama_jurusan as jurusan');
-    	$this->db->from($this->table.' as s');
-        $this->db->join('users as u', 'u.id = s.user_id', 'left');
-		$this->db->join('jurusan as j', 'j.id = s.jurusan_id', 'left');
+    	$this->db->from($this->table.' as j');
     	$i = 0;
 
         foreach ($this->column_search as $item) // looping awal
@@ -73,48 +70,33 @@ class SiswaModel extends CI_Model {
 
     function get($id)
     {
-        $this->db->select('u.username, u.email, u.foto, u.status, s.*');
-        $this->db->from($this->table.' as s');
-        $this->db->join('users as u', 'u.id = s.user_id', 'left');
-        $this->db->where('s.id', $id);
+        $this->db->from($this->table.' as j');
+        $this->db->where('p.id', $id);
         return $this->db->get();
     }
 
     function show($where = null)
     {
-        $this->db->select('u.username, u.email, u.foto, u.status, s.*');
-        $this->db->from($this->table.' as s');
-        $this->db->join('users as u', 'u.id = s.user_id', 'left');
+        $this->db->from($this->table.' as j');
         if ($where != null) {
             $this->db->where($where);
         }
         return $this->db->get();
     }
 
-    function create($users, $siswa)
+    function create($data)
     {
-        $user = $this->db->insert('users', $users);
-        if ($user) {
-            $siswa['user_id'] = $this->db->insert_id();
-            $insert = $this->db->insert($this->table, $siswa);
-        }
-
-        return true;
+        return $this->db->insert($this->table, $data);
     }
 
-    function update($data, $id, $users, $user_id)
+    function update($data, $id)
     {
-        if ($users!=null) {
-            $this->db->update('users', $users, array('id' => $user_id));
-        }
-        $this->db->update($this->table, $data, array('id' => $id));
-
-        return true;
+        return $this->db->update($this->table, $data, array('id' => $id));
     }
 
-    function delete($user_id)
+    function delete($id)
     {
-        return $this->db->delete('users', array('id' => $user_id));
+        return $this->db->delete($this->table, array('id' => $id));
     }
 
 }

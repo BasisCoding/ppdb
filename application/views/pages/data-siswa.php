@@ -13,6 +13,7 @@
                                     <th>Tempat Lahir</th>
                                     <th>Tanggal Lahir</th>
                                     <th>Agama</th>
+                                    <th>Jurusan</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Status</th>
                                 </tr>
@@ -81,7 +82,7 @@
 
 				<div class="row">
 					<div class="col-md">
-						<label for="">Pendidikan</label>
+						<label for="">Jurusan</label>
 						<span id="pendidikan_detail"></span>
 					</div>
 
@@ -207,19 +208,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Pendidikan</label>
-                                <select class="form-control chosen-select" name="pendidikan">
-                                    <option value="TIDAK / BELUM SEKOLAH">TIDAK / BELUM SEKOLAH</option>
-                                    <option value="BELUM TAMAT SD / SEDERAJAT">BELUM TAMAT SD / SEDERAJAT</option>
-                                    <option value="TAMAT SD / SEDERAJAT">TAMAT SD / SEDERAJAT</option>
-                                    <option value="SLTP / SEDERAJAT">SLTP / SEDERAJAT</option>
-                                    <option value="SLTA / SEDERAJAT">SLTA / SEDERAJAT</option>
-                                    <option value="DIPLOMA IV/ STRATA I">DIPLOMA IV/ STRATA I</option>
-                                    <option value="DIPLOMA I / II">DIPLOMA I / II</option>
-                                    <option value="AKADEMI/ DIPLOMA III/S. MUDA">AKADEMI/ DIPLOMA III/S. MUDA</option>
-                                    <option value="STRATA II">STRATA II</option>
-                                    <option value="STRATA III">STRATA III</option>
-                                </select>
+                                <label>Jurusan</label>
+                                <select class="form-control chosen-select jurusan" name="jurusan"></select>
                             </div>
                         </div>
 
@@ -350,21 +340,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+						<div class="col-md-6">
                             <div class="form-group">
-                                <label>Pendidikan</label>
-                                <select class="form-control chosen-select" name="pendidikan_update">
-                                    <option value="TIDAK / BELUM SEKOLAH">TIDAK / BELUM SEKOLAH</option>
-                                    <option value="BELUM TAMAT SD / SEDERAJAT">BELUM TAMAT SD / SEDERAJAT</option>
-                                    <option value="TAMAT SD / SEDERAJAT">TAMAT SD / SEDERAJAT</option>
-                                    <option value="SLTP / SEDERAJAT">SLTP / SEDERAJAT</option>
-                                    <option value="SLTA / SEDERAJAT">SLTA / SEDERAJAT</option>
-                                    <option value="DIPLOMA IV/ STRATA I">DIPLOMA IV/ STRATA I</option>
-                                    <option value="DIPLOMA I / II">DIPLOMA I / II</option>
-                                    <option value="AKADEMI/ DIPLOMA III/S. MUDA">AKADEMI/ DIPLOMA III/S. MUDA</option>
-                                    <option value="STRATA II">STRATA II</option>
-                                    <option value="STRATA III">STRATA III</option>
-                                </select>
+                                <label>Jurusan</label>
+                                <select class="form-control chosen-select jurusan" name="jurusan_update"></select>
                             </div>
                         </div>
 

@@ -73,6 +73,7 @@ class DataSiswa extends MY_Controller {
 			$row[] = $ls->tempat_lahir;
 			$row[] = date_indo($ls->tanggal_lahir);
 			$row[] = $ls->agama;
+			$row[] = $ls->jurusan;
 			$row[] = $ls->jenis_kelamin;
 			$row[] = $status;
 
@@ -191,17 +192,17 @@ class DataSiswa extends MY_Controller {
 
 			echo json_encode($data);
 		} else {
-			$users['username'] 				= $this->input->post('nik');
+			$users['username'] 				= str_replace("'", "", htmlspecialchars($this->input->post('nik'), ENT_QUOTES));
 			$users['password'] 				= password_hash(date('dmY', strtotime($this->input->post('tanggal_lahir'))), PASSWORD_DEFAULT);
-			$users['status']				= $this->input->post('status');
-			$users['email']					= $this->input->post('email');
-			$siswa['nama_lengkap']       = $this->input->post('nama_lengkap');
-			$siswa['nik']				= $this->input->post('nik');
-			$siswa['tempat_lahir']		= $this->input->post('tempat_lahir');
-			$siswa['tanggal_lahir']		= $this->input->post('tanggal_lahir');
-			$siswa['jenis_kelamin']		= $this->input->post('jenis_kelamin');
-			$siswa['pendidikan']			= $this->input->post('pendidikan');
-			$siswa['agama']				= $this->input->post('agama');
+			$users['status']				= str_replace("'", "", htmlspecialchars($this->input->post('status'), ENT_QUOTES));
+			$users['email']					= str_replace("'", "", htmlspecialchars($this->input->post('email'), ENT_QUOTES));
+			$siswa['nama_lengkap']       = str_replace("'", "", htmlspecialchars($this->input->post('nama_lengkap'), ENT_QUOTES));
+			$siswa['nik']				= str_replace("'", "", htmlspecialchars($this->input->post('nik'), ENT_QUOTES));
+			$siswa['tempat_lahir']		= str_replace("'", "", htmlspecialchars($this->input->post('tempat_lahir'), ENT_QUOTES));
+			$siswa['tanggal_lahir']		= str_replace("'", "", htmlspecialchars($this->input->post('tanggal_lahir'), ENT_QUOTES));
+			$siswa['jenis_kelamin']		= str_replace("'", "", htmlspecialchars($this->input->post('jenis_kelamin'), ENT_QUOTES));
+			$siswa['jurusan_id']			= str_replace("'", "", htmlspecialchars($this->input->post('jurusan'), ENT_QUOTES));
+			$siswa['agama']				= str_replace("'", "", htmlspecialchars($this->input->post('agama'), ENT_QUOTES));
 
 			if (!empty($this->input->post('username'))) {
 				$users['username']		= $this->input->post('username');
@@ -211,7 +212,7 @@ class DataSiswa extends MY_Controller {
 				$users['password']		= password_hash(date('dmY', strtotime($this->input->post('password'))), PASSWORD_DEFAULT);
 			}
 			
-			$users['group_id']		= 5;
+			$users['group_id']		= 6;
 
 			$act = $this->SiswaModel->create($users, $siswa);
 			// echo $this->db->last_query($act);
@@ -236,7 +237,7 @@ class DataSiswa extends MY_Controller {
 	
 	public function show($id)
 	{
-		$get = $this->SiswaModel->get($id);
+		$get = $this->SiswaModel->get(str_replace("'", "", htmlspecialchars($id, ENT_QUOTES)));
 		// echo $this->db->last_query($get);
 		if ($get->num_rows() > 0) {
 			$response = $get->row();
@@ -328,23 +329,23 @@ class DataSiswa extends MY_Controller {
 		} else {
 			$users['username'] = null;
 			$user_id = null;
-			$users['status']			= $this->input->post('status_update'); // Tidak Usah Menggunakan Update Status
-			$id       					= $this->input->post('id');
-			$data['nama_lengkap']       = $this->input->post('nama_lengkap_update');
-			$data['tempat_lahir']		= $this->input->post('tempat_lahir_update');
-			$data['tanggal_lahir']		= $this->input->post('tanggal_lahir_update');
-			$data['jenis_kelamin']		= $this->input->post('jenis_kelamin_update');
-			$data['agama']				= $this->input->post('agama_update');
-			$data['pendidikan']			= $this->input->post('pendidikan_update');
+			$users['status']			= str_replace("'", "", htmlspecialchars($this->input->post('status_update'), ENT_QUOTES)); // Tidak Usah Menggunakan Update Status
+			$id       					= str_replace("'", "", htmlspecialchars($this->input->post('id'), ENT_QUOTES));
+			$data['nama_lengkap']       = str_replace("'", "", htmlspecialchars($this->input->post('nama_lengkap_update'), ENT_QUOTES));
+			$data['tempat_lahir']		= str_replace("'", "", htmlspecialchars($this->input->post('tempat_lahir_update'), ENT_QUOTES));
+			$data['tanggal_lahir']		= str_replace("'", "", htmlspecialchars($this->input->post('tanggal_lahir_update'), ENT_QUOTES));
+			$data['jenis_kelamin']		= str_replace("'", "", htmlspecialchars($this->input->post('jenis_kelamin_update'), ENT_QUOTES));
+			$data['agama']				= str_replace("'", "", htmlspecialchars($this->input->post('agama_update'), ENT_QUOTES));
+			$data['jurusan_id']			= str_replace("'", "", htmlspecialchars($this->input->post('jurusan_update'), ENT_QUOTES));
 			$data['update_at']			= date('Y-m-d H:i:s');
 
 			if (!$this->input->post('username_lama')) {
-				$user_id       			= $this->input->post('user_id');
-				$users['username']		= $this->input->post('username_update');
+				$user_id       			= str_replace("'", "", htmlspecialchars($this->input->post('user_id'), ENT_QUOTES));
+				$users['username']		= str_replace("'", "", htmlspecialchars($this->input->post('username_update'), ENT_QUOTES));
 			}
 
 			if (!$this->input->post('nik_lama')) {
-				$data['nik']		= $this->input->post('nik_update');
+				$data['nik']		= str_replace("'", "", htmlspecialchars($this->input->post('nik_update'), ENT_QUOTES));
 			}
 
 			$act = $this->SiswaModel->update($data, $id, $users, $user_id);
@@ -370,7 +371,7 @@ class DataSiswa extends MY_Controller {
 
 	public function delete()
 	{
-		$user_id = $this->input->post('user_id');
+		$user_id = str_replace("'", "", htmlspecialchars($this->input->post('user_id'), ENT_QUOTES));
 		$act = $this->SiswaModel->delete($user_id);
 		if ($act) {
 			// $this->verified_code($data['email']);
