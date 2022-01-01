@@ -327,10 +327,12 @@ class DataSiswa extends MY_Controller {
 
 			echo json_encode($data);
 		} else {
-			$users['username'] = null;
-			$user_id = null;
-			$users['status']			= str_replace("'", "", htmlspecialchars($this->input->post('status_update'), ENT_QUOTES)); // Tidak Usah Menggunakan Update Status
 			$id       					= str_replace("'", "", htmlspecialchars($this->input->post('id'), ENT_QUOTES));
+			$user_id       				= str_replace("'", "", htmlspecialchars($this->input->post('user_id'), ENT_QUOTES));
+
+			$users['username'] = null;
+			$users['status']			= str_replace("'", "", htmlspecialchars($this->input->post('status_update'), ENT_QUOTES)); // Tidak Usah Menggunakan Update Status
+			$users['email']				= str_replace("'", "", htmlspecialchars($this->input->post('email_update'), ENT_QUOTES)); // Tidak Usah Menggunakan Update Status
 			$data['nama_lengkap']       = str_replace("'", "", htmlspecialchars($this->input->post('nama_lengkap_update'), ENT_QUOTES));
 			$data['tempat_lahir']		= str_replace("'", "", htmlspecialchars($this->input->post('tempat_lahir_update'), ENT_QUOTES));
 			$data['tanggal_lahir']		= str_replace("'", "", htmlspecialchars($this->input->post('tanggal_lahir_update'), ENT_QUOTES));
@@ -340,11 +342,14 @@ class DataSiswa extends MY_Controller {
 			$data['update_at']			= date('Y-m-d H:i:s');
 
 			if (!$this->input->post('username_lama')) {
-				$user_id       			= str_replace("'", "", htmlspecialchars($this->input->post('user_id'), ENT_QUOTES));
+				$users['username']		= str_replace("'", "", htmlspecialchars($this->input->post('username_update'), ENT_QUOTES));
+			}else{
 				$users['username']		= str_replace("'", "", htmlspecialchars($this->input->post('username_update'), ENT_QUOTES));
 			}
 
 			if (!$this->input->post('nik_lama')) {
+				$data['nik']		= str_replace("'", "", htmlspecialchars($this->input->post('nik_update'), ENT_QUOTES));
+			}else{
 				$data['nik']		= str_replace("'", "", htmlspecialchars($this->input->post('nik_update'), ENT_QUOTES));
 			}
 

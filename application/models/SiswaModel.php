@@ -108,7 +108,6 @@ class SiswaModel extends CI_Model {
             $this->db->update('users', $users, array('id' => $user_id));
         }
         $this->db->update($this->table, $data, array('id' => $id));
-
         return true;
     }
 
