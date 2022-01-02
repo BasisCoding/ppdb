@@ -17,7 +17,7 @@ class DataPengajar extends MY_Controller {
 	
 	public function index()
 	{
-		$data['title'] = 'Data Penduduk';
+		$data['title'] = 'Data Pengajar';
 		$data['css'] = '
 		<link href="'. site_url('assets/css/plugins/chosen/bootstrap-chosen.css') .'" rel="stylesheet">
 		<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
@@ -191,17 +191,17 @@ class DataPengajar extends MY_Controller {
 
 			echo json_encode($data);
 		} else {
-			$users['username'] 				= $this->input->post('nik');
+			$users['username'] 				= str_replace("'", "", htmlspecialchars($this->input->post('nik'), ENT_QUOTES));
 			$users['password'] 				= password_hash(date('dmY', strtotime($this->input->post('tanggal_lahir'))), PASSWORD_DEFAULT);
-			$users['status']				= $this->input->post('status');
-			$users['email']					= $this->input->post('email');
-			$pengajar['nama_lengkap']       = $this->input->post('nama_lengkap');
-			$pengajar['nik']				= $this->input->post('nik');
-			$pengajar['tempat_lahir']		= $this->input->post('tempat_lahir');
-			$pengajar['tanggal_lahir']		= $this->input->post('tanggal_lahir');
-			$pengajar['jenis_kelamin']		= $this->input->post('jenis_kelamin');
-			$pengajar['pendidikan']			= $this->input->post('pendidikan');
-			$pengajar['agama']				= $this->input->post('agama');
+			$users['status']				= str_replace("'", "", htmlspecialchars($this->input->post('status'), ENT_QUOTES));
+			$users['email']					= str_replace("'", "", htmlspecialchars($this->input->post('email'), ENT_QUOTES));
+			$pengajar['nama_lengkap']       = str_replace("'", "", htmlspecialchars($this->input->post('nama_lengkap'), ENT_QUOTES));
+			$pengajar['nik']				= str_replace("'", "", htmlspecialchars($this->input->post('nik'), ENT_QUOTES));
+			$pengajar['tempat_lahir']		= str_replace("'", "", htmlspecialchars($this->input->post('tempat_lahir'), ENT_QUOTES));
+			$pengajar['tanggal_lahir']		= str_replace("'", "", htmlspecialchars($this->input->post('tanggal_lahir'), ENT_QUOTES));
+			$pengajar['jenis_kelamin']		= str_replace("'", "", htmlspecialchars($this->input->post('jenis_kelamin'), ENT_QUOTES));
+			$pengajar['pendidikan']			= str_replace("'", "", htmlspecialchars($this->input->post('pendidikan'), ENT_QUOTES));
+			$pengajar['agama']				= str_replace("'", "", htmlspecialchars($this->input->post('agama'), ENT_QUOTES));
 
 			if (!empty($this->input->post('username'))) {
 				$users['username']		= $this->input->post('username');
@@ -236,7 +236,7 @@ class DataPengajar extends MY_Controller {
 	
 	public function show($id)
 	{
-		$get = $this->PengajarModel->get($id);
+		$get = $this->PengajarModel->get(str_replace("'", "", htmlspecialchars($id, ENT_QUOTES)));
 		// echo $this->db->last_query($get);
 		if ($get->num_rows() > 0) {
 			$response = $get->row();
@@ -326,25 +326,29 @@ class DataPengajar extends MY_Controller {
 
 			echo json_encode($data);
 		} else {
+			$id       					= str_replace("'", "", htmlspecialchars($this->input->post('id'), ENT_QUOTES));
+			$user_id       				= str_replace("'", "", htmlspecialchars($this->input->post('user_id'), ENT_QUOTES));
+			
 			$users['username'] = null;
-			$user_id = null;
-			$users['status']			= $this->input->post('status_update'); // Tidak Usah Menggunakan Update Status
-			$id       					= $this->input->post('id');
-			$data['nama_lengkap']       = $this->input->post('nama_lengkap_update');
-			$data['tempat_lahir']		= $this->input->post('tempat_lahir_update');
-			$data['tanggal_lahir']		= $this->input->post('tanggal_lahir_update');
-			$data['jenis_kelamin']		= $this->input->post('jenis_kelamin_update');
-			$data['agama']				= $this->input->post('agama_update');
-			$data['pendidikan']			= $this->input->post('pendidikan_update');
+			$users['status']			= str_replace("'", "", htmlspecialchars($this->input->post('status_update'), ENT_QUOTES)); // Tidak Usah Menggunakan Update Status
+			$data['nama_lengkap']       = str_replace("'", "", htmlspecialchars($this->input->post('nama_lengkap_update'), ENT_QUOTES));
+			$data['tempat_lahir']		= str_replace("'", "", htmlspecialchars($this->input->post('tempat_lahir_update'), ENT_QUOTES));
+			$data['tanggal_lahir']		= str_replace("'", "", htmlspecialchars($this->input->post('tanggal_lahir_update'), ENT_QUOTES));
+			$data['jenis_kelamin']		= str_replace("'", "", htmlspecialchars($this->input->post('jenis_kelamin_update'), ENT_QUOTES));
+			$data['agama']				= str_replace("'", "", htmlspecialchars($this->input->post('agama_update'), ENT_QUOTES));
+			$data['pendidikan']			= str_replace("'", "", htmlspecialchars($this->input->post('pendidikan_update'), ENT_QUOTES));
 			$data['update_at']			= date('Y-m-d H:i:s');
 
 			if (!$this->input->post('username_lama')) {
-				$user_id       			= $this->input->post('user_id');
-				$users['username']		= $this->input->post('username_update');
+				$users['username']		= str_replace("'", "", htmlspecialchars($this->input->post('username_update'), ENT_QUOTES));
+			}else{
+				$users['username']		= str_replace("'", "", htmlspecialchars($this->input->post('username_update'), ENT_QUOTES));
 			}
 
 			if (!$this->input->post('nik_lama')) {
-				$data['nik']		= $this->input->post('nik_update');
+				$data['nik']		= str_replace("'", "", htmlspecialchars($this->input->post('nik_update'), ENT_QUOTES));
+			}else{
+				$data['nik']		= str_replace("'", "", htmlspecialchars($this->input->post('nik_update'), ENT_QUOTES));
 			}
 
 			$act = $this->PengajarModel->update($data, $id, $users, $user_id);
@@ -370,7 +374,7 @@ class DataPengajar extends MY_Controller {
 
 	public function delete()
 	{
-		$user_id = $this->input->post('user_id');
+		$user_id = str_replace("'", "", htmlspecialchars($this->input->post('user_id'), ENT_QUOTES));
 		$act = $this->PengajarModel->delete($user_id);
 		if ($act) {
 			// $this->verified_code($data['email']);

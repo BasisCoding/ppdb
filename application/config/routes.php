@@ -96,4 +96,11 @@ $route['data-jurusan'] = 'DataJurusan';
 	$route['data-jurusan/delete'] = 'DataJurusan/delete';
 	$route['data-jurusan/get'] 	= 'DataJurusan/show';
 
+$route['data-eskul'] = 'DataEkstrakurikuler';
+	$route['data-eskul/store'] = 'DataEkstrakurikuler/store';
+	$route['data-eskul/create'] = 'DataEkstrakurikuler/create';
+	$route['data-eskul/update'] = 'DataEkstrakurikuler/update';
+	$route['data-eskul/delete'] = 'DataEkstrakurikuler/delete';
+	$route['data-eskul/get'] 	= 'DataEkstrakurikuler/show';
+	$route['data-eskul/get/(:num)'] = 'DataEkstrakurikuler/show/$1';
 
