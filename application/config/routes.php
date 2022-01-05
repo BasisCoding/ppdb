@@ -49,6 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+
 $route['default_controller'] = 'landing';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
@@ -73,7 +74,7 @@ $route['config'] = 'Configuration';
 	$route['config/store'] = 'Configuration/store';
 	$route['config/update'] = 'Configuration/update';
 
-// Master Data > Data Penduduk
+// Master Data > Data Pengajar
 
 $route['data-pengajar'] = 'DataPengajar';
 	$route['data-pengajar/store'] = 'DataPengajar/store';
@@ -82,12 +83,16 @@ $route['data-pengajar'] = 'DataPengajar';
 	$route['data-pengajar/update'] = 'DataPengajar/update';
 	$route['data-pengajar/delete'] = 'DataPengajar/delete';
 
+// Master Data > Data Siswa
+
 $route['data-siswa'] = 'DataSiswa';
 	$route['data-siswa/store'] = 'DataSiswa/store';
 	$route['data-siswa/get/(:num)'] = 'DataSiswa/show/$1';
 	$route['data-siswa/create'] = 'DataSiswa/create';
 	$route['data-siswa/update'] = 'DataSiswa/update';
 	$route['data-siswa/delete'] = 'DataSiswa/delete';
+
+// Master Data > Data Data Jurusan
 
 $route['data-jurusan'] = 'DataJurusan';
 	$route['data-jurusan/store'] = 'DataJurusan/store';
@@ -96,11 +101,31 @@ $route['data-jurusan'] = 'DataJurusan';
 	$route['data-jurusan/delete'] = 'DataJurusan/delete';
 	$route['data-jurusan/get'] 	= 'DataJurusan/show';
 
+// Master Data > Data Ekstrakurikuler
+
 $route['data-eskul'] = 'DataEkstrakurikuler';
-	$route['data-eskul/store'] = 'DataEkstrakurikuler/store';
+	$route['data-eskul/store'] 	= 'DataEkstrakurikuler/store';
 	$route['data-eskul/create'] = 'DataEkstrakurikuler/create';
 	$route['data-eskul/update'] = 'DataEkstrakurikuler/update';
 	$route['data-eskul/delete'] = 'DataEkstrakurikuler/delete';
 	$route['data-eskul/get'] 	= 'DataEkstrakurikuler/show';
 	$route['data-eskul/get/(:num)'] = 'DataEkstrakurikuler/show/$1';
+
+// PPDB > Data Tahun Ajaran
+
+$route['tahun-ajaran'] = 'TahunAjaran';
+	$route['tahun-ajaran/store'] 	= 'TahunAjaran/store';
+	$route['tahun-ajaran/create'] = 'TahunAjaran/create';
+	$route['tahun-ajaran/update'] = 'TahunAjaran/update';
+	$route['tahun-ajaran/delete'] = 'TahunAjaran/delete';
+	$route['tahun-ajaran/get'] 	= 'TahunAjaran/show';
+
+// PPDB > Data Gelombang
+
+$route['gelombang'] = 'Gelombang';
+	$route['gelombang/store'] 	= 'Gelombang/store';
+	$route['gelombang/create'] = 'Gelombang/create';
+	$route['gelombang/update'] = 'Gelombang/update';
+	$route['gelombang/delete'] = 'Gelombang/delete';
+	$route['gelombang/get'] 	= 'Gelombang/show';
 

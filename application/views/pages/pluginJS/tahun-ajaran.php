@@ -3,18 +3,12 @@
 <!-- Input Mask-->
 <script src="<?= site_url('assets/js/plugins/jasny/jasny-bootstrap.min.js') ?>"></script>
 <script src="<?= site_url('assets/js/plugins/chosen/chosen.jquery.js') ?>"></script>
-<!-- <script src="<?= site_url('assets/js/plugins/summernote/summernote-bs4.js') ?>"></script> -->
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <!-- <script src="https://cdn.datatables.net/scroller/2.0.5/js/dataTables.scroller.min.js"></script> -->
 <!-- Page-Level Scripts -->
 <script>
     var table;
     $(document).ready(function() {
-		$('.deskripsi').summernote({
-			// codeviewFilter: false,
-  			// codeviewIframeFilter: true
-		});
         $('.chosen-select').chosen({width: "100%"});
 
         // $('[name="jenis_pekerjaan"]').chosen({no_results_text: 'Save as New'});
@@ -30,7 +24,7 @@
 
         var btn_act = '<button class="btn btn-primary" id="btn_add">Tambah Data</button>';
         $('.title-action').html(btn_act);
-        table = $('#table-eskul').DataTable({
+        table = $('#table-tahun').DataTable({
             "pageLength": 25,
             "dom": '<"html5buttons"B>lTfgtp',
             "buttons": [{
@@ -68,7 +62,7 @@
 				}
 			],
             "ajax": {
-                "url": "<?= base_url('data-eskul/store')?>",
+                "url": "<?= base_url('tahun-ajaran/store')?>",
                 "type": "POST"
             },
 
@@ -91,21 +85,19 @@
             $('#modal-create').modal('show');
         });
 
-        $('#table-eskul').on('click', '.btn-update', function(event) {
-            event.preventDefault();
-            $('#modal-update').modal('show');
-
-            get($(this).attr('data-id'));
+        $('#table-tahun').on('click', '.btn-update', function(event) {
+			event.preventDefault();
+            var id = $(this).attr('data-id');
+            var tahun = $(this).attr('data-tahun');
+            var status = $(this).attr('data-status');
+			
+			$('[name="id_update"]').val(id);
+			$('[name="tahun_update"]').val(tahun);
+			$('[name="status_update"]').val(status).trigger('chosen:updated');
+			$('#modal-update').modal('show');
         });
 
-		$('#table-eskul').on('click', '.btn-view', function(event) {
-            event.preventDefault();
-            $('#modal-view').modal('show');
-
-            detail($(this).attr('data-id'));
-        });
-
-        $('#table-eskul').on('click', '.btn-delete', function(event) {
+        $('#table-tahun').on('click', '.btn-delete', function(event) {
             event.preventDefault();
             var id = $(this).attr('data-id');
             notification('warning', 'Apakah anda yakin ingin menghapus data ini ? <br>'+
@@ -116,22 +108,9 @@
                 '</form>');
         });
 
-		$('.nama_eskul').on('keyup', function () {
-			$('.slug_eskul').val(convertToSlug($(this).val()));
-		});
-
-		function convertToSlug(Text)
-		{
-			return Text
-				.toLowerCase()
-				.replace(/[^\w ]+/g,'')
-				.replace(/ +/g,'-')
-				;
-		}
-
         function send(formData, nameAction) {
             $.ajax({
-                url: '<?= base_url("data-eskul/") ?>'+nameAction+'',
+                url: '<?= base_url("tahun-ajaran/") ?>'+nameAction+'',
                 type: 'POST',
                 dataType: 'JSON',
                 data: formData,
@@ -143,20 +122,12 @@
                 // },
                 success:function (response) {
                     if (response.type == 'val_error') {
-                        if (response.nama_jurusan_update) {
-                            notification('error', response.nama_jurusan_update);
+                        if (response.tahun_update) {
+                            notification('error', response.tahun_update);
                         }
 
-                        if (response.slug_jurusan_update) {
-                            notification('error', response.slug_jurusan_update);
-                        }
-
-						if (response.nama_jurusan) {
-                            notification('error', response.nama_jurusan);
-                        }
-
-                        if (response.slug_jurusan) {
-                            notification('error', response.slug_jurusan);
+						if (response.tahun) {
+                            notification('error', response.tahun);
                         }
                         
                     } else {
@@ -171,41 +142,6 @@
                 }
             });
         }
-
-		function detail(id) {
-            $.ajax({
-                url: '<?= base_url('data-eskul/get/') ?>'+id,
-                type: 'GET',
-                dataType: 'JSON',
-                success:function (response) {
-					$('#nama_eskul_detail').html(response.nama_eskul);
-					$('#slug_eskul_detail').html(response.slug_eskul);
-					$('#deskripsi_detail').html(response.deskripsi);
-                }
-            });
-            
-            return false;
-        }
-
-        function get(id) {
-            $.ajax({
-                url: '<?= base_url('data-eskul/get/') ?>'+id,
-                type: 'GET',
-                dataType: 'JSON',
-                success:function (response) {
-                    $('[name="id_update"]').val(response.id);
-                    $('[name="nama_eskul_update"]').val(response.nama_eskul);
-                    $('[name="slug_eskul_update"]').val(response.slug_eskul);
-					
-					$('.deskripsi').summernote('destroy');
-                    $('[name="deskripsi_update"]').summernote('code', $.parseHTML(response.deskripsi)[0].data);
-                    // $('[name="deskripsi_update"]').summernote('pasteHTML', $.parseHTML(response.deskripsi));
-                }
-            });
-            
-            return false;
-        }
-
 
     // Submit Form Tambah Jurusan
         $(document).on('submit', '#form-create', function() {

@@ -1,5 +1,5 @@
 <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
+    <div class="col-sm-8">
         <h2><?= $title ?></h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -10,7 +10,7 @@
             </li>
         </ol>
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-4">
         <div class="title-action">
 
         </div>

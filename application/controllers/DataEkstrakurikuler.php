@@ -22,7 +22,7 @@ class DataEkstrakurikuler extends MY_Controller {
 		<link href="'. site_url('assets/css/plugins/chosen/bootstrap-chosen.css') .'" rel="stylesheet">
 		<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
 		<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"/>
-		<link href="'. site_url('assets/css/plugins/summernote/summernote-bs4.css') .'" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 		<link href="'. site_url('assets/css/plugins/dataTables/datatables.min.css') .'" rel="stylesheet">
 		<link href="'. site_url('assets/css/plugins/jasny/jasny-bootstrap.min.css') .'" rel="stylesheet">
 		';
@@ -202,7 +202,7 @@ class DataEkstrakurikuler extends MY_Controller {
 
 				'field' => 'deskripsi_update',
 				'label' => 'Deskripsi',
-				'rules' => 'required',
+				'rules' => 'required|xss_clean',
 				'errors' => array(
 					'required' => 'Deskripsi Wajib diisi',
 				),
@@ -251,7 +251,7 @@ class DataEkstrakurikuler extends MY_Controller {
 
 	public function delete()
 	{
-		$id = str_replace("'", "", htmlspecialchars($this->input->post('id'), ENT_QUOTES));
+		$id = str_replace("'", "", htmlspecialchars($this->input->post('id_delete'), ENT_QUOTES));
 		$act = $this->EkstrakurikulerModel->delete($id);
 		if ($act) {
 			// $this->verified_code($data['email']);
