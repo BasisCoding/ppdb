@@ -129,3 +129,16 @@ $route['gelombang'] = 'Gelombang';
 	$route['gelombang/delete'] = 'Gelombang/delete';
 	$route['gelombang/get'] 	= 'Gelombang/show';
 
+// PPDB > Data Persyaratan
+
+$route['persyaratan'] = 'Persyaratan';
+	$route['persyaratan/get'] = 'Persyaratan/get';
+	$route['persyaratan/update'] = 'Persyaratan/update';
+
+// PPDB > Data Tahapan
+
+$route['tahapan'] = 'Tahapan';
+	$route['tahapan/store'] = 'Tahapan/store';
+	$route['tahapan/update'] = 'Tahapan/update';
+	$route['tahapan/create'] = 'Tahapan/create';
+	$route['tahapan/delete'] = 'Tahapan/delete';
