@@ -142,3 +142,4 @@ $route['tahapan'] = 'Tahapan';
 	$route['tahapan/update'] = 'Tahapan/update';
 	$route['tahapan/create'] = 'Tahapan/create';
 	$route['tahapan/delete'] = 'Tahapan/delete';
+	$route['tahapan/get/(:num)'] = 'Tahapan/show/$1';

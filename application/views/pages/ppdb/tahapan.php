@@ -68,25 +68,16 @@
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group">
-                                <label>Nama Gelombang</label>
-								<input type="text" class="form-control" name="nama_gelombang_update" placeholder="">
+                                <label>Judul Tahapan</label>
+								<input type="text" class="form-control" name="judul_update" placeholder="">
                             </div>
                         </div>
+
                     </div>
 
 					<div class="row">
 						<div class="col-md">
-							<div class="form-group">
-								<label>Tanggal Mulai</label>
-								<input type="date" class="form-control" name="start_date_update">
-							</div>
-						</div>
-
-						<div class="col-md">
-							<div class="form-group">
-								<label>Tanggal Selesai</label>
-								<input type="date" class="form-control" name="end_date_update">
-							</div>
+							<textarea name="deskripsi_update" id="deskripsi" class="deskripsi"></textarea>
 						</div>
 					</div>
                 </form>

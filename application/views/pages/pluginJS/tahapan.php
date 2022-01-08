@@ -20,11 +20,7 @@
 		$("#list-tahapan").sortable({
 			connectWith: ".connectList",
 			update: function( event, ui ) {
-
-				var todo = $( "#todo" ).sortable( "toArray" );
-				var inprogress = $( "#inprogress" ).sortable( "toArray" );
-				var completed = $( "#completed" ).sortable( "toArray" );
-				$('.output').html("ToDo: " + window.JSON.stringify(todo) + "<br/>" + "In Progress: " + window.JSON.stringify(inprogress) + "<br/>" + "Completed: " + window.JSON.stringify(completed));
+				
 			}
 		}).disableSelection();
 
@@ -52,21 +48,14 @@
 			$('[name="tahun_ajaran_id"]').val($('#_tahun').attr('data-tahun'));
         });
 
-        $('#table-gelombang').on('click', '.btn-update', function(event) {
-			event.preventDefault();
-            var id = $(this).attr('data-id');
-            var nama = $(this).attr('data-nama');
-            var start_date = $(this).attr('data-start');
-            var end_date = $(this).attr('data-end');
-			
-			$('[name="id_update"]').val(id);
-			$('[name="nama_gelombang_update"]').val(nama);
-			$('[name="start_date_update"]').val(start_date);
-			$('[name="end_date_update"]').val(end_date);
-			$('#modal-update').modal('show');
+        $('#list-tahapan').on('click', '.btn-update', function(event) {
+            event.preventDefault();
+            $('#modal-update').modal('show');
+
+            getID($(this).attr('data-id'));
         });
 
-        $('#table-gelombang').on('click', '.btn-delete', function(event) {
+        $('#list-tahapan').on('click', '.btn-delete', function(event) {
             event.preventDefault();
             var id = $(this).attr('data-id');
             notification('warning', 'Apakah anda yakin ingin menghapus data ini ? <br>'+
@@ -114,6 +103,24 @@
                     // $("#btn-"+nameAction).prop('disabled', false);
                 }
             });
+        }
+
+		function getID(id) {
+            $.ajax({
+                url: '<?= base_url('tahapan/get/') ?>'+id,
+                type: 'GET',
+                dataType: 'JSON',
+                success:function (response) {
+                    $('[name="id_update"]').val(response.id);
+                    $('[name="judul_update"]').val(response.judul);
+
+					$('.deskripsi').summernote('destroy');
+                    $('[name="deskripsi_update"]').summernote('code', $.parseHTML(response.deskripsi)[0].data);
+                    // $('[name="deskripsi_update"]').summernote('pasteHTML', $.parseHTML(response.deskripsi));
+                }
+            });
+            
+            return false;
         }
 
     // Submit Form Tambah Jurusan

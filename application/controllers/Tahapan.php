@@ -36,7 +36,9 @@ class Tahapan extends MY_Controller {
 
 	public function store()
 	{
-		$list = $this->TahapanModel->get();
+		$tahun = $this->TahunAjaranModel->show(array('t.status' => 1))->row();
+
+		$list = $this->TahapanModel->get($tahun->id);
 		$data = '';
 
 		if ($list->num_rows() > 0) {
@@ -49,8 +51,9 @@ class Tahapan extends MY_Controller {
 						<h3>'.$ls->judul.'</h3><br>
 						<p>'.$ls->deskripsi.'</p>
 						<div class="agile-detail">
-							<a href="#" class="float-right btn btn-xs btn-white">Mark</a>
-							<i class="fa fa-clock-o"></i> 16.11.2015
+							<a href="#" data-id="'.$ls->id.'" class="float-right btn btn-xs btn-delete btn-danger"><span class="fa fa-trash"></span></a>
+							<a href="#" data-id="'.$ls->id.'" class="float-right btn btn-xs btn-update btn-warning mr-2"><span class="fa fa-pencil"></span></a>
+							<i class="fa fa-clock-o"></i> '.$ls->created_at.'
 						</div>
 					</li>
 	
@@ -148,7 +151,8 @@ class Tahapan extends MY_Controller {
 	
 	public function show($id)
 	{
-		$get = $this->TahapanModel->get(str_replace("'", "", htmlspecialchars($id, ENT_QUOTES)));
+		$where['id'] = str_replace("'", "", htmlspecialchars($id, ENT_QUOTES));
+		$get = $this->TahapanModel->show($where);
 		// echo $this->db->last_query($get);
 		if ($get->num_rows() > 0) {
 			$response = $get->row();
@@ -169,22 +173,11 @@ class Tahapan extends MY_Controller {
 
 			array(
 
-				'field' => 'nama_eskul_update',
+				'field' => 'judul_update',
 				'label' => 'Nama tahapan',
 				'rules' => 'required|xss_clean',
 				'errors' => array(
-					'required' => 'Nama tahapan Wajib diisi',
-				),
-
-			),
-
-			array(
-
-				'field' => 'slug_eskul_update',
-				'label' => 'Slug tahapan',
-				'rules' => 'required|xss_clean',
-				'errors' => array(
-					'required' => 'Slug tahapan Wajib diisi',
+					'required' => 'Judul Wajib diisi',
 				),
 
 			),
@@ -206,18 +199,16 @@ class Tahapan extends MY_Controller {
 
 			$data = [
 				'type'              => 'val_error',
-				'nama_eskul'      	=> form_error('nama_eskul_update', '<h4>', '</h4>'),
+				'judul'      		=> form_error('judul_update', '<h4>', '</h4>'),
 				'deskripsi'         => form_error('deskripsi_update', '<h4>', '</h4>'),
-				'slug_eskul'        => form_error('slug_eskul_update', '<h4>', '</h4>'),
 			];
 
 			echo json_encode($data);
 		} else {
 			$id       					= str_replace("'", "", htmlspecialchars($this->input->post('id_update'), ENT_QUOTES));
 
-			$data['nama_eskul']     = str_replace("'", "", htmlspecialchars($this->input->post('nama_eskul_update'), ENT_QUOTES));
+			$data['judul']     		= str_replace("'", "", htmlspecialchars($this->input->post('judul_update'), ENT_QUOTES));
 			$data['deskripsi']		= str_replace("'", "", htmlspecialchars($this->input->post('deskripsi_update'), ENT_QUOTES));
-			$data['slug_eskul']		= str_replace("'", "", htmlspecialchars($this->input->post('slug_eskul_update'), ENT_QUOTES));
 			
 			$act = $this->TahapanModel->update($data, $id);
 			// echo $this->db->last_query($act);

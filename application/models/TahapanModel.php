@@ -5,14 +5,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class TahapanModel extends CI_Model {
 	private $table = 'tahapan';
 
-	function get()
+	function get($tahun)
     {
+		$this->db->order_by('sequence');
+		$this->db->where('tahun_ajaran_id', $tahun);
         return $this->db->get($this->table);
     }
 
     function show($where = null)
     {
-        $this->db->from($this->table.'as t');
+        $this->db->from($this->table.' as t');
         if ($where != null) {
             $this->db->where($where);
         }
