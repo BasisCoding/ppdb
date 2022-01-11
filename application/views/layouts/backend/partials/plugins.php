@@ -6,12 +6,6 @@
 <script src="<?= site_url('assets/js/plugins/metisMenu/jquery.metisMenu.js') ?>"></script>
 <script src="<?= site_url('assets/js/plugins/slimscroll/jquery.slimscroll.min.js') ?>"></script>
 
-<!-- jquery UI -->
-<script src="<?= site_url('assets/js/plugins/jquery-ui/jquery-ui.min.js') ?>"></script>
-
-<!-- Touch Punch - Touch Event Support for jQuery UI -->
-<script src="<?= site_url('assets/js/plugins/touchpunch/jquery.ui.touch-punch.min.js') ?>"></script>
-
 <!-- Custom and plugin javascript -->
 <script src="<?= site_url('assets/js/inspinia.js') ?>"></script>
 <script src="<?= site_url('assets/js/plugins/pace/pace.min.js') ?>"></script>

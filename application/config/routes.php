@@ -111,7 +111,7 @@ $route['data-eskul'] = 'DataEkstrakurikuler';
 	$route['data-eskul/get'] 	= 'DataEkstrakurikuler/show';
 	$route['data-eskul/get/(:num)'] = 'DataEkstrakurikuler/show/$1';
 
-// PPDB > Data Tahun Ajaran
+// Konfigurasi PPDB > Data Tahun Ajaran
 
 $route['tahun-ajaran'] = 'TahunAjaran';
 	$route['tahun-ajaran/store'] 	= 'TahunAjaran/store';
@@ -120,7 +120,7 @@ $route['tahun-ajaran'] = 'TahunAjaran';
 	$route['tahun-ajaran/delete'] = 'TahunAjaran/delete';
 	$route['tahun-ajaran/get'] 	= 'TahunAjaran/show';
 
-// PPDB > Data Gelombang
+// Konfigurasi PPDB > Data Gelombang
 
 $route['gelombang'] = 'Gelombang';
 	$route['gelombang/store'] 	= 'Gelombang/store';
@@ -129,13 +129,13 @@ $route['gelombang'] = 'Gelombang';
 	$route['gelombang/delete'] = 'Gelombang/delete';
 	$route['gelombang/get'] 	= 'Gelombang/show';
 
-// PPDB > Data Persyaratan
+// Konfigurasi PPDB > Data Persyaratan
 
 $route['persyaratan'] = 'Persyaratan';
 	$route['persyaratan/get'] = 'Persyaratan/get';
 	$route['persyaratan/update'] = 'Persyaratan/update';
 
-// PPDB > Data Tahapan
+// Konfigurasi PPDB > Data Tahapan
 
 $route['tahapan'] = 'Tahapan';
 	$route['tahapan/store'] = 'Tahapan/store';
@@ -143,3 +143,13 @@ $route['tahapan'] = 'Tahapan';
 	$route['tahapan/create'] = 'Tahapan/create';
 	$route['tahapan/delete'] = 'Tahapan/delete';
 	$route['tahapan/get/(:num)'] = 'Tahapan/show/$1';
+
+
+// PPDB > Data Pendaftar
+
+$route['data-pendaftar'] = 'DataPendaftar';
+	$route['data-pendaftar/store'] = 'DataPendaftar/store';
+	$route['data-pendaftar/get/(:num)'] = 'DataPendaftar/show/$1';
+	$route['data-pendaftar/create'] = 'DataPendaftar/create';
+	$route['data-pendaftar/update'] = 'DataPendaftar/update';
+	$route['data-pendaftar/delete'] = 'DataPendaftar/delete';

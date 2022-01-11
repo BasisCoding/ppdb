@@ -26,13 +26,6 @@
 								<input type="text" class="form-control" name="judul" placeholder="">
                             </div>
                         </div>
-
-						<div class="col-md">
-							<div class="form-group">
-								<label for="">Urutan Ke</label>
-								<input type="number" class="form-control" name="sequence" min="1">
-							</div>
-						</div>
                     </div>
 
 					<div class="row">
@@ -72,7 +65,6 @@
 								<input type="text" class="form-control" name="judul_update" placeholder="">
                             </div>
                         </div>
-
                     </div>
 
 					<div class="row">

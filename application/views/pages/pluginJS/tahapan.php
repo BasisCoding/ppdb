@@ -1,28 +1,20 @@
 
-<!-- Touch Punch - Touch Event Support for jQuery UI -->
-<script src="<?= site_url('assets/js/plugins/touchpunch/jquery.ui.touch-punch.min.js') ?>"></script>
+<!-- SUMMERNOTE -->
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
-<!-- <script src="https://cdn.datatables.net/scroller/2.0.5/js/dataTables.scroller.min.js"></script> -->
 <!-- Page-Level Scripts -->
 <script>
     $(document).ready(function() {
 
+		get();
 		var btn_act = '<button class="btn btn-primary" id="btn_add">Tambah Data</button>';
         $('.title-action').html(btn_act);
 
-		get();
 		$('.deskripsi').summernote({
+			// tooltip: false,
 			// codeviewFilter: false,
   			// codeviewIframeFilter: true
 		});
-
-		$("#list-tahapan").sortable({
-			connectWith: ".connectList",
-			update: function( event, ui ) {
-				
-			}
-		}).disableSelection();
 
         function get() {
 			var sect = $('#list-tahapan');

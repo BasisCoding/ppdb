@@ -46,7 +46,7 @@ class Login extends CI_Controller {
 		$row = $this->AuthModel->login($username_email)->row();
 
 		if ($row) {
-			if ($row->status == 1) {
+			if ($row->status != 0) {
 				if (password_verify($password, $row->password)) {
 					
 					if ($remember) {

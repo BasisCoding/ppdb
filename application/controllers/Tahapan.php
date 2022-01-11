@@ -44,19 +44,17 @@ class Tahapan extends MY_Controller {
 		if ($list->num_rows() > 0) {
 		
 			foreach ($list->result() as $ls) {
-	
+
 				$data .= '
-	
 					<li class="info-element" id="'.$ls->id.'">
 						<h3>'.$ls->judul.'</h3><br>
-						<p>'.$ls->deskripsi.'</p>
+						<p>'.html_entity_decode($ls->deskripsi).'</p>
 						<div class="agile-detail">
 							<a href="#" data-id="'.$ls->id.'" class="float-right btn btn-xs btn-delete btn-danger"><span class="fa fa-trash"></span></a>
 							<a href="#" data-id="'.$ls->id.'" class="float-right btn btn-xs btn-update btn-warning mr-2"><span class="fa fa-pencil"></span></a>
 							<i class="fa fa-clock-o"></i> '.$ls->created_at.'
 						</div>
 					</li>
-	
 				';
 			}
 		}else{
@@ -84,19 +82,7 @@ class Tahapan extends MY_Controller {
 				),
 
 			),
-
-			array(
-
-				'field' => 'sequence',
-				'label' => 'Urutan',
-				'rules' => 'required|xss_clean|is_unique[tahapan.sequence]',
-				'errors' => array(
-					'required' => 'Judul Tahapan Wajib diisi',
-					'is_unique' => 'Urutan tidak boleh sama'
-				),
-
-			),
-
+	
 			array(
 
 				'field' => 'deskripsi',
@@ -117,7 +103,6 @@ class Tahapan extends MY_Controller {
 			$data = [
 				'type'              => 'val_error',
 				'judul'      		=> form_error('judul', '<h4>', '</h4>'),
-				'sequence'         => form_error('sequence', '<h4>', '</h4>'),
 				'deskripsi'         => form_error('deskripsi', '<h4>', '</h4>'),
 			];
 
@@ -125,7 +110,6 @@ class Tahapan extends MY_Controller {
 		} else {
 			$data['judul']     		= str_replace("'", "", htmlspecialchars($this->input->post('judul'), ENT_QUOTES));
 			$data['deskripsi']		= str_replace("'", "", htmlspecialchars($this->input->post('deskripsi'), ENT_QUOTES));
-			$data['sequence']		= str_replace("'", "", htmlspecialchars($this->input->post('sequence'), ENT_QUOTES));
 			$data['tahun_ajaran_id']= str_replace("'", "", htmlspecialchars($this->input->post('tahun_ajaran_id'), ENT_QUOTES));
 			
 			$act = $this->TahapanModel->create($data);
